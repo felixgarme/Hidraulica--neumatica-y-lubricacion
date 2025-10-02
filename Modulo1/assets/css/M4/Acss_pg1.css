@@ -1,0 +1,74 @@
+/* Contenedor principal que usa Flexbox */
+.general {
+    display: flex;
+    /* Permite que los elementos se envuelvan en pantallas pequeñas */
+    flex-wrap: wrap;
+    /* Añade un espacio entre los elementos */
+    gap: 20px;
+    /* Añade un poco de espacio alrededor del contenedor */
+    padding: 20px;
+    /* Alinea los elementos en la parte superior */
+    align-items: center;
+}
+
+/* Estilos para los contenedores de contenido */
+.contenido {
+    /* Cada contenedor crecerá y se encogerá por igual, ocupando el mismo espacio */
+    flex: 1;
+    /* Establece un ancho base mínimo para evitar que se encojan demasiado */
+    min-width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    overflow: hidden; /* Oculta cualquier contenido que se desborde del borde redondeado */
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+}
+
+/* Estilos para el iframe del carrusel */
+.iframe-carrusel {
+    width: 100%; /* Ocupa todo el ancho de su contenedor padre (.contenido) */
+    height: 60vh; /* Mantiene la altura especificada */
+    border: none; /* Elimina el borde del iframe */
+}
+
+/* Contenedor específico para el video para manejar el aspect-ratio */
+.container-video {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.titulo-video {
+    color: #031794;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.container-video iframe {
+    width: 100%; /* El iframe ocupa todo el ancho de su contenedor */
+    /* Mantiene la proporción de video estándar (16:9) */
+    aspect-ratio: 16 / 9;
+    height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
+    border: none;
+    display: block; /* Elimina espacios extra debajo del iframe */
+}
+
+/* Estilos de botones que ya tenías */
+.start-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+.start-button:disabled .arrow {
+    color: #888888;
+}
+
+@media (max-width: 400px) {
+    .general {
+        margin-bottom: 70px;
+    }
+    
+}

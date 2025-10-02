@@ -1,0 +1,83 @@
+.transfer-material, .molienda-sag {
+  font-family: Arial, sans-serif;
+  padding: 10px;
+  margin: 10px;
+  background-color: #F5F7FA;
+  border: 1px solid #DDE8F5;
+  border-radius: 8px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.transfer-header, .molienda-header {
+  padding: 5px;
+  background: linear-gradient(90deg, #FF0000, #351EBD, #3479F6, #1F87C6);
+  color: #FFFFFF;
+  border-radius: 6px 6px 0 0;
+  margin: -10px -10px 10px -10px;
+}
+
+.transfer-title, .molienda-title {
+  margin: 0;
+  padding: 5px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #FFFFFF;
+  background: linear-gradient(90deg, #FF0000, #351EBD, #3479F6, #1F87C6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.section-card {
+  background-color: #FFFFFF;
+  border: 1px solid #DDE8F5;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.section-text {
+  color: #4D4D4E;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .transfer-title, .molienda-title {
+    font-size: 1.2rem;
+  }
+}
+
+
+
+/* Boton para continuar */
+
+/* Estilos para el botón cuando está activo (predeterminado) */
+.start-button {
+
+    cursor: pointer;
+    
+    /* Propiedad de transición */
+    transition: opacity 0.5s ease-in, background-color 0.5s ease-in, color 0.5s ease-in;
+}
+
+/* Estilos para el botón cuando está deshabilitado */
+.start-button[disabled] {
+    /* Color de fondo para indicar que está inactivo */
+    background-color: #ccc;
+    
+    /* Cambiar el color del texto */
+    color: #666;
+    
+    /* Cambiar el cursor a uno que indique que no se puede hacer clic */
+    cursor: not-allowed;
+    
+    /* Reducir la opacidad para un efecto de atenuación */
+    opacity: 0.6;
+    
+    /* Eliminar la sombra para que no parezca que está listo para hacer clic */
+    box-shadow: none;
+}

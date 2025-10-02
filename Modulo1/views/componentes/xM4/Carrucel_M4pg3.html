@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../../../assets/css/M4/xM4css_pg2.css">
+</head>
+<body>
+    <div class="curso-container">
+        <div class="main-card">
+            <div class="header">
+                <h1>Nido de Hidrociclones 1 y 2 (3210-CN-001/002) – Línea 1</h1>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="operation-card" data-section="alimentacion">
+                    <div class="status-indicator"></div>
+                    <div class="card-header">
+                        <div class="card-icon"></div>
+                        <h3 class="card-title">Alimentación de Pulpa</h3>
+                    </div>
+                    <div class="card-content">
+                        La pulpa llega desde las bombas de alimentación, con una capacidad de <b>7,050 m³/h por nido</b>, cada uno compuesto por 10 hidrociclones de 33” (8 en operación y 2 en reserva).
+                    </div>
+                </div>
+                
+                <div class="operation-card" data-section="valvulas">
+                    <div class="status-indicator"></div>
+                    <div class="card-header">
+                        <div class="card-icon"></div>
+                        <h3 class="card-title">Control de Válvulas Cuchilla</h3>
+                    </div>
+                    <div class="card-content">
+                        La operación local se centra en las válvulas cuchilla ON/OFF, que pueden abrirse o cerrarse manualmente desde sala de control o automáticamente, manteniendo la presión y ajustando el número de ciclones activos.
+                    </div>
+                </div>
+                
+                <div class="operation-card" data-section="monitoreo">
+                    <div class="status-indicator"></div>
+                    <div class="card-header">
+                        <div class="card-icon"></div>
+                        <h3 class="card-title">Monitoreo en Campo</h3>
+                    </div>
+                    <div class="card-content">
+                        El operador en campo dispone de indicadores y transmisores de presión en el distribuidor, además de un totalizador que muestra la cantidad de hidrociclones en operación.
+                    </div>
+                </div>
+                
+                <div class="operation-card" data-section="lavado">
+                    <div class="status-indicator"></div>
+                    <div class="card-header">
+                        <div class="card-icon"></div>
+                        <h3 class="card-title">Lavado del Underflow</h3>
+                    </div>
+                    <div class="card-content">
+                        El sistema dispone de una válvula de lavado del underflow, operable desde sala de control, con confirmación de posición abierto/cerrado mediante interruptores de estado.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function(){
+            const PAGE_ID = 'M4_pg3'; // identifica este componente al padre si hace falta
+            class CursoInteractivo {
+                constructor() {
+                    this.currentSection = 0;
+                    this.sections = ['alimentacion', 'valvulas', 'monitoreo', 'lavado'];
+                    this.cards = document.querySelectorAll('.operation-card');
+                    this.progressFill = document.getElementById('progressFill');
+                    this.visited = new Set();
+                    this.sent = false; 
+                    this.init();
+                }
+                
+                init() {
+                    this.addEventListeners();
+                    this.updateProgress();
+                }
+                
+                addEventListeners() {
+                    this.cards.forEach((card, index) => {
+                        card.addEventListener('click', () => {
+                            this.goToSection(index);
+                        });
+                    });
+                    
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'ArrowRight') this.nextSection();
+                        if (e.key === 'ArrowLeft') this.previousSection();
+                        if (e.key === 'Escape') this.reset();
+                    });
+                }
+                
+                goToSection(index) {
+                    if (index >= 0 && index < this.sections.length) {
+                        this.cards[this.currentSection].classList.remove('active');
+                        this.currentSection = index;
+                        this.cards[this.currentSection].classList.add('active');
+                        
+                        this.visited.add(this.sections[this.currentSection]);
+                        
+                        this.updateProgress();
+                        this.checkCompletion();
+                    }
+                }
+                
+                nextSection() {
+                    if (this.currentSection < this.sections.length - 1) {
+                        this.goToSection(this.currentSection + 1);
+                    }
+                }
+                
+                previousSection() {
+                    if (this.currentSection > 0) {
+                        this.goToSection(this.currentSection - 1);
+                    }
+                }
+                
+                reset() {
+                    this.cards.forEach(card => card.classList.remove('active'));
+                    this.currentSection = 0;
+                    this.visited.clear();
+                    this.updateProgress();
+                    this.sent = false;
+                }
+                
+                updateProgress() {
+                    const progress = this.cards[this.currentSection].classList.contains('active') 
+                        ? ((this.currentSection + 1) / this.sections.length) * 100 
+                        : 0;
+                    this.progressFill.style.width = progress + '%';
+                }
+                
+                checkCompletion() {
+                    if (this.visited.size === this.sections.length && !this.sent) {
+                        console.log("NidoHidrociclonesTerminado");
+                        try {
+                            window.parent.postMessage('NidoHidrociclonesTerminado', '*');
+                        } catch (e) {}
+                        try {
+                            window.parent.postMessage({ type: 'NidoHidrociclonesTerminado', page: PAGE_ID }, '*');
+                        } catch (e) {}
+                        this.sent = true;
+                    }
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                new CursoInteractivo();
+            });
+
+            window.addEventListener('message', (ev) => {
+                try {
+                    const data = ev.data;
+                    if (data && typeof data === 'object' && data === 'REQUEST_STATUS') {
+                        const visitedCount = document.querySelectorAll('.operation-card.active').length || 0;
+                        window.parent.postMessage({ type: 'STATUS', page: PAGE_ID, visited: visitedCount }, '*');
+                    }
+                } catch (err) { /* ignore */ }
+            });
+        })();
+    </script>
+</body>
+</html>

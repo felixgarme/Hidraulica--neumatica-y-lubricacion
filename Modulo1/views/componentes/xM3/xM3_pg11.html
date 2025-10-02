@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curso de Operaciones de Control Manual</title>
+  <link rel="stylesheet" href="../../../assets/css/M3/css_pg1.css">
+  
+</head>
+<body>
+  
+  <div class="curso-container">
+    
+    <div class="curso-content">
+      <div class="modulo-cards">
+        <div class="modulo-card active" id="card-pebbles">
+          <div class="card-header">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor" stroke="none"/>
+                <path d="M2 17L12 22L22 17"/>
+                <path d="M2 12L12 17L22 12"/>
+              </svg>
+            </div>
+            <h2>Chancado de Pebbles</h2>
+          </div>
+          <div class="card-content">
+            <div class="proceso-item">
+              <h3>Control Automático de Flujo y Fajas</h3>
+              <p>En el modo automático, el sistema controla el flujo de pebbles y las operaciones de las fajas transportadoras de manera autónoma, con interrupciones y desvíos automáticos si se detectan fallas en las fajas de alta pendiente o si se activan alarmas.</p>
+              <div class="destacado-box">
+                <strong>Función clave:</strong> Control autónomo de flujo y fajas
+              </div>
+            </div>
+            <div class="proceso-item">
+              <h3>Gestión de Fallas y Desvíos</h3>
+              <p>En caso de una falla en una de las fajas de alta pendiente, la compuerta de desvío se acciona automáticamente para redirigir el flujo a la otra faja, garantizando la continuidad del proceso. El operador recibe notificaciones y puede intervenir si es necesario.</p>
+              <div class="parametros-box">
+                <div class="parametro">
+                  <span class="parametro-label">Acción:</span>
+                  <span class="parametro-valor">Redirección automática del flujo</span>
+                </div>
+                <div class="parametro">
+                  <span class="parametro-label">Rol del operador:</span>
+                  <span class="parametro-valor">Monitoreo e intervención</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modulo-card" id="card-energia">
+          <div class="card-header">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6V12L16 14"/>
+              </svg>
+            </div>
+            <h2>Operación con corte de energía</h2>
+          </div>
+          <div class="card-content">
+            <div class="proceso-item">
+              <h3>Restablecimiento de Equipos Críticos</h3>
+              <p>El sistema de control automático gestionará la puesta en servicio de los equipos críticos una vez restablecido el suministro de energía.</p>
+              <div class="control-box">
+                <div class="control-item">
+                  <span class="control-label">Función:</span>
+                  <span class="control-valor">Puesta en servicio automática</span>
+                </div>
+                <div class="control-item">
+                  <span class="control-label">Condición:</span>
+                  <span class="control-valor">Restablecimiento de energía</span>
+                </div>
+              </div>
+            </div>
+            <div class="proceso-item">
+              <h3>Gestión Automática del Drenaje</h3>
+              <p>Las bombas de sumidero evacuarán automáticamente la pulpa hacia las áreas de drenaje, y el sistema de drenaje se controlará sin intervención manual en condiciones normales.</p>
+              <div class="alarma-box">
+                <strong>Funciones automáticas:</strong> Evacuación de pulpa y control de drenaje
+              </div>
+              <div class="spacex"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="navegacion-controles">
+        <button class="nav-btn active" data-target="card-pebbles">
+          <span class="btn-icon">1</span>
+          <span class="btn-text">Chancado de Pebbles</span>
+        </button>
+        <button class="nav-btn" data-target="card-energia">
+          <span class="btn-icon">2</span>
+          <span class="btn-text">Corte de Energía</span>
+        </button>
+      </div>
+
+      <div class="progreso-bar">
+        <div class="progreso-fill"></div>
+        <div class="progreso-indicador" style="left: 0%;">1</div>
+        <div class="progreso-indicador" style="left: 100%;">2</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../../assets/js/M3/js_pg1.js"></script>
+</body>
+</html>

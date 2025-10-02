@@ -1,0 +1,40 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden; /* Evita el scroll no deseado */
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+    box-sizing: border-box;
+}
+
+.logo-container,
+header {
+    flex-shrink: 0; /* Evita que el logo y el título se encojan */
+}
+
+.contenido {
+    flex-grow: 1; /* El iframe ocupa el espacio sobrante */
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;     /* Centra verticalmente */
+    width: 100%;
+    height: 100%;
+}
+
+.iframe-carrusel {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+
+
+.titulo-epp {
+    padding-top: 0 !important;
+    padding-bottom: 20px;
+}

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../../../assets/css/M4/xM4css_pg2.css">
+</head>
+<body>
+    <div class="curso-container">
+        <div class="main-card">
+            <div class="header">
+                <h1>Molino de Bolas 1 (3210-MI-003)</h1>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            
+            <div class="content-grid">
+                <!-- Card 1 -->
+                <div class="operation-card" data-section="alimentacionMolino">
+                    <div class="status-indicator"></div>
+                    <div class="card-header">
+                        <div class="card-icon"></div>
+                        <h3 class="card-title">Alimentación al Molino</h3>
+                    </div>
+                    <div class="card-content">
+                        El underflow de los hidrociclones 1 y 2 alimenta el molino 
+                        (<b>F80 = 2–3 mm → P80 = 165–180 µm</b>), impulsado por un motor 
+                        gearless de <b>22 MW</b>.
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="operation-card" data-section="sistemasAuxiliares">
+                    <div class="status-indicator"></div>
+                    <div class="card-header">
+                        <div class="card-icon"></div>
+                        <h3 class="card-title">Supervisión de Sistemas Auxiliares</h3>
+                    </div>
+                    <div class="card-content">
+                        En operación local, el operador debe supervisar los sistemas auxiliares:
+                        <ul>
+                            <li>Lubricación de descansos (alta y baja presión).</li>
+                            <li>Engrase de sellos para evitar contaminación.</li>
+                            <li>Sistema de freno hidráulico cáliper para detención segura en creeping, inching y emergencias.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="operation-card" data-section="monitoreoVariables">
+                    <div class="status-indicator"></div>
+                    <div class="card-header">
+                        <div class="card-icon"></div>
+                        <h3 class="card-title">Monitoreo de Variables Críticas</h3>
+                    </div>
+                    <div class="card-content">
+                        Se monitorean en campo:
+                        <ul>
+                            <li>Velocidad de rotación (<b>máx. 14.71 rpm, operación normal al 76%</b>).</li>
+                            <li>Carga interna.</li>
+                            <li>Potencia consumida.</li>
+                            <li>Presión en descansos.</li>
+                        </ul>
+                        El operador ajusta la velocidad según dureza del mineral y condiciones de planta.
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="operation-card" data-section="seguridadMolino">
+                    <div class="status-indicator"></div>
+                    <div class="card-header">
+                        <div class="card-icon"></div>
+                        <h3 class="card-title">Seguridad y Enclavamientos</h3>
+                    </div>
+                    <div class="card-content">
+                        El molino cuenta con enclavamientos, alarmas de fallas y eventos, que respaldan la seguridad de la operación 
+                        y deben verificarse en cada arranque o parada local.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function(){
+            const PAGE_ID = 'M4_pg3'; 
+            class CursoInteractivo {
+                constructor() {
+                    this.currentSection = 0;
+                    this.sections = [
+                        'alimentacionMolino', 
+                        'sistemasAuxiliares', 
+                        'monitoreoVariables', 
+                        'seguridadMolino'
+                    ];
+                    this.cards = document.querySelectorAll('.operation-card');
+                    this.progressFill = document.getElementById('progressFill');
+                    this.visited = new Set();
+                    this.sent = false; 
+                    this.init();
+                }
+                
+                init() {
+                    this.addEventListeners();
+                    this.updateProgress();
+                }
+                
+                addEventListeners() {
+                    this.cards.forEach((card, index) => {
+                        card.addEventListener('click', () => {
+                            this.goToSection(index);
+                        });
+                    });
+                    
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'ArrowRight') this.nextSection();
+                        if (e.key === 'ArrowLeft') this.previousSection();
+                        if (e.key === 'Escape') this.reset();
+                    });
+                }
+                
+                goToSection(index) {
+                    if (index >= 0 && index < this.sections.length) {
+                        this.cards[this.currentSection].classList.remove('active');
+                        this.currentSection = index;
+                        this.cards[this.currentSection].classList.add('active');
+                        
+                        this.visited.add(this.sections[this.currentSection]);
+                        
+                        this.updateProgress();
+                        this.checkCompletion();
+                    }
+                }
+                
+                nextSection() {
+                    if (this.currentSection < this.sections.length - 1) {
+                        this.goToSection(this.currentSection + 1);
+                    }
+                }
+                
+                previousSection() {
+                    if (this.currentSection > 0) {
+                        this.goToSection(this.currentSection - 1);
+                    }
+                }
+                
+                reset() {
+                    this.cards.forEach(card => card.classList.remove('active'));
+                    this.currentSection = 0;
+                    this.visited.clear();
+                    this.updateProgress();
+                    this.sent = false;
+                }
+                
+                updateProgress() {
+                    const progress = this.cards[this.currentSection].classList.contains('active') 
+                        ? ((this.currentSection + 1) / this.sections.length) * 100 
+                        : 0;
+                    this.progressFill.style.width = progress + '%';
+                }
+                
+                checkCompletion() {
+                    if (this.visited.size === this.sections.length && !this.sent) {
+                        console.log("MolinoBolasTerminando");
+                        try {
+                            window.parent.postMessage('MolinoBolasTerminando', '*');
+                        } catch (e) {}
+                        try {
+                            window.parent.postMessage({ type: 'MolinoBolasTerminando', page: PAGE_ID }, '*');
+                        } catch (e) {}
+                        this.sent = true;
+                    }
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                new CursoInteractivo();
+            });
+
+            window.addEventListener('message', (ev) => {
+                try {
+                    const data = ev.data;
+                    if (data && typeof data === 'object' && data === 'REQUEST_STATUS') {
+                        const visitedCount = document.querySelectorAll('.operation-card.active').length || 0;
+                        window.parent.postMessage({ type: 'STATUS', page: PAGE_ID, visited: visitedCount }, '*');
+                    }
+                } catch (err) { /* ignore */ }
+            });
+        })();
+    </script>
+</body>
+</html>

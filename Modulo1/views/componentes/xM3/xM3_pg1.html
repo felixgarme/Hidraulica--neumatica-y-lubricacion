@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curso de Operaciones de Control Manual</title>
+  <link rel="stylesheet" href="../../../assets/css/M3/css_pg1.css">
+  
+</head>
+<body>
+  
+  <div class="curso-container">
+    
+    <div class="curso-content">
+      <div class="modulo-cards">
+        <div class="modulo-card active" id="card-transferencia">
+          <div class="card-header">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor" stroke="none"/>
+                <path d="M2 17L12 22L22 17"/>
+                <path d="M2 12L12 17L22 12"/>
+              </svg>
+            </div>
+            <h2>Transferencia de Material desde el Acopio</h2>
+          </div>
+          <div class="card-content">
+            <div class="proceso-item">
+              <h3>Control del Colector de Polvo</h3>
+              <p>El operador desde la sala de control puede accionar el colector de polvo y el ventilador de presurización del túnel para mantener las condiciones ambientales adecuadas.</p>
+              <div class="destacado-box">
+                <strong>Función clave:</strong> Accionamiento manual desde sala de control
+              </div>
+            </div>
+            <div class="proceso-item">
+              <h3>Factor de Segregación</h3>
+              <p>El operador puede ingresar manualmente el factor de segregación en el sistema de control para ajustar la mezcla de material en las fajas alimentadoras.</p>
+              <div class="parametros-box">
+                <div class="parametro">
+                  <span class="parametro-label">Control:</span>
+                  <span class="parametro-valor">Manual</span>
+                </div>
+                <div class="parametro">
+                  <span class="parametro-label">Ubicación:</span>
+                  <span class="parametro-valor">Sistema de control</span>
+                </div>
+              </div>
+            </div>
+            <div class="proceso-item">
+              <h3>Válvula Rotatoria</h3>
+              <p>La válvula rotatoria del colector de polvo puede activarse manualmente según el nivel en la tolva, permitiendo un control preciso del flujo de material.</p>
+              <div class="alerta-box">
+                <strong>Criterio de activación:</strong> Nivel en la tolva
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modulo-card" id="card-molienda">
+          <div class="card-header">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6V12L16 14"/>
+              </svg>
+            </div>
+            <h2>Molienda SAG</h2>
+          </div>
+          <div class="card-content">
+            <div class="proceso-item">
+              <h3>Control de Velocidad</h3>
+              <p>El operador en sala de control puede ajustar manualmente la referencia de velocidad del controlador de flujo másico del molino SAG para optimizar la operación.</p>
+              <div class="control-box">
+                <div class="control-item">
+                  <span class="control-label">Parámetro:</span>
+                  <span class="control-valor">Velocidad de referencia</span>
+                </div>
+                <div class="control-item">
+                  <span class="control-label">Tipo:</span>
+                  <span class="control-valor">Flujo másico</span>
+                </div>
+              </div>
+            </div>
+            <div class="proceso-item">
+              <h3>Sentido de Giro</h3>
+              <p>El operador puede seleccionar el sentido de giro del molino según los requerimientos operacionales específicos del proceso.</p>
+            </div>
+            <div class="proceso-item">
+              <h3>Monitoreo de Variables</h3>
+              <p>Control continuo de variables críticas para mantener la operación dentro de parámetros seguros:</p>
+              <div class="variables-grid">
+                <div class="variable-item">
+                  <div class="variable-icon"></div>
+                  <span>Velocidad de rotación</span>
+                </div>
+                <div class="variable-item">
+                  <div class="variable-icon"></div>
+                  <span>Carga</span>
+                </div>
+                <div class="variable-item">
+                  <div class="variable-icon"></div>
+                  <span>Potencia</span>
+                </div>
+                <div class="variable-item">
+                  <div class="variable-icon"></div>
+                  <span>Presión en descansos</span>
+                </div>
+              </div>
+            </div>
+            <div class="proceso-item">
+              <h3>Gestión de Alarmas</h3>
+              <p>Si se presentan alarmas, el operador debe verificar y ajustar parámetros operativos para mantener dentro de los rangos seguros de operación.</p>
+              <div class="alarma-box">
+                <strong>Protocolo:</strong> Verificación y ajuste de parámetros operativos
+              </div>
+              <div class="spacex"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="navegacion-controles">
+        <button class="nav-btn active" data-target="card-transferencia">
+          <span class="btn-icon">1</span>
+          <span class="btn-text">Transferencia</span>
+        </button>
+        <button class="nav-btn" data-target="card-molienda">
+          <span class="btn-icon">2</span>
+          <span class="btn-text">Molienda SAG</span>
+        </button>
+      </div>
+
+      <div class="progreso-bar">
+        <div class="progreso-fill"></div>
+        <div class="progreso-indicador" style="left: 0%;">1</div>
+        <div class="progreso-indicador" style="left: 100%;">2</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../../assets/js/M3/js_pg1.js"></script>
+</body>
+</html>

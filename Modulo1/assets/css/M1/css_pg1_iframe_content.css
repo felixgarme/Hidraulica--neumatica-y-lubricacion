@@ -1,0 +1,51 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* evita scroll global */
+}
+
+header {
+  text-align: center;
+  padding: 10px;
+  flex: 0 0 auto;
+}
+
+.iframe-container {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;  /* centra horizontal */
+  /* align-items: center;      centra vertical */
+  overflow: hidden;         /* evita scroll en el contenedor */
+}
+
+.iframe-container iframe {
+  width: 80%;      /* más pequeño que el ancho completo */
+  height: 100%;     /* más pequeño que la altura disponible */
+  border: none;
+  /* box-shadow: 0 0 15px rgba(0,0,0,0.2); opcional, para resaltar */
+  border-radius: 12px; /* opcional, bordes redondeados */
+}
+
+.start-button {
+  flex: 0 0 auto;
+  margin: 10px auto;
+}
+
+@media (max-width: 420px) {
+
+  .iframe-container iframe {
+    width: 100%;      /* más pequeño que el ancho completo */
+     
+  }
+
+  
+}
+
+
+.titulo-epp{
+  margin-bottom: 0px !important;
+  padding-bottom: 0px !important;
+}

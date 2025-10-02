@@ -1,0 +1,310 @@
+
+.mining-wordsearch-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.wordsearch-header {
+  text-align: center;
+  margin: 0 0 10px 0;
+  padding: 10px;
+  background: linear-gradient(90deg, #FF0000 0%, #351EBD 33%, #3479F6 66%, #1F87C6 100%);
+  border-radius: 8px;
+}
+
+.wordsearch-title {
+  margin: 0 0 5px 0;
+  padding: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #FFFFFF;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.wordsearch-subtitle {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  font-weight: 500;
+  color: #FFFFFF;
+}
+
+.wordsearch-content {
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  gap: 10px;
+  margin: 0 0 10px 0;
+}
+
+.wordsearch-instructions {
+  background: #FFFFFF;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #DDE8F5;
+}
+
+.instructions-title {
+  margin: 0 0 10px 0;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #031794;
+}
+
+.words-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.word-item {
+  padding: 8px 10px;
+  background: #E5F0F9;
+  border-radius: 6px;
+  border-left: 4px solid #031794;
+  font-size: 15px;
+  color: #4D4D4E;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.word-item.found {
+  background: linear-gradient(90deg, #031794 0%, #34C0C0 100%);
+  color: #FFFFFF;
+  border-left-color: #34C0C0;
+  transform: scale(1.02);
+}
+
+.wordsearch-grid-container {
+
+  border-radius: 8px;
+
+}
+
+.wordsearch-grid {
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  
+  margin: 0 0 10px 0;
+
+  border-radius: 6px;
+  user-select: none;
+}
+
+.grid-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  border: 1px solid #DDE8F5;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4D4D4E;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 3px;
+}
+
+.grid-cell:hover {
+  background: #E5F0F9;
+  border-color: #2A5BDF;
+  transform: scale(1.1);
+}
+
+.grid-cell.selecting {
+  background: #2A5BDF;
+  color: #FFFFFF;
+  border-color: #031794;
+}
+
+.grid-cell.found {
+  background: linear-gradient(135deg, #031794 0%, #34C0C0 100%);
+  color: #FFFFFF;
+  border-color: #031794;
+  animation: foundPulse 0.5s ease;
+}
+
+@keyframes foundPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.wordsearch-controls {
+  display: flex;
+  gap: 8px;
+  margin: 40px 0;
+}
+
+.btn-reset,
+.btn-verify {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-reset {
+  background: #FFFFFF;
+  color: #031794;
+  border: 2px solid #031794;
+}
+
+.btn-reset:hover {
+  background: #031794;
+  color: #FFFFFF;
+}
+
+.btn-verify {
+  background: linear-gradient(90deg, #FF0000 0%, #351EBD 33%, #3479F6 66%, #1F87C6 100%);
+  color: #FFFFFF;
+}
+
+.btn-verify:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(3, 23, 148, 0.3);
+}
+
+.wordsearch-stats {
+  padding: 10px;
+  background: #E5F0F9;
+  border-radius: 6px;
+  border: 2px solid #DDE8F5;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 16px;
+}
+
+.stat-label {
+  color: #4D4D4E;
+  font-weight: 500;
+}
+
+.stat-value {
+  color: #031794;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.stat-total {
+  color: #B9B9B9;
+  font-weight: 600;
+}
+
+.wordsearch-message {
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 10px 0 0 0;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.wordsearch-message.show {
+  opacity: 1;
+}
+
+.wordsearch-message.success {
+  background: linear-gradient(90deg, #031794 0%, #34C0C0 100%);
+  color: #FFFFFF;
+  border: 2px solid #031794;
+}
+
+.wordsearch-message.error {
+  background: #FFFFFF;
+  color: #FF0000;
+  border: 2px solid #FF0000;
+}
+
+@media (max-width: 1024px) {
+  .wordsearch-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .wordsearch-grid {
+    grid-template-columns: repeat(15, 1fr);
+  }
+  
+  .grid-cell {
+    font-size: 12px;
+  }
+  
+  .wordsearch-title {
+    font-size: 24px;
+  }
+  
+  .wordsearch-subtitle {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .wordsearch-grid {
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1px;
+  }
+  
+  .grid-cell {
+    font-size: 11px;
+  }
+  
+  .wordsearch-title {
+    font-size: 20px;
+  }
+  
+  .wordsearch-subtitle {
+    font-size: 16px;
+  }
+  
+  .instructions-title {
+    font-size: 16px;
+  }
+  
+  .word-item {
+    font-size: 14px;
+    padding: 6px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mining-wordsearch-container {
+    padding: 5px;
+  }
+  
+  .wordsearch-header {
+    padding: 8px;
+  }
+  
+  .wordsearch-grid {
+    grid-template-columns: repeat(10, 1fr);
+  }
+  
+  .grid-cell {
+    font-size: 10px;
+  }
+  
+  .wordsearch-title {
+    font-size: 18px;
+  }
+  
+  .wordsearch-subtitle {
+    font-size: 14px;
+  }
+  
+  .btn-reset,
+  .btn-verify {
+    font-size: 14px;
+    padding: 8px;
+  }
+}

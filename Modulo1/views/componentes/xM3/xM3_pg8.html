@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curso de Operaciones de Control Manual</title>
+  <link rel="stylesheet" href="../../../assets/css/M3/css_pg1.css">
+  
+</head>
+<body>
+  
+  <div class="curso-container">
+    
+    <div class="curso-content">
+      <div class="modulo-cards">
+        <div class="modulo-card active" id="card-bombas">
+          <div class="card-header">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor" stroke="none"/>
+                <path d="M2 17L12 22L22 17"/>
+                <path d="M2 12L12 17L22 12"/>
+              </svg>
+            </div>
+            <h2>Control de nivel cajón y bombas alimentación nido hidrociclones</h2>
+          </div>
+          <div class="card-content">
+            <div class="proceso-item">
+              <h3>Control Automático de Velocidad</h3>
+              <p>En el modo remoto automático, el sistema de control ajusta la velocidad de las bombas de alimentación según los niveles de pulpa detectados y asegura la operación estable del circuito sin intervención manual.</p>
+              <div class="destacado-box">
+                <strong>Función clave:</strong> Ajuste automático de velocidad basado en nivel de pulpa
+              </div>
+            </div>
+            <div class="proceso-item">
+              <h3>Detención Automática por Protección</h3>
+              <p>Las bombas se detienen automáticamente si se detectan condiciones como flujo bajo de agua de sello o detención de las fajas transportadoras o molinos SAG, garantizando que no se produzcan daños o bloqueos.</p>
+              <div class="parametros-box">
+                <div class="parametro">
+                  <span class="parametro-label">Criterios de detención:</span>
+                  <span class="parametro-valor">Flujo bajo de agua de sello, detención de fajas/molinos</span>
+                </div>
+                <div class="parametro">
+                  <span class="parametro-label">Objetivo:</span>
+                  <span class="parametro-valor">Prevenir daños y bloqueos</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modulo-card" id="card-densidad">
+          <div class="card-header">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6V12L16 14"/>
+              </svg>
+            </div>
+            <h2>Control de densidad alimentación nido hidrociclones</h2>
+          </div>
+          <div class="card-content">
+            <div class="proceso-item">
+              <h3>Ajuste Automático del Flujo de Agua</h3>
+              <p>En el modo remoto automático, el sistema ajusta automáticamente el flujo de agua de proceso basado en las mediciones de densidad promedio de la pulpa. Si la densidad de la pulpa aumenta, el flujo de agua se incrementa para evitar el riesgo de embancamiento.</p>
+              <div class="control-box">
+                <div class="control-item">
+                  <span class="control-label">Parámetro:</span>
+                  <span class="control-valor">Flujo de agua de proceso</span>
+                </div>
+                <div class="control-item">
+                  <span class="control-label">Criterio:</span>
+                  <span class="control-valor">Densidad promedio de la pulpa</span>
+                </div>
+              </div>
+            </div>
+            <div class="proceso-item">
+              <h3>Ajuste de la Referencia de Densidad</h3>
+              <p>La referencia de densidad promedio puede ser ajustada por el operador o automáticamente por el controlador de densidad.</p>
+              <div class="alarma-box">
+                <strong>Control de referencia:</strong> Ajuste manual o automático por el controlador
+              </div>
+              <div class="spacex"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="navegacion-controles">
+        <button class="nav-btn active" data-target="card-bombas">
+          <span class="btn-icon">1</span>
+          <span class="btn-text">Nivel y Bombas</span>
+        </button>
+        <button class="nav-btn" data-target="card-densidad">
+          <span class="btn-icon">2</span>
+          <span class="btn-text">Densidad</span>
+        </button>
+      </div>
+
+      <div class="progreso-bar">
+        <div class="progreso-fill"></div>
+        <div class="progreso-indicador" style="left: 0%;">1</div>
+        <div class="progreso-indicador" style="left: 100%;">2</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../../assets/js/M3/js_pg1.js"></script>
+</body>
+</html>

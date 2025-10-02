@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrusel de Imágenes con Pantalla Completa</title>
+
+    <link rel="stylesheet" href="../../../assets/css/M4/css_pg1.css">
+</head>
+<body>
+
+    <div class="carousel-container" id="carouselContainer">
+        <div class="carousel-wrapper">
+            <div class="carousel-track" id="carouselTrack">
+                <div class="carousel-slide">
+                    <img src="../../../assets/images/M4/A.jpeg" alt="Paisaje Montañoso" class="slide-image">
+                    <button class="fullscreen-btn" aria-label="Pantalla Completa">
+                        <svg class="icon-fullscreen-enter" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                        <svg class="icon-fullscreen-exit" viewBox="0 0 24 24" style="display:none;"><path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
+                    </button>
+                </div>
+                <div class="carousel-slide">
+                    <img src="../../../assets/images/M4/B.jpeg" alt="Lago entre montañas" class="slide-image">
+                    <button class="fullscreen-btn" aria-label="Pantalla Completa">
+                        <svg class="icon-fullscreen-enter" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                        <svg class="icon-fullscreen-exit" viewBox="0 0 24 24" style="display:none;"><path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
+                    </button>
+                </div>
+                <div class="carousel-slide">
+                    <img src="../../../assets/images/M4/C.jpeg" alt="Costa rocosa" class="slide-image">
+                    <button class="fullscreen-btn" aria-label="Pantalla Completa">
+                        <svg class="icon-fullscreen-enter" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                        <svg class="icon-fullscreen-exit" viewBox="0 0 24 24" style="display:none;"><path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
+                    </button>
+                </div>
+                <!-- NUEVO SLIDE -->
+                <div class="carousel-slide with-info">
+                    <img src="../../../assets/images/M4/D.jpeg" alt="Molino SAG1 (3210-MI-001)" class="slide-image">
+                    <p class="info">
+                        Molino SAG1 (3210-MI-001)
+                    </p>
+                    <button class="fullscreen-btn" aria-label="Pantalla Completa">
+                        <svg class="icon-fullscreen-enter" viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                        <svg class="icon-fullscreen-exit" viewBox="0 0 24 24" style="display:none;"><path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-controls">
+            <button class="carousel-btn" id="prevBtn">‹</button>
+            <div class="carousel-indicators" id="indicators"></div>
+            <span class="slide-counter">
+                <span id="currentSlide">1</span> de <span id="totalSlides">3</span>
+            </span>
+            <button class="carousel-btn" id="nextBtn">›</button>
+            <img src="../../../assets/images/Icons/selcA.gif" class="Icono-select">
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const track = document.getElementById('carouselTrack');
+            const slides = Array.from(track.children);
+            const nextBtn = document.getElementById('nextBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const indicatorsContainer = document.getElementById('indicators');
+            const currentSlideSpan = document.getElementById('currentSlide');
+            const totalSlidesSpan = document.getElementById('totalSlides');
+            const progressFill = document.getElementById('progressFill');
+
+            const slideCount = slides.length;
+            let currentIndex = 0;
+
+            totalSlidesSpan.textContent = slideCount;
+
+            for (let i = 0; i < slideCount; i++) {
+                const indicator = document.createElement('div');
+                indicator.classList.add('indicator');
+                indicator.addEventListener('click', () => {
+                    currentIndex = i;
+                    updateCarousel();
+                });
+                indicatorsContainer.appendChild(indicator);
+            }
+            const indicators = Array.from(indicatorsContainer.children);
+
+            const updateCarousel = () => {
+                track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                currentSlideSpan.textContent = currentIndex + 1;
+                progressFill.style.width = `${((currentIndex + 1) / slideCount) * 100}%`;
+                indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === currentIndex);
+                });
+                prevBtn.disabled = currentIndex === 0;
+                nextBtn.disabled = currentIndex === slideCount - 1;
+
+                // 🚀 Avisar en consola cuando llega al último slide
+                if (currentIndex === slideCount - 1) {
+                    console.log("terminado");
+                }
+            };
+
+            nextBtn.addEventListener('click', () => {
+                if (currentIndex < slideCount - 1) {
+                    currentIndex++;
+                    updateCarousel();
+                }
+            });
+
+            prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCarousel();
+                }
+            });
+
+            // --- Pantalla Completa ---
+            const carouselContainer = document.getElementById('carouselContainer');
+            const fullscreenBtns = document.querySelectorAll('.fullscreen-btn');
+
+            function toggleFullscreen() {
+                if (!document.fullscreenElement) {
+                    carouselContainer.requestFullscreen().catch(err => {
+                        console.error(`Error al intentar activar pantalla completa: ${err.message} (${err.name})`);
+                    });
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    }
+                }
+            }
+            
+            fullscreenBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleFullscreen();
+                });
+            });
+
+            function updateFullscreenIcons() {
+                const isFullscreen = !!document.fullscreenElement;
+                fullscreenBtns.forEach(btn => {
+                    const enterIcon = btn.querySelector('.icon-fullscreen-enter');
+                    const exitIcon = btn.querySelector('.icon-fullscreen-exit');
+                    enterIcon.style.display = isFullscreen ? 'none' : 'block';
+                    exitIcon.style.display = isFullscreen ? 'block' : 'none';
+                });
+            }
+
+            document.addEventListener('fullscreenchange', updateFullscreenIcons);
+
+            updateCarousel();
+        });
+    </script>
+
+</body>
+</html>

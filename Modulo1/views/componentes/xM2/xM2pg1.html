@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejercicio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../../assets/css/main_ex.css" />
+    <link rel="stylesheet" href="../../../assets/css/M3/css_pg3.css">
+    <style>
+        :root {
+            --neutral-1: #031794;
+            --neutral-2: #FF0000;
+            --neutral-3: #2A5BDF;
+            --neutral-4: #FFFFFF;
+            
+            --info-1: #FFFFFF;
+            --info-2: #E5F0F9;
+            --info-3: #031794;
+
+            --border-1: #DDE8F5;
+            --border-2: #031794;
+            --border-3: #6B8BDF;
+
+            --text-1: #4D4D4E;
+            --text-2: #B9B9B9;
+            --text-3: #031794;
+            --text-4: #FFFFFF;
+
+            --background-1: #F1F1F1;
+            --background-2: #F5F7FA;
+
+            --icon-1: #FFFFFF;
+            --icon-2: #031794;
+
+            --gradient-1: linear-gradient(90deg, #FF0000, #351EBD, #3479F6, #1F87C6);
+            --gradient-2: linear-gradient(90deg, #031794, #34C0C0);
+            
+            --color-azul: var(--neutral-3);
+        }
+
+        /* 🚨 Ajuste del tamaño base del texto en el body */
+        body {
+            font-size: 1.25em; /* 25% más grande */
+        }
+        
+        .title-gradient {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        /* 🚨 Escalar todos los elementos del cuerpo en un 25% */
+        body {
+            /* transform: scale(1.25); */
+            transform-origin: top left;
+            /* width: 80vw;
+            height: 125vh; */
+            overflow: auto;
+        }
+        
+        /* Ajustar la posición y el tamaño del contenedor principal para que se vea bien escalado */
+        .container {
+            max-width: 100%;
+        }
+
+
+        /* BOTON PARA CONTINUAR A SIGUIENTE VISTA O PAGINA*/
+        .start-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 18px 50px;
+            border: 1px solid var(--border-1);
+            border-radius: 60px;
+            background: var(--info-2);
+            color: var(--color-azul);
+            font-family: inherit;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            min-width: 180px;
+        }
+
+        .start-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .start-button:hover::before {
+            left: 100%;
+        }
+
+        .start-button:hover {
+            background: var(--color-azul);
+            color: white;
+            border-color: var(--color-azul);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(29, 78, 216, 0.25);
+        }
+
+        .start-button:active {
+            transform: translateY(0);
+            box-shadow:
+                0 4px 15px rgba(30, 64, 175, 0.2),
+                0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilos del botón Reintentar */
+        .retry-button {
+            padding: 10px 20px;
+            border-radius: 9999px;
+            color: var(--text-4);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background: var(--neutral-3);
+            display: none; /* Inicialmente oculto */
+            margin-top: 1rem;
+        }
+        
+        .retry-button:hover {
+            background: var(--border-3);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* --- Estilos para el efecto de giro --- */
+        .container {
+            perspective: 1000px;
+            position: relative;
+        }
+        
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        
+        .flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            border: 2px solid var(--border-1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-front {
+            background-color: rgba(255, 255, 255, 0);
+            box-shadow: none;
+            border-color: rgba(255, 255, 255, 0);
+        }
+        
+        .card-back {
+            background-color: var(--neutral-3);
+            color: white;
+            transform: rotateY(180deg);
+            padding: 2rem;
+        }
+        .min-h-screen {
+            min-height: 80vh !important;
+        }
+    </style>
+</head>
+
+<body class="bg-[var(--background-1)] font-sans flex items-center justify-center min-h-screen">
+    <div class="container mx-auto max-w-2xl px-2 py-4 sm:px-4 sm:py-6">
+        <div id="quiz-card" class="card-inner flex flex-col gap-y-4">
+            <div class="card-face card-front p-4">
+
+                
+                <div id="quiz" class="flex flex-col md:flex-row md:space-x-4 gap-y-4 w-full">
+                    <div class="question-container p-3 rounded-lg bg-[var(--info-2)] border border-[var(--border-3)] fade-in flex-1" style="animation-delay: 0s;">
+                        <p class="text-[var(--text-1)] font-semibold mb-2 text-sm sm:text-base">¿Cuál es la capacidad nominal de tratamiento del área de molienda en toneladas por hora (t/h)?</p>
+                        <div class="options-container flex flex-col gap-y-2">
+                            <div class="option p-2 rounded-lg cursor-pointer transition-all duration-300 border border-[var(--border-1)] bg-[var(--info-1)] text-[var(--text-1)] hover:shadow-lg hover:scale-[1.01] hover:bg-[var(--background-2)] text-sm" data-question="1" data-correct="false">A) 4,087 t/h</div>
+                            <div class="option p-2 rounded-lg cursor-pointer transition-all duration-300 border border-[var(--border-1)] bg-[var(--info-1)] text-[var(--text-1)] hover:shadow-lg hover:scale-[1.01] hover:bg-[var(--background-2)] text-sm" data-question="1" data-correct="true">B) 5,652 t/h</div>
+                            <div class="option p-2 rounded-lg cursor-pointer transition-all duration-300 border border-[var(--border-1)] bg-[var(--info-1)] text-[var(--text-1)] hover:shadow-lg hover:scale-[1.01] hover:bg-[var(--background-2)] text-sm" data-question="1" data-correct="false">C) 6,500 t/h</div>
+                            <div class="option p-2 rounded-lg cursor-pointer transition-all duration-300 border border-[var(--border-1)] bg-[var(--info-1)] text-[var(--text-1)] hover:shadow-lg hover:scale-[1.01] hover:bg-[var(--background-2)] text-sm" data-question="1" data-correct="false">D) 8,478 t/h</div>
+                        </div>
+                    </div>
+
+                    <div class="question-container p-3 rounded-lg bg-[var(--info-2)] border border-[var(--border-3)] fade-in flex-1" style="animation-delay: 0.2s;">
+                        <p class="text-[var(--text-1)] font-semibold mb-2 text-sm sm:text-base">¿Cuál es la capacidad de diseño de la chancadora de pebbles (3220-CR-001)?</p>
+                        <div class="options-container flex flex-col gap-y-2">
+                            <div class="option p-2 rounded-lg cursor-pointer transition-all duration-300 border border-[var(--border-1)] bg-[var(--info-1)] text-[var(--text-1)] hover:shadow-lg hover:scale-[1.01] hover:bg-[var(--background-2)] text-sm" data-question="2" data-correct="false">A) 848 t/h</div>
+                            <div class="option p-2 rounded-lg cursor-pointer transition-all duration-300 border border-[var(--border-1)] bg-[var(--info-1)] text-[var(--text-1)] hover:shadow-lg hover:scale-[1.01] hover:bg-[var(--background-2)] text-sm" data-question="2" data-correct="true">B) 975 t/h</div>
+                            <div class="option p-2 rounded-lg cursor-pointer transition-all duration-300 border border-[var(--border-1)] bg-[var(--info-1)] text-[var(--text-1)] hover:shadow-lg hover:scale-[1.01] hover:bg-[var(--background-2)] text-sm" data-question="2" data-correct="false">C) 1,325 t/h</div>
+                            <div class="option p-2 rounded-lg cursor-pointer transition-all duration-300 border border-[var(--border-1)] bg-[var(--info-1)] text-[var(--text-1)] hover:shadow-lg hover:scale-[1.01] hover:bg-[var(--background-2)] text-sm" data-question="2" data-correct="false">D) 1,790 t/h</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+
+                    <div class="flex items-center justify-center mb-4 text-[var(--text-1)] fade-in">
+                        <img src="../../../assets/images/Icons/selcB.gif" style="border-radius: 30px; width:40px; height: 40px; margin-top: 5px;" alt="Icono de selección" class="w-8 h-8 mr-2">
+                        <p class="text-sm sm:text-base">Seleccione la opción correcta</p>
+                    </div>
+                </div>
+
+                <button id="retryButton" class="retry-button">Reintentar</button>
+            </div>
+            <div class="card-face card-back">
+                <p class="text-2xl sm:text-3xl font-bold">¡Ejercicio completado!</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const quizContainer = document.getElementById('quiz');
+            const cardContainer = document.getElementById('quiz-card').parentElement;
+            const retryButton = document.getElementById('retryButton');
+            let questionsAnswered = {};
+            const totalQuestions = document.querySelectorAll('.question-container').length;
+
+            quizContainer.addEventListener('click', (event) => {
+                const option = event.target.closest('.option');
+                if (!option) return;
+
+                const questionNumber = option.getAttribute('data-question');
+                const questionOptions = document.querySelectorAll(`.option[data-question="${questionNumber}"]`);
+
+                if (questionsAnswered[questionNumber] !== undefined) {
+                    return;
+                }
+
+                const isCorrect = option.getAttribute('data-correct') === 'true';
+                questionsAnswered[questionNumber] = isCorrect;
+                
+                questionOptions.forEach(opt => opt.dataset.answered = 'true');
+
+                if (isCorrect) {
+                    option.classList.remove('bg-[var(--info-1)]', 'text-[var(--text-1)]', 'hover:bg-[var(--background-2)]', 'hover:shadow-lg', 'hover:scale-[1.01]');
+                    option.classList.add('bg-[var(--neutral-3)]', 'border-[var(--neutral-3)]', 'text-[var(--text-4)]');
+                } else {
+                    option.classList.remove('bg-[var(--info-1)]', 'text-[var(--text-1)]', 'hover:bg-[var(--background-2)]', 'hover:shadow-lg', 'hover:scale-[1.01]');
+                    option.classList.add('bg-[var(--neutral-2)]', 'border-[var(--neutral-2)]', 'text-[var(--text-4)]');
+                    
+                    questionOptions.forEach(opt => {
+                        if (opt.getAttribute('data-correct') === 'true') {
+                            opt.classList.remove('bg-[var(--info-1)]', 'text-[var(--text-1)]');
+                            opt.classList.add('bg-[var(--neutral-3)]', 'border-[var(--border-3)]', 'text-[var(--text-4)]');
+                        }
+                    });
+                }
+                
+                if (Object.keys(questionsAnswered).length === totalQuestions) {
+                    const allCorrect = Object.values(questionsAnswered).every(correct => correct === true);
+                    
+                    if (allCorrect) {
+                        cardContainer.classList.add('flipped');
+                        parent.postMessage({ type: 'exerciseComplete', success: true }, '*');
+                    } else {
+                        retryButton.style.display = 'block';
+                    }
+                }
+            });
+            
+            retryButton.addEventListener('click', () => {
+                questionsAnswered = {};
+                retryButton.style.display = 'none';
+
+                const allOptions = document.querySelectorAll('.option');
+                allOptions.forEach(option => {
+                    option.classList.remove('bg-[var(--neutral-3)]', 'border-[var(--neutral-3)]', 'bg-[var(--neutral-2)]', 'border-[var(--neutral-2)]', 'text-[var(--text-4)]');
+                    option.classList.add('bg-[var(--info-1)]', 'text-[var(--text-1)]', 'hover:bg-[var(--background-2)]', 'hover:shadow-lg', 'hover:scale-[1.01]');
+                    option.removeAttribute('data-answered');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

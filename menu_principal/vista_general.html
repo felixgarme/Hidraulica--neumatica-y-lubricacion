@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C-04 Operacion del Circuito</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="vista_general.css">
+
+    <link rel="icon" href="./images/ico3.png" type="image/png">
+</head>
+
+<body>
+    <button class="back-page-btn" style="position: absolute; left: 0; top: 0;" onclick="backPage()">
+        <span class="arrow">❮</span>
+    </button>
+
+    <div class="logo-container">
+        <img src="images/logo_color.png" alt="Logo AngloAmerican" class="logo">
+    </div>
+
+    <div class="main-container">
+        <header class="page-header">
+            <h1 class="gradient-text">C-04 OPERACION DEL CIRCUITO</h1>
+            <h4>Elige aquí el curso con el que quieres comenzar tu aprendizaje</h4>
+        </header>
+
+        <main>
+            <div class="grid-container">
+                <div class="card" style="background-image: url('images/caratulas/A.jpg');">
+                    <img src="images/logo_blanco.png" alt="Logo AngloAmerican" class="logo-inicio">
+                    <div class="inicio-box">
+                        <h1 class="inicio-title">Operacion del Circuito pt1</h1>
+                        <button id="empezarBtn-1" class="start-button-card">Comenzar</button>
+                    </div>
+                </div>
+
+                <div class="card" style="background-image: url('images/caratulas/B.jpg');">
+                    <img src="images/logo_blanco.png" alt="Logo AngloAmerican" class="logo-inicio">
+                    <div class="inicio-box">
+                        <h1 class="inicio-title">Operacion del Circuito pt2</h1>
+                        <button id="empezarBtn-2" class="start-button-card">Comenzar</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="typeModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <div class="modal-text-content">
+                <h3 id="modalCode"></h3>
+                <p id="modalDescription"></p>
+            </div>
+
+            <img id="modalImage" src="" alt="Imagen del curso" class="modal-image">
+        </div>
+    </div>
+
+
+    <script src="../js/SCORM.js"></script>
+
+    <script>
+        // Redirigir con verificación
+        function abrirModulo(ruta) {
+            fetch(ruta, { method: 'HEAD' }) // intenta acceder al archivo
+                .then(res => {
+                    if (res.ok) {
+                        window.location.href = ruta;
+                    } else {
+                        window.location.href = "error.html";
+                    }
+                })
+                .catch(() => {
+                    window.location.href = "error.html";
+                });
+        }
+
+        // Botones
+        document.getElementById('empezarBtn-1').addEventListener('click', () => {
+            // Asegúrate de que esta ruta sea la correcta para el nuevo módulo
+            abrirModulo("../Modulo1/index.html");
+        });
+
+        document.getElementById('empezarBtn-2').addEventListener('click', () => {
+            // Asegúrate de que esta ruta sea la correcta para el nuevo módulo
+            abrirModulo("../Modulo2/index.html");
+        });
+
+        function backPage() {
+            window.location.href = '../menu_principal/vista_general.html';
+        }
+
+        // Iniciar SCORM
+        ScormManager.init();
+    </script>
+</body>
+</html>

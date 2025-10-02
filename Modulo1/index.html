@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/index.css">
+    <script src="js/courseConfig.js"></script>
+    <link rel="stylesheet" href="./assets/css/reproductor-iframe.css">
+
+    <link rel="icon" href="assets/images/ico3.png" type="image/png">
+</head>
+
+<body> 
+    <button class="back-page-btn" style="left: 0;" onclick="backPage()">
+        <span class="arrow">❮</span>
+    </button>
+    <div class="background-container">
+        <img id="background_image" src="" alt="Fondo" class="background-image">
+    </div>
+    <img id="logo" src="" alt="Logo" class="logo">
+
+    <!-- Reproductor -->
+    <iframe src="./views/componentes/xaudio.html" class="audio-iframe" data-audio="./assets/audio/bienvenida.wav" title="Reproductor de audio"></iframe>
+
+    <main class="content">
+        <h3 class="welcome-text">Bienvenido a </h3>
+        <h1 id="title_course"></h1>
+        <button id="btnModulos" class="start-button"
+            onclick="document.querySelector('.container').scrollIntoView({behavior: 'smooth'})">
+            Comenzar
+            <span class="arrow">❯</span>
+        </button>
+    </main>
+    <div class="scroll-indicator">
+        <span class="scroll-arrow">↓</span>
+        <span class="scroll-text">Desliza para ver más</span>
+    </div>
+
+    <div class="container">
+        <div class="learning-objectives">
+            <h2 class="section-title gradient-text">Logros de Aprendizaje</h2>
+            <h4 class="objectives-text">
+                Distinguir las diferentes operaciones en el circuito de Clasificación - Molienda.
+            </h4>
+        </div>
+        <div class="modules-container">
+            <div class="module-card hover-borde" onclick="cambiarModulo('views/M1/M1_inicio.html')" data-module="1">
+                <div class="module-number">01</div>
+                <div class="card-content">
+                    <h3 class="module-title">Descripción de Controles Operacionales</h3>
+                    <p class="module-description">
+                        Identificación y función de los controles para la operación del circuito.
+                    </p>
+                </div>
+            </div>
+
+            <div class="module-card hover-borde" onclick="cambiarModulo('views/M2/M2_inicio.html')" data-module="2">
+                <div class="module-number">02</div>
+                <div class="card-content">
+                    <h3 class="module-title">Operación Normal del Circuito</h3>
+                    <p class="module-description">
+                        Procedimientos estándar para el funcionamiento estable del circuito.
+                    </p>
+                </div>
+            </div>
+
+            <div class="module-card hover-borde" onclick="cambiarModulo('views/M3/M3_inicio.html')" data-module="3">
+                <div class="module-number">03</div>
+                <div class="card-content">
+                    <h3 class="module-title">Modo Remoto Automático y Manual</h3>
+                    <p class="module-description">
+                        Manejo del sistema desde la sala de control en sus diferentes modalidades.
+                    </p>
+                </div>
+            </div>
+
+            <div class="module-card hover-borde" onclick="cambiarModulo('views/M4/M4_inicio.html')" data-module="4">
+                <div class="module-number">04</div>
+                <div class="card-content">
+                    <h3 class="module-title">Operación Local</h3>
+                    <p class="module-description">
+                        Control y manejo del equipo directamente en terreno.
+                    </p>
+                </div>
+            </div>
+
+            <div class="module-card hover-borde" onclick="cambiarModulo('views/M5/M5_inicio.html')" data-module="5">
+                <div class="module-number">05</div>
+                <div class="card-content">
+                    <h3 class="module-title">Consideraciones y Estrategias Operacionales</h3>
+                    <p class="module-description">
+                        Técnicas y mejores prácticas para optimizar el proceso.
+                    </p>
+                </div>
+            </div>
+
+            <div class="module-card hover-borde" onclick="cambiarModulo('views/conclusiones.html')" data-module="6">
+                <div class="module-number">06</div>
+                <div class="card-content">
+                    <h3 class="module-title">Conclusiones</h3>
+                    <p class="module-description">
+                        Resumen de los puntos clave y cierre del módulo de aprendizaje.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/audioPlayer.js"></script>
+    <script>
+        function cambiarModulo(modulo) {
+            window.location.href = modulo;
+        }
+
+        function backPage() {
+            window.location.href = '../menu_principal/vista_general.html'
+        }
+    </script>
+</body>
+
+</html>

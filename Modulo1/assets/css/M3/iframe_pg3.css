@@ -1,0 +1,34 @@
+
+/* Estilos para que el iframe ocupe la mayor parte de la pantalla */
+body {
+    display: flex;
+    flex-direction: column; /* Coloca los elementos en columna */
+    height: 100vh; 
+    margin: 0;
+    padding: 0;
+}
+
+.contenido {
+    flex-grow: 1; /* Permite que el contenedor se estire */
+    display: flex; /* Habilita Flexbox */
+}
+
+.contenido iframe {
+    width: 100%; /* Ocupa el 100% del ancho del contenedor */
+    height: 100%; /* Ocupa el 100% de la altura del contenedor */
+}
+
+header {
+    /* padding: 10px; */
+}
+
+.start-button {
+    margin-top: auto; /* Empuja el botón hacia la parte inferior */
+}
+
+.audio-control-wrapper {
+    position: fixed;
+    bottom: 20px;
+    
+}
+

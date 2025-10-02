@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curso de Operaciones de Control Manual</title>
+  <link rel="stylesheet" href="../../../assets/css/M3/css_pg1.css">
+  
+</head>
+<body>
+  
+  <div class="curso-container">
+    
+    <div class="curso-content">
+      <div class="modulo-cards">
+        <div class="modulo-card active" id="card-bolas">
+          <div class="card-header">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor" stroke="none"/>
+                <path d="M2 17L12 22L22 17"/>
+                <path d="M2 12L12 17L22 12"/>
+              </svg>
+            </div>
+            <h2>Molienda de Bolas</h2>
+          </div>
+          <div class="card-content">
+            <div class="proceso-item">
+              <h3>Ajuste de Velocidad de Operación</h3>
+              <p>En modo manual, el operador puede ajustar la velocidad de operación del molino para mantenerse dentro del rango de velocidad crítica.</p>
+              <div class="destacado-box">
+                <strong>Función clave:</strong> Ajuste manual de la velocidad
+              </div>
+            </div>
+            <div class="proceso-item">
+              <h3>Control de Carga y Nivel</h3>
+              <p>También puede ajustar la carga de bolas o el nivel de carga para optimizar la potencia y el torque.</p>
+              <div class="parametros-box">
+                <div class="parametro">
+                  <span class="parametro-label">Parámetros:</span>
+                  <span class="parametro-valor">Carga de bolas, nivel de carga</span>
+                </div>
+                <div class="parametro">
+                  <span class="parametro-label">Objetivo:</span>
+                  <span class="parametro-valor">Optimizar potencia y torque</span>
+                </div>
+              </div>
+            </div>
+            <div class="proceso-item">
+              <h3>Monitoreo de Sistemas Auxiliares</h3>
+              <p>El operador debe monitorear los sistemas auxiliares y de protección para garantizar el funcionamiento seguro del molino.</p>
+              <div class="alerta-box">
+                <strong>Criterio de activación:</strong> Funcionamiento seguro
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modulo-card" id="card-trommel">
+          <div class="card-header">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6V12L16 14"/>
+              </svg>
+            </div>
+            <h2>Trommel magnético molinos de bolas</h2>
+          </div>
+          <div class="card-content">
+            <div class="proceso-item">
+              <h3>Ajuste de Flujo de Agua de Lavado</h3>
+              <p>En modo manual, el operador puede ajustar el flujo de agua para el lavado del trommel magnético, modificando la apertura de la válvula de control a través de los controles en sala de control.</p>
+              <div class="control-box">
+                <div class="control-item">
+                  <span class="control-label">Parámetro:</span>
+                  <span class="control-valor">Flujo de agua de lavado</span>
+                </div>
+                <div class="control-item">
+                  <span class="control-label">Tipo:</span>
+                  <span class="control-valor">Apertura de válvula</span>
+                </div>
+              </div>
+            </div>
+            <div class="proceso-item">
+              <h3>Supervisión de Descarga</h3>
+              <p>El operador también puede supervisar la descarga de bolas y finos.</p>
+              <div class="alarma-box">
+                <strong>Función:</strong> Supervisar descarga de bolas y finos
+              </div>
+              <div class="spacex"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="navegacion-controles">
+        <button class="nav-btn active" data-target="card-bolas">
+          <span class="btn-icon">1</span>
+          <span class="btn-text">Molienda de Bolas</span>
+        </button>
+        <button class="nav-btn" data-target="card-trommel">
+          <span class="btn-icon">2</span>
+          <span class="btn-text">Trommel Magnético</span>
+        </button>
+      </div>
+
+      <div class="progreso-bar">
+        <div class="progreso-fill"></div>
+        <div class="progreso-indicador" style="left: 0%;">1</div>
+        <div class="progreso-indicador" style="left: 100%;">2</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../../assets/js/M3/js_pg1.js"></script>
+</body>
+</html>

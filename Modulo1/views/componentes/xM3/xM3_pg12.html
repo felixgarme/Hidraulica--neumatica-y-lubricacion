@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Actividad — Rueda aleatoria: Mediciones clave (tema claro, bloqueo, responsive)</title>
+  <link rel="stylesheet" href="../../../assets/css/M3/iframe_pg12.css" />
+</head>
+<body>
+  <div class="app" role="application">
+    <header>
+      <h1>Actividad — Rueda aleatoria</h1>
+      <p class="lead">Título: <strong>Mediciones clave en el circuito clasificación-molienda</strong><br>
+      Instrucciones: Gira la rueda; cuando se detenga, intenta decir en voz alta la <em>definición</em> y la <em>condición de seguridad</em> relacionadas. Si necesitas verificar, pulsa "Mostrar definición" o "Mostrar condición". Una vez que un tema haya salido, quedará bloqueado y no podrá seleccionarse otra vez.</p>
+    </header>
+
+    <div class="wheel-wrap">
+      <div class="wheel-container">
+        <div style="display:flex;flex-direction:column;align-items:center;width:100%">
+          <!-- POINTER arriba apuntando hacia la rueda -->
+          <div class="pointer" aria-hidden="true"></div>
+          <canvas id="wheel" width="480" height="480" aria-label="Rueda de mediciones"></canvas>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="spin">Girar</button>
+        <button id="quick" class="secondary">Giro corto</button>
+        <!-- <button id="show" class="secondary">Mostrar respuestas</button> -->
+        <button id="reset" class="secondary">Reiniciar</button>
+      </div>
+
+    </div>
+
+    <aside class="panel">
+      <div>
+        <label>Medición seleccionada</label>
+        <div id="selected" class="result">— gira la rueda —</div>
+      </div>
+
+      <div style="margin-top:10px">
+        <label>Definición (oculta)</label>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button id="toggleDef" class="secondary">Mostrar definición</button>
+          <div class="small">La definición aparece oculta hasta que la solicites.</div>
+        </div>
+        <div id="defBox" class="box" aria-hidden="true"></div>
+      </div>
+
+      <div style="margin-top:10px">
+        <label>Condición de seguridad (oculta)</label>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button id="toggleSafe" class="secondary">Mostrar condición</button>
+          <div class="small">La condición aparece oculta hasta que la solicites.</div>
+        </div>
+        <div id="safeBox" class="box" aria-hidden="true"></div>
+      </div>
+
+      <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+        <button id="check">Comprobar</button>
+        <button id="clear" class="secondary">Borrar</button>
+      </div>
+
+      <div id="feedback" class="answers" aria-live="polite"></div>
+
+      <div style="margin-top:10px" class="small">Mediciones en la rueda: Flujo másico de mineral, Nivel de pulpa, Presión, Densidad de pulpa, Temperatura de aceite, Flujo de agua.</div>
+    </aside>
+
+  </div>
+
+  <script src="../../../js/M3/js_pg12.js"></script>
+</body>
+</html>

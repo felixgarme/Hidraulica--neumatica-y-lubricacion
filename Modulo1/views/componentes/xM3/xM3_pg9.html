@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curso de Operaciones de Control Manual</title>
+  <link rel="stylesheet" href="../../../assets/css/M3/css_pg1.css">
+  
+</head>
+<body>
+  
+  <div class="curso-container">
+    
+    <div class="curso-content">
+      <div class="modulo-cards">
+        <div class="modulo-card active" id="card-bombas">
+          <div class="card-header">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor" stroke="none"/>
+                <path d="M2 17L12 22L22 17"/>
+                <path d="M2 12L12 17L22 12"/>
+              </svg>
+            </div>
+            <h2>Secuencias de operación bombas de alimentación nido hidrociclones</h2>
+          </div>
+          <div class="card-content">
+            <div class="proceso-item">
+              <h3>Control de Partida y Detención</h3>
+              <p>En el modo automático, la secuencia de partida y detención se controla automáticamente siguiendo los pasos predefinidos de verificación de válvulas, flujo y ajuste de la velocidad de la bomba.</p>
+              <div class="destacado-box">
+                <strong>Función clave:</strong> Control automático de la secuencia de operación
+              </div>
+            </div>
+            <div class="proceso-item">
+              <h3>Gestión Autónoma de Válvulas y Bomba</h3>
+              <p>La operación de las válvulas y la bomba se gestiona de manera autónoma según los criterios de operación establecidos.</p>
+              <div class="parametros-box">
+                <div class="parametro">
+                  <span class="parametro-label">Control:</span>
+                  <span class="parametro-valor">Autónomo</span>
+                </div>
+                <div class="parametro">
+                  <span class="parametro-label">Criterio:</span>
+                  <span class="parametro-valor">Criterios de operación establecidos</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modulo-card" id="card-hidrociclones">
+          <div class="card-header">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6V12L16 14"/>
+              </svg>
+            </div>
+            <h2>Control nido hidrociclones</h2>
+          </div>
+          <div class="card-content">
+            <div class="proceso-item">
+              <h3>Ajuste Automático de la Cantidad de Hidrociclones</h3>
+              <p>En modo automático, el sistema ajusta la cantidad de hidrociclones en operación en función de la presión medida en el distribuidor.</p>
+              <div class="control-box">
+                <div class="control-item">
+                  <span class="control-label">Parámetro:</span>
+                  <span class="control-valor">Cantidad de hidrociclones</span>
+                </div>
+                <div class="control-item">
+                  <span class="control-label">Criterio:</span>
+                  <span class="control-valor">Presión en el distribuidor</span>
+                </div>
+              </div>
+            </div>
+            <div class="proceso-item">
+              <h3>Optimización de Flujos</h3>
+              <p>El sistema optimiza la adición de agua al cajón y el flujo másico de alimentación a los molinos SAG de manera automática para alcanzar el tamaño de partícula objetivo y garantizar la correcta operación del proceso.</p>
+              <div class="alarma-box">
+                <strong>Objetivo:</strong> Alcanzar tamaño de partícula objetivo
+              </div>
+              <div class="spacex"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="navegacion-controles">
+        <button class="nav-btn active" data-target="card-bombas">
+          <span class="btn-icon">1</span>
+          <span class="btn-text">Bombas</span>
+        </button>
+        <button class="nav-btn" data-target="card-hidrociclones">
+          <span class="btn-icon">2</span>
+          <span class="btn-text">Hidrociclones</span>
+        </button>
+      </div>
+
+      <div class="progreso-bar">
+        <div class="progreso-fill"></div>
+        <div class="progreso-indicador" style="left: 0%;">1</div>
+        <div class="progreso-indicador" style="left: 100%;">2</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../../assets/js/M3/js_pg1.js"></script>
+</body>
+</html>

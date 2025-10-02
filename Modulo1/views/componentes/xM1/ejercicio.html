@@ -1,0 +1,572 @@
+<div class="matching-game-container">
+
+  <div class="game-board">
+    <div class="concepts-column">
+      <h3 class="column-title">Conceptos</h3>
+      <div class="concept-item" data-concept="flujo-mineral">
+        <span>Flujo de mineral</span>
+      </div>
+      <div class="concept-item" data-concept="adicion-bolas">
+        <span>Adición de bolas</span>
+      </div>
+      <div class="concept-item" data-concept="lechada-cal">
+        <span>Lechada de cal</span>
+      </div>
+      <div class="concept-item" data-concept="dilucion-agua">
+        <span>Dilución de agua</span>
+      </div>
+      <div class="concept-item" data-concept="presion-hidrociclones">
+        <span>Presión en hidrociclones</span>
+      </div>
+    </div>
+    
+    <div class="functions-column">
+      <h3 class="column-title">Funciones</h3>
+      <div class="function-item" data-function="flujo-mineral">
+        <span>Mantener el tonelaje de mineral en el setpoint</span>
+      </div>
+      <div class="function-item" data-function="adicion-bolas">
+        <span>Dosificar la cantidad necesaria de bolas</span>
+      </div>
+      <div class="function-item" data-function="lechada-cal">
+        <span>Regular pH y densidad con cal</span>
+      </div>
+      <div class="function-item" data-function="dilucion-agua">
+        <span>Ajustar la concentración de sólidos con agua</span>
+      </div>
+      <div class="function-item" data-function="presion-hidrociclones">
+        <span>Controlar la presión abriendo o cerrando válvulas</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="game-status">
+    <div class="score-info">
+      <span class="score-label">Aciertos:</span>
+      <span class="score-value" id="score">0</span>
+      <span class="score-total">/ 5</span>
+    </div>
+
+    <p class="game-instruction">Une cada concepto con su función</p>
+    <img src="../../../assets/images/Icons/selcB.gif" alt="selct" style="width: 50px; height: 50px;">
+
+    <button class="reset-btn" id="resetBtn">Reiniciar</button>
+
+  </div>
+  
+  <div class="result-message" id="resultMessage">
+    <div class="message-content">
+      <h3>Excelente trabajo</h3>
+      <p>Has completado correctamente todos los emparejamientos</p>
+    </div>
+  </div>
+</div>
+
+<style>
+.matching-game-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  /* background: #F5F7FA; */
+  border-radius: 8px;
+  /* border: 2px solid #DDE8F5; */
+}
+
+.game-header {
+  text-align: center;
+  margin: 0 0 10px 0;
+  padding: 10px;
+  background: #FFFFFF;
+  border-radius: 8px;
+  border: 1px solid #DDE8F5;
+}
+
+.game-title {
+  background: linear-gradient(90deg, #FF0000, #351EBD, #3479F6, #1F87C6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+  padding: 0;
+}
+
+.game-instruction {
+  color: #4D4D4E;
+  font-size: 1.1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.game-board {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+
+.column-title {
+  color: #031794;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 0 10px 0;
+  padding: 8px;
+  background: #E5F0F9;
+  border-radius: 6px;
+  border: 1px solid #6B8BDF;
+}
+
+.concepts-column,
+.functions-column {
+  background: #FFFFFF;
+  border-radius: 8px;
+  padding: 10px;
+  border: 1px solid #DDE8F5;
+}
+
+.concept-item,
+.function-item {
+  background: #FFFFFF;
+  border: 2px solid #DDE8F5;
+  border-radius: 6px;
+  padding: 10px;
+  margin: 0 0 8px 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  color: #4D4D4E;
+  font-weight: 500;
+}
+
+.concept-item:hover,
+.function-item:hover {
+  border-color: #6B8BDF;
+  background: #E5F0F9;
+  transform: translateY(-2px);
+}
+
+.concept-item.selected {
+  border-color: #031794;
+  background: linear-gradient(90deg, #031794, #34C0C0);
+  color: #FFFFFF;
+  transform: scale(1.02);
+}
+
+.function-item.selected {
+  border-color: #031794;
+  background: linear-gradient(90deg, #031794, #34C0C0);
+  color: #FFFFFF;
+  transform: scale(1.02);
+}
+
+.concept-item.matched,
+.function-item.matched {
+  border-color: #34C0C0;
+  background: linear-gradient(90deg, #031794, #34C0C0);
+  color: #FFFFFF;
+  cursor: default;
+  opacity: 0.8;
+}
+
+.concept-item.wrong,
+.function-item.wrong {
+  border-color: #FF0000;
+  background: rgba(255, 0, 0, 0.1);
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.game-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #FFFFFF;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #DDE8F5;
+  margin: 0;
+}
+
+.score-info {
+  color: #4D4D4E;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.score-label {
+  color: #031794;
+  font-weight: bold;
+}
+
+.score-value {
+  color: #031794;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 0 5px;
+}
+
+.score-total {
+  color: #B9B9B9;
+}
+
+.reset-btn {
+  background: white;/* background: linear-gradient(90deg, #FF0000, #351EBD, #3479F6, #1F87C6); */
+  color: #031794;
+  box-shadow: rgb(219, 219, 219);
+  border: none;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: transform 0.2s ease;
+  
+}
+
+.reset-btn:hover {
+  transform: translateY(-2px);
+}
+
+.result-message {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(3, 23, 148, 0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.result-message.show {
+  display: flex;
+}
+
+.message-content {
+  background: #FFFFFF;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  border: 3px solid #034C4C;
+  max-width: 400px;
+  margin: 10px;
+}
+
+.message-content h3 {
+  background: linear-gradient(90deg, #FF0000, #351EBD, #3479F6, #1F87C6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 1.5rem;
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+
+.message-content p {
+  color: #4D4D4E;
+  font-size: 1.1rem;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .matching-game-container {
+    padding: 8px;
+  }
+  
+  .game-board {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  .game-title {
+    font-size: 1.4rem;
+  }
+  
+  .game-instruction {
+    font-size: 1rem;
+  }
+  
+  .concept-item,
+  .function-item {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+  
+  .column-title {
+    font-size: 1.1rem;
+    padding: 6px;
+  }
+  
+  .game-status {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .reset-btn {
+    width: 100%;
+    padding: 10px;
+  }
+  
+  .message-content {
+    margin: 5px;
+    padding: 8px;
+  }
+  
+  .message-content h3 {
+    font-size: 1.3rem;
+  }
+  
+  .message-content p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-title {
+    font-size: 1.2rem;
+  }
+  
+  .concept-item,
+  .function-item {
+    padding: 6px;
+    font-size: 0.85rem;
+  }
+  
+  .score-info {
+    font-size: 1rem;
+  }
+  
+  .message-content h3 {
+    font-size: 1.1rem;
+  }
+  
+  .message-content p {
+    font-size: 0.9rem;
+  }
+}
+</style>
+
+<script>
+class MatchingGame {
+  constructor() {
+    this.selectedConcept = null;
+    this.selectedFunction = null;
+    this.matches = 0;
+    this.totalMatches = 5;
+    this.gameCompleted = false;
+    
+    this.init();
+  }
+  
+  init() {
+    this.bindEvents();
+    this.shuffleItems();
+  }
+  
+  bindEvents() {
+    const conceptItems = document.querySelectorAll('.concept-item');
+    const functionItems = document.querySelectorAll('.function-item');
+    const resetBtn = document.getElementById('resetBtn');
+    const resultMessage = document.getElementById('resultMessage');
+    
+    conceptItems.forEach(item => {
+      item.addEventListener('click', () => this.selectConcept(item));
+    });
+    
+    functionItems.forEach(item => {
+      item.addEventListener('click', () => this.selectFunction(item));
+    });
+    
+    resetBtn.addEventListener('click', () => this.resetGame());
+    
+    resultMessage.addEventListener('click', () => {
+      resultMessage.classList.remove('show');
+    });
+  }
+  
+  shuffleItems() {
+    const conceptsColumn = document.querySelector('.concepts-column');
+    const functionsColumn = document.querySelector('.functions-column');
+    
+    const conceptItems = Array.from(conceptsColumn.querySelectorAll('.concept-item'));
+    const functionItems = Array.from(functionsColumn.querySelectorAll('.function-item'));
+    
+    this.shuffleArray(conceptItems);
+    this.shuffleArray(functionItems);
+    
+    const conceptTitle = conceptsColumn.querySelector('.column-title');
+    const functionTitle = functionsColumn.querySelector('.column-title');
+    
+    conceptsColumn.innerHTML = '';
+    functionsColumn.innerHTML = '';
+    
+    conceptsColumn.appendChild(conceptTitle);
+    functionsColumn.appendChild(functionTitle);
+    
+    conceptItems.forEach(item => conceptsColumn.appendChild(item));
+    functionItems.forEach(item => functionsColumn.appendChild(item));
+  }
+  
+  shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+  
+  selectConcept(item) {
+    if (item.classList.contains('matched') || this.gameCompleted) return;
+    
+    if (this.selectedConcept) {
+      this.selectedConcept.classList.remove('selected');
+    }
+    
+    this.selectedConcept = item;
+    item.classList.add('selected');
+    
+    if (this.selectedFunction) {
+      this.checkMatch();
+    }
+  }
+  
+  selectFunction(item) {
+    if (item.classList.contains('matched') || this.gameCompleted) return;
+    
+    if (this.selectedFunction) {
+      this.selectedFunction.classList.remove('selected');
+    }
+    
+    this.selectedFunction = item;
+    item.classList.add('selected');
+    
+    if (this.selectedConcept) {
+      this.checkMatch();
+    }
+  }
+  
+  checkMatch() {
+    const conceptId = this.selectedConcept.dataset.concept;
+    const functionId = this.selectedFunction.dataset.function;
+    
+    if (conceptId === functionId) {
+      this.handleCorrectMatch();
+    } else {
+      this.handleWrongMatch();
+    }
+  }
+  
+  handleCorrectMatch() {
+    this.selectedConcept.classList.remove('selected');
+    this.selectedFunction.classList.remove('selected');
+    
+    this.selectedConcept.classList.add('matched');
+    this.selectedFunction.classList.add('matched');
+    
+    this.matches++;
+    this.updateScore();
+    
+    this.selectedConcept = null;
+    this.selectedFunction = null;
+    
+    if (this.matches === this.totalMatches) {
+      setTimeout(() => this.showCompletionMessage(), 500);
+    }
+  }
+  
+  handleWrongMatch() {
+    this.selectedConcept.classList.add('wrong');
+    this.selectedFunction.classList.add('wrong');
+    
+    setTimeout(() => {
+      this.selectedConcept.classList.remove('selected', 'wrong');
+      this.selectedFunction.classList.remove('selected', 'wrong');
+      
+      this.selectedConcept = null;
+      this.selectedFunction = null;
+    }, 600);
+  }
+  
+  updateScore() {
+    const scoreElement = document.getElementById('score');
+    scoreElement.textContent = this.matches;
+  }
+  
+  showCompletionMessage() {
+    this.gameCompleted = true;
+    const resultMessage = document.getElementById('resultMessage');
+    resultMessage.classList.add('show');
+
+    // ---------------------------
+    // Envío del mensaje pedido:
+    // 1) Disparo de evento custom en el documento con nombre 'ejercicio-terminado'
+    // 2) postMessage al window.parent (por si el juego está en un iframe)
+    // 3) console.log por soporte de debugging
+    // ---------------------------
+
+    try {
+      // 1) CustomEvent en el documento
+      const detail = { matches: this.matches, total: this.totalMatches, timestamp: Date.now() };
+      const finishedEvent = new CustomEvent('ejercicio-terminado', { detail });
+      document.dispatchEvent(finishedEvent);
+    } catch (e) {
+      // no critical — seguimos
+      console.warn('No se pudo despachar CustomEvent ejercicio-terminado:', e);
+    }
+
+    try {
+      // 2) postMessage al parent (si está en iframe). Enviamos un objeto con type para facilitar filtrado.
+      if (window.parent && window.parent !== window && typeof window.parent.postMessage === 'function') {
+        window.parent.postMessage({ type: 'ejercicio-terminado', matches: this.matches, total: this.totalMatches }, '*');
+      } else {
+        // Si no hay parent distinto, también enviamos un mensaje al mismo window para listeners locales
+        window.postMessage({ type: 'ejercicio-terminado', matches: this.matches, total: this.totalMatches }, '*');
+      }
+    } catch (e) {
+      console.warn('No se pudo enviar postMessage ejercicio-terminado:', e);
+    }
+
+    // 3) Log para facilitar verificación rápida
+    try {
+      console.log('ejercicio-terminado', { matches: this.matches, total: this.totalMatches });
+      window.parent.postMessage('ejercicio-terminado', '*');
+    } catch (e) {
+      // ignore
+    }
+  }
+  
+  resetGame() {
+    this.selectedConcept = null;
+    this.selectedFunction = null;
+    this.matches = 0;
+    this.gameCompleted = false;
+    
+    const allItems = document.querySelectorAll('.concept-item, .function-item');
+    allItems.forEach(item => {
+      item.classList.remove('selected', 'matched', 'wrong');
+    });
+    
+    this.updateScore();
+    this.shuffleItems();
+    this.bindEvents();
+    
+    const resultMessage = document.getElementById('resultMessage');
+    resultMessage.classList.remove('show');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  new MatchingGame();
+});
+</script>

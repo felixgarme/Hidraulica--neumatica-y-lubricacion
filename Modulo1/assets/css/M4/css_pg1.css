@@ -1,0 +1,251 @@
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #000;
+}
+
+.carousel-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: #000;
+}
+
+.carousel-wrapper {
+    position: relative;
+    overflow: hidden;
+    flex: 1;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    height: 100%;
+}
+
+.carousel-slide {
+    min-width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #000000;
+    position: relative; /* Necesario para posicionar el botón de pantalla completa */
+}
+
+.slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border: none;
+    padding: 0;
+}
+
+/* --- NUEVO: Estilos para el botón de Pantalla Completa --- */
+.fullscreen-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 15;
+    background: #03169490;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    opacity: 0; /* Oculto por defecto */
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+.carousel-slide:hover .fullscreen-btn {
+    opacity: 1; /* Visible al pasar el cursor sobre la imagen */
+}
+
+.fullscreen-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.fullscreen-btn svg {
+    width: 28px;
+    height: 28px;
+    fill: white;
+}
+/* ----------------------------------------------------------- */
+
+.carousel-controls {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 20px;
+    gap: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.carousel-btn {
+    background: linear-gradient(135deg, #031794 0%, #2A5BDF 100%);
+    color: #FFFFFF;
+    border: none;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.carousel-btn:hover {
+    background: linear-gradient(135deg, #2A5BDF 0%, #6B8BDF 100%);
+    transform: scale(1.07);
+}
+
+.carousel-btn:disabled {
+    background: #555;
+    color: #999;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.carousel-indicators {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #B9B9B9;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicator.active {
+    background: #FFFFFF;
+    transform: scale(1.25);
+}
+
+.slide-counter {
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0 10px;
+    white-space: nowrap;
+}
+
+.cta-button {
+    background: linear-gradient(90deg, #FF416C 0%, #FF4B2B 100%);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 22px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+.cta-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4);
+}
+
+.progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    z-index: 5;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #FF416C 0%, #FF4B2B 100%);
+    transition: width 0.5s ease;
+}
+
+@media (max-width: 768px) {
+    .fullscreen-btn {
+        width: 40px;
+        height: 40px;
+        top: 15px;
+        right: 15px;
+    }
+    .fullscreen-btn svg {
+        width: 22px;
+        height: 22px;
+    }
+    .carousel-controls {
+        gap: 10px;
+        padding: 8px 10px;
+        flex-wrap: wrap;
+    }
+    .carousel-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    .cta-button {
+        padding: 8px 18px;
+        font-size: 14px;
+        order: 5;
+    }
+    .slide-counter { order: 3; }
+    .carousel-indicators{ order: 2; }
+}
+
+.Icono-select{
+    width: 45px;
+    height: 45px;
+    border-radius: 30px;
+}
+.info{
+    text-align:center;
+    margin-top:8px;
+    font-weight:bold;
+    color: white;
+}
+.with-info {
+    display: flex;
+    flex-direction: column-reverse;
+
+}
+
+.with-info img {    
+    width: auto;
+    height: 90%;
+    border-radius: 10px;
+}
+@media (max-width: 400px) {
+
+    .with-info img{
+        width: 100% ;
+    }
+    
+}

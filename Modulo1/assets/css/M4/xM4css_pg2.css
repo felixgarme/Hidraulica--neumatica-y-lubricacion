@@ -1,0 +1,242 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.curso-container {
+    font-family: 'Arial', sans-serif;
+    /* background: #F5F7FA; */
+    min-height: 100vh;
+    /* padding: 10px; */
+}
+
+.main-card {
+    /* max-width: 1200px; */
+    margin: 0 auto;
+    background: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(3, 23, 148, 0.1);
+    overflow: hidden;
+    border: 1px solid #DDE8F5;
+}
+
+.header {
+    background: linear-gradient(90deg, #FF0000 0%, #351EBD 33%, #3479F6 66%, #1F87C6 100%);
+    padding: 10px;
+    text-align: center;
+    position: relative;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+    pointer-events: none;
+}
+
+.header h1 {
+    color: #FFFFFF;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: bold;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    margin: 5px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 10px;
+    padding: 10px;
+}
+
+.operation-card {
+    background: #FFFFFF;
+    border: 2px solid #DDE8F5;
+    border-radius: 10px;
+    padding: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.operation-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #FF0000 0%, #351EBD 33%, #3479F6 66%, #1F87C6 100%);
+    transition: left 0.5s ease;
+}
+
+.operation-card:hover::before {
+    left: 0;
+}
+
+.operation-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(3, 23, 148, 0.15);
+    border-color: #6B8BDF;
+}
+
+.operation-card.active {
+    border-color: #031794;
+    background: #E5F0F9;
+}
+
+.operation-card.active::before {
+    left: 0;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    margin: 0 0 8px 0;
+}
+
+.card-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #031794 0%, #3479F6 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 8px 0 0;
+    flex-shrink: 0;
+}
+
+.card-icon::before {
+    content: '⚙';
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.card-title {
+    color: #031794;
+    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+    font-weight: bold;
+    line-height: 1.3;
+}
+
+.card-content {
+    color: #4D4D4E;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    line-height: 1.6;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding-top 0.4s ease;
+}
+
+.operation-card.active .card-content {
+    max-height: 200px;
+    padding-top: 5px;
+}
+
+.progress-bar {
+    margin: 10px;
+    background: #DDE8F5;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 8px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #031794 0%, #34C0C0 100%);
+    width: 0%;
+    transition: width 0.5s ease;
+    border-radius: 10px;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    flex-wrap: wrap;
+}
+
+.control-btn {
+    background: linear-gradient(135deg, #031794 0%, #3479F6 100%);
+    color: #FFFFFF;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    min-width: 80px;
+}
+
+.control-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(3, 23, 148, 0.3);
+    background: #3479F6;
+}
+
+.control-btn:active {
+    transform: translateY(0);
+}
+
+.status-indicator {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #B9B9B9;
+    transition: all 0.3s ease;
+}
+
+.operation-card.active .status-indicator {
+    background: #34C0C0;
+    box-shadow: 0 0 8px rgba(52, 192, 192, 0.5);
+}
+
+@media (max-width: 768px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .main-card {
+        /* margin: 5px; */
+        border-radius: 12px;
+    }
+    
+    .controls {
+        padding: 5px;
+    }
+    
+    .card-icon {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .card-icon::before {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 1920px) {
+    .main-card {
+        max-width: 1400px;
+    }
+    
+    .content-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

@@ -1,0 +1,269 @@
+
+.curso-container {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+max-width: 1200px;
+margin: 0 auto;
+padding: 10px;
+/* background: #F5F7FA; */
+}
+
+.curso-header {
+background: linear-gradient(90deg, #FF0000 0%, #351EBD 33%, #3479F6 66%, #1F87C6 100%);
+padding: 10px;
+border-radius: 8px;
+margin: 0 0 10px 0;
+}
+
+.curso-title {
+background: linear-gradient(90deg, #FF0000 0%, #351EBD 33%, #3479F6 66%, #1F87C6 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+font-size: 28px;
+font-weight: bold;
+margin: 0;
+padding: 10px;
+/* background-color: #FFFFFF; */
+border-radius: 6px;
+}
+
+.curso-subtitle {
+color: #031794;
+font-size: 22px;
+font-weight: 600;
+margin: 10px 0;
+padding: 8px;
+background: #E5F0F9;
+border-left: 4px solid #031794;
+border-radius: 4px;
+}
+
+.curso-instructions {
+background: #FFFFFF;
+border: 2px solid #DDE8F5;
+border-radius: 8px;
+padding: 10px;
+margin: 0 0 10px 0;
+color: #4D4D4E;
+font-size: 16px;
+line-height: 1.6;
+display: flex;
+}
+
+.curso-instructions-label {
+font-weight: bold;
+color: #031794;
+margin: 0 0 8px 0;
+}
+
+.curso-groups-container {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 10px;
+margin: 10px 0;
+}
+
+.curso-group-box {
+background: #FFFFFF;
+border: 2px solid #031794;
+border-radius: 8px;
+padding: 10px;
+min-height: 300px;
+}
+
+.curso-group-header {
+background: #031794;
+color: #FFFFFF;
+padding: 8px;
+border-radius: 6px;
+font-size: 18px;
+font-weight: bold;
+margin: 0 0 10px 0;
+text-align: center;
+}
+
+.curso-items-container {
+background: #F5F7FA;
+border: 2px dashed #DDE8F5;
+border-radius: 6px;
+padding: 10px;
+margin: 0 0 10px 0;
+display: flex;
+flex-wrap: wrap;
+gap: 8px;
+min-height: 100px;
+}
+
+.curso-item {
+background: #FFFFFF;
+border: 2px solid #6B8BDF;
+border-radius: 6px;
+padding: 8px 10px;
+color: #031794;
+font-size: 14px;
+cursor: grab;
+transition: all 0.3s ease;
+user-select: none;
+box-shadow: 0 2px 4px rgba(3, 23, 148, 0.1);
+}
+
+.curso-item:hover {
+transform: translateY(-2px);
+box-shadow: 0 4px 8px rgba(3, 23, 148, 0.2);
+border-color: #031794;
+}
+
+.curso-item.dragging {
+opacity: 0.5;
+cursor: grabbing;
+}
+
+.curso-drop-zone {
+min-height: 200px;
+background: #E5F0F9;
+border: 2px dashed #031794;
+border-radius: 6px;
+padding: 10px;
+display: flex;
+flex-wrap: wrap;
+gap: 8px;
+align-content: flex-start;
+}
+
+.curso-drop-zone.drag-over {
+background: #DDE8F5;
+border-color: #FF0000;
+}
+
+.curso-drop-zone-empty {
+width: 100%;
+text-align: center;
+color: #B9B9B9;
+font-style: italic;
+padding: 10px 0;
+}
+
+.curso-buttons {
+display: flex;
+gap: 10px;
+margin: 10px 0 0 0;
+flex-wrap: wrap;
+}
+
+.curso-button {
+background: linear-gradient(90deg, #031794 0%, #34C0C0 100%);
+color: #FFFFFF;
+border: none;
+border-radius: 6px;
+padding: 10px;
+font-size: 16px;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s ease;
+flex: 1;
+min-width: 120px;
+}
+
+.curso-button:hover {
+transform: translateY(-2px);
+box-shadow: 0 4px 8px rgba(3, 23, 148, 0.3);
+}
+
+.curso-button:active {
+transform: translateY(0);
+}
+
+.curso-button-secondary {
+background: #FFFFFF;
+color: #031794;
+border: 2px solid #031794;
+}
+
+.curso-feedback {
+background: #FFFFFF;
+border: 2px solid #DDE8F5;
+border-radius: 8px;
+padding: 10px;
+margin: 10px 0 0 0;
+text-align: center;
+font-weight: 600;
+display: none;
+}
+
+.curso-feedback.success {
+background: #E5F0F9;
+border-color: #031794;
+color: #031794;
+display: block;
+}
+
+.curso-feedback.error {
+background: #FFE5E5;
+border-color: #FF0000;
+color: #FF0000;
+display: block;
+}
+
+@media (max-width: 768px) {
+.curso-container {
+    padding: 8px;
+}
+
+.curso-title {
+    font-size: 22px;
+    padding: 8px;
+}
+
+.curso-subtitle {
+    font-size: 18px;
+    padding: 6px;
+}
+
+.curso-groups-container {
+    grid-template-columns: 1fr;
+}
+
+.curso-group-header {
+    font-size: 16px;
+    padding: 6px;
+}
+
+.curso-item {
+    font-size: 13px;
+    padding: 6px 8px;
+}
+
+.curso-button {
+    font-size: 14px;
+    padding: 8px;
+    min-width: 100px;
+}
+
+.curso-instructions {
+    font-size: 14px;
+    padding: 8px;
+}
+}
+
+@media (min-width: 1920px) {
+.curso-container {
+    max-width: 1600px;
+}
+
+.curso-title {
+    font-size: 32px;
+}
+
+.curso-subtitle {
+    font-size: 26px;
+}
+
+.curso-item {
+    font-size: 16px;
+}
+}
+@media (max-width: 420px) {
+    .curso-container {
+        margin-bottom: 90px;
+    }
+}

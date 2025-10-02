@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../../../assets/css/M4/xM4css_pg2.css">
+</head>
+<body>
+    <div class="curso-container">
+        <div class="main-card">
+            <div class="header">
+                <h1>Bombas Alimentación Nido Hidrociclones 1/2 (3210-PU-001/002)
+</h1>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="operation-card" data-section="arranque">
+                    <div class="status-indicator"></div>
+                    <div class="card-header">
+                        <div class="card-icon"></div>
+                        <h3 class="card-title">Arranque y Paro</h3>
+                    </div>
+                    <div class="card-content">
+                        El operador utiliza las botoneras locales (START/STOP) para encender o detener la bomba, verificando en panel el estado del motor y el variador de velocidad.
+                    </div>
+                </div>
+                
+                <div class="operation-card" data-section="agua">
+                    <div class="status-indicator"></div>
+                    <div class="card-header">
+                        <div class="card-icon"></div>
+                        <h3 class="card-title">Agua de Sello y Lavado</h3>
+                    </div>
+                    <div class="card-content">
+                        Desde campo se abren/cierra manualmente las válvulas solenoides y cuchilla, controlando el flujo y presión con indicadores locales; el operador también activa el lavado de líneas cuando la bomba está detenida.
+                    </div>
+                </div>
+                
+                <div class="operation-card" data-section="valvulas">
+                    <div class="status-indicator"></div>
+                    <div class="card-header">
+                        <div class="card-icon"></div>
+                        <h3 class="card-title">Válvulas de Succión y Drenaje</h3>
+                    </div>
+                    <div class="card-content">
+                        Pueden operarse manualmente con interruptores en campo para apertura/cierre, asegurando la continuidad de la operación o el vaciado seguro del sistema.
+                    </div>
+                </div>
+                
+                <div class="operation-card" data-section="monitoreo">
+                    <div class="status-indicator"></div>
+                    <div class="card-header">
+                        <div class="card-icon"></div>
+                        <h3 class="card-title">Monitoreo de Descarga</h3>
+                    </div>
+                    <div class="card-content">
+                        En operación local se supervisan los instrumentos instalados en la descarga, como densidad, presión y flujo de pulpa, actuando ante alarmas o desvíos.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function(){
+            const PAGE_ID = 'M4_pg2'; // identifica este componente al padre si hace falta
+            class CursoInteractivo {
+                constructor() {
+                    this.currentSection = 0;
+                    this.sections = ['arranque', 'agua', 'valvulas', 'monitoreo'];
+                    this.cards = document.querySelectorAll('.operation-card');
+                    this.progressFill = document.getElementById('progressFill');
+                    this.visited = new Set();
+                    this.sent = false; // para evitar envíos repetidos
+                    this.init();
+                }
+                
+                init() {
+                    this.addEventListeners();
+                    this.updateProgress();
+                }
+                
+                addEventListeners() {
+                    this.cards.forEach((card, index) => {
+                        card.addEventListener('click', () => {
+                            this.goToSection(index);
+                        });
+                    });
+                    
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'ArrowRight') this.nextSection();
+                        if (e.key === 'ArrowLeft') this.previousSection();
+                        if (e.key === 'Escape') this.reset();
+                    });
+                }
+                
+                goToSection(index) {
+                    if (index >= 0 && index < this.sections.length) {
+                        this.cards[this.currentSection].classList.remove('active');
+                        this.currentSection = index;
+                        this.cards[this.currentSection].classList.add('active');
+                        
+                        this.visited.add(this.sections[this.currentSection]);
+                        
+                        this.updateProgress();
+                        this.checkCompletion();
+                    }
+                }
+                
+                nextSection() {
+                    if (this.currentSection < this.sections.length - 1) {
+                        this.goToSection(this.currentSection + 1);
+                    }
+                }
+                
+                previousSection() {
+                    if (this.currentSection > 0) {
+                        this.goToSection(this.currentSection - 1);
+                    }
+                }
+                
+                reset() {
+                    this.cards.forEach(card => card.classList.remove('active'));
+                    this.currentSection = 0;
+                    this.visited.clear();
+                    this.updateProgress();
+                    this.sent = false;
+                }
+                
+                updateProgress() {
+                    const progress = this.cards[this.currentSection].classList.contains('active') 
+                        ? ((this.currentSection + 1) / this.sections.length) * 100 
+                        : 0;
+                    this.progressFill.style.width = progress + '%';
+                }
+                
+                checkCompletion() {
+                    if (this.visited.size === this.sections.length && !this.sent) {
+                        // log para DEBUG en consola del iframe
+                        console.log("OperacionLocalterminado");
+                        // mensaje simple (compatible con la lógica previa en el padre)
+                        try {
+                            window.parent.postMessage('OperacionLocalterminado', '*');
+                        } catch (e) {
+                            // ignore
+                        }
+                        // mensaje estructurado con página para evitar colisiones con otras páginas
+                        try {
+                            window.parent.postMessage({ type: 'OperacionLocalterminado', page: PAGE_ID }, '*');
+                        } catch (e) {
+                            // ignore
+                        }
+                        this.sent = true;
+                    }
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                new CursoInteractivo();
+            });
+
+            // También permitir que el padre pida el estado (opcional)
+            window.addEventListener('message', (ev) => {
+                try {
+                    const data = ev.data;
+                    if (data && typeof data === 'object' && data === 'REQUEST_STATUS') {
+                        const visitedCount = document.querySelectorAll('.operation-card.active').length || 0;
+                        window.parent.postMessage({ type: 'STATUS', page: PAGE_ID, visited: visitedCount }, '*');
+                    }
+                } catch (err) { /* ignore */ }
+            });
+        })();
+    </script>
+</body>
+</html>

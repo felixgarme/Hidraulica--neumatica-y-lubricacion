@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curso de Operaciones de Control Manual</title>
+  <link rel="stylesheet" href="../../../assets/css/M3/css_pg1.css">
+  
+</head>
+<body>
+  
+  <div class="curso-container">
+    
+    <div class="curso-content">
+      <div class="modulo-cards">
+        <div class="modulo-card active" id="card-bolas">
+          <div class="card-header">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor" stroke="none"/>
+                <path d="M2 17L12 22L22 17"/>
+                <path d="M2 12L12 17L22 12"/>
+              </svg>
+            </div>
+            <h2>Molienda de Bolas</h2>
+          </div>
+          <div class="card-content">
+            <div class="proceso-item">
+              <h3>Control de Velocidad y Carga</h3>
+              <p>En modo automático, el sistema ajusta la velocidad del molino y la carga de bolas en función de las variaciones de dureza y tratamiento de la planta.</p>
+              <div class="destacado-box">
+                <strong>Función clave:</strong> Ajuste automático de velocidad y carga basado en condiciones del proceso
+              </div>
+            </div>
+            <div class="proceso-item">
+              <h3>Operación dentro de Límites de Seguridad</h3>
+              <p>Además, se mantienen las condiciones operativas dentro de los límites de potencia y torque, según lo definido por el gráfico Tent. Los sistemas auxiliares y de protección operan automáticamente para mantener la seguridad y eficiencia del molino.</p>
+              <div class="parametros-box">
+                <div class="parametro">
+                  <span class="parametro-label">Criterio:</span>
+                  <span class="parametro-valor">Gráfico Tent (potencia y torque)</span>
+                </div>
+                <div class="parametro">
+                  <span class="parametro-label">Objetivo:</span>
+                  <span class="parametro-valor">Seguridad y eficiencia</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modulo-card" id="card-trommel">
+          <div class="card-header">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6V12L16 14"/>
+              </svg>
+            </div>
+            <h2>Trommel magnético molinos de bolas</h2>
+          </div>
+          <div class="card-content">
+            <div class="proceso-item">
+              <h3>Ajuste Automático del Flujo de Agua</h3>
+              <p>En modo automático, el sistema ajusta automáticamente el flujo de agua para el lavado del trommel magnético en función de las condiciones operativas del proceso.</p>
+              <div class="control-box">
+                <div class="control-item">
+                  <span class="control-label">Parámetro:</span>
+                  <span class="control-valor">Flujo de agua de lavado</span>
+                </div>
+                <div class="control-item">
+                  <span class="control-label">Criterio:</span>
+                  <span class="control-valor">Condiciones operativas del proceso</span>
+                </div>
+              </div>
+            </div>
+            <div class="proceso-item">
+              <h3>Descarga Automática</h3>
+              <p>La válvula de control se ajusta según la referencia proporcionada por el operador, y las bolas y finos se descargan a las tolvas correspondientes sin intervención manual.</p>
+              <div class="alarma-box">
+                <strong>Función:</strong> Descarga automática de bolas y finos
+              </div>
+              <div class="spacex"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="navegacion-controles">
+        <button class="nav-btn active" data-target="card-bolas">
+          <span class="btn-icon">1</span>
+          <span class="btn-text">Molienda de Bolas</span>
+        </button>
+        <button class="nav-btn" data-target="card-trommel">
+          <span class="btn-icon">2</span>
+          <span class="btn-text">Trommel Magnético</span>
+        </button>
+      </div>
+
+      <div class="progreso-bar">
+        <div class="progreso-fill"></div>
+        <div class="progreso-indicador" style="left: 0%;">1</div>
+        <div class="progreso-indicador" style="left: 100%;">2</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../../assets/js/M3/js_pg1.js"></script>
+</body>
+</html>

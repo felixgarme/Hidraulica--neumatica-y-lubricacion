@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Proceso - Curso Interactivo</title>
+    <link rel="stylesheet" href="../../../assets/css/M5/xM5_p1.css">
+</head>
+<body>
+    <div class="curso-container">
+
+        <nav class="curso-nav">
+            <button class="nav-btn active" data-slide="1">Nido Hidrociclones</button>
+            <button class="nav-btn" data-slide="2">Operación & Respaldo</button>
+            <button class="nav-btn" data-slide="3">Partida y Detención</button>
+        </nav>
+
+        <main class="curso-main">
+            <div class="slide-controls">
+                <button class="control-btn" id="prevBtn">Anterior</button>
+                <div class="slide-indicators">
+                    <span class="indicator active" data-slide="1"></span>
+                    <span class="indicator" data-slide="2"></span>
+                    <span class="indicator" data-slide="3"></span>
+                </div>
+                <button class="control-btn" id="nextBtn">Siguiente</button>
+            </div>
+            
+            <div class="slide-container">
+                <!-- SLIDE 1 -->
+                <div class="slide active" id="slide-1">
+                    <div class="slide-header">
+                        <h2 class="slide-title">Control de densidad en alimentación a nido de hidrociclones</h2>
+                    </div>
+
+                    <div class="content-grid">
+                        <div class="info-card">
+                            <h3 class="card-title">Consideraciones y estrategias operacionales</h3>
+                            <div class="card-content">
+                                <p>Los nidos por molino de bolas, 8 activos + 2 de reserva. Hidrociclones con válvulas on/off; control automático por presión en distribuidor. Operación manual permite agregar/quitar hidrociclones. Indicadores muestran cantidad de hidrociclones operando. Analizadores CYCLONEtracTM monitorean tamaño de partículas y rendimiento. Ajuste de agua al cajón mantiene densidad de pulpa y granulometría para flotación. Si no se alcanza P80, se puede reducir flujo al molino SAG. Alarmas: bajo rendimiento (acordonado) y baja presión en distribuidor. Línea de lavado con válvula on/off para sólidos acumulados.</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <h3 class="card-title">Control de nido de hidrociclones — Consideraciones operacionales</h3>
+                            <div class="card-content">
+                                <p>Sala de control indica velocidad de rotación, potencia consumida y presión en descansos. Alarmas: velocidad alta y potencia baja. Velocidad de operación ajustable entre 70% y 82% de la velocidad crítica; normal 76%. Motor permite operar bajo velocidad nominal con torque constante y potencia reducida. Zona de operación segura definida por límites de torque y potencia según carga de bolas. Operar a alta velocidad permite menor carga de bolas y menor costo. Motor: mantener temperatura y corriente dentro de límites del proveedor.</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <h3 class="card-title">Monitoreo y análisis</h3>
+                            <div class="card-content">
+                                <p>Uso de analizadores de tamaño de partícula y sistemas de telemetría para correlacionar presión en el distribuidor con rendimiento de separación. Revisiones periódicas de CYCLONEtracTM y verificación de calibraciones. Registros de tendencia para potencia, velocidad y presión que permitan identificar desviaciones y establecer acciones correctivas antes de pérdida de rendimiento.</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card highlight">
+                            <h3 class="card-title">Acciones correctivas rápidas</h3>
+                            <div class="card-content">
+                                <p>En caso de caída de presión o aumento de sólidos acumulados: activar línea de lavado, reducir el número de hidrociclones operativos y ajustar agua de dilución al cajón. Si P80 no se cumple: valorar reducción de flujo al molino SAG o ajuste de distribución de agua para mejorar clasificación.</p>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 60px;"></div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 2 -->
+                <div class="slide" id="slide-2">
+                    <div class="slide-header">
+                        <h2 class="slide-title">Diagrama Tent, Respaldo y Operación ante Blackout</h2>
+                    </div>
+
+                    <div class="content-grid">
+                        <div class="info-card">
+                            <h3 class="card-title">Diagrama Tent para Molino de bolas</h3>
+                            <div class="card-content">
+                                <p>Diagrama Tent para Molino bolas, 28' x 44' EGL, liners nuevos (Metso). Consideraciones y estrategias operacionales relacionadas con configuración de liners, distribución de carga y ajustes geométricos que afectan eficiencia de molienda y desgaste.</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <h3 class="card-title">Respaldo eléctrico y protección del control</h3>
+                            <div class="card-content">
+                                <p>Respaldo eléctrico: La planta cuenta con generadores diésel para equipos críticos, garantizando operación esencial durante cortes de energía. Protección del sistema de control: El PCS se alimenta mediante UPS, asegurando continuidad del control incluso en blackout. Secuencia de reinicio: Tras activarse el sistema de respaldo, el operador pone en servicio los equipos críticos de manera ordenada.</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <h3 class="card-title">Manejo de pulpas y drenajes</h3>
+                            <div class="card-content">
+                                <p>Las pulpas de molienda y los reboses de hidrociclones se drenan a piso o trinchera, siendo retenidos en áreas de contención para evitar derrames. Evacuación y recuperación: Aguas sobrenadantes escurren a la canaleta de relaves y las bombas de sumidero retornan derrames al proceso cuando se normaliza la energía. Sólidos gruesos: Son retirados manualmente con cargador frontal bajo supervisión del operador, asegurando la continuidad de la operación.</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card highlight">
+                            <h3 class="card-title">Operación ante corte de energía (Blackout)</h3>
+                            <div class="card-content">
+                                <p>Partida normal: Sistema colector de polvo se pone en servicio para garantizar control ambiental y seguridad. Molino SAG: Se pone en marcha siguiendo la secuencia indicada por el fabricante para evitar daños. Molino de bolas: Se pone en servicio siguiendo la secuencia indicada por el fabricante. Sistema de chancado de pebbles (circuito DSAG): Se activa para permitir la recirculación o derivación de pebbles. Zaranda vibratoria: Se pone en servicio para clasificar el material correctamente.</p>
+
+                                <p>Fajas de alimentación al SAG: Se activan para iniciar la alimentación de mineral. Dosificación de reactivos: Se activa para garantizar las condiciones químicas de proceso. Chancadora de pebbles (circuito SABC-A): Se inicia siguiendo la secuencia de fajas y compuertas regulables para alimentación correcta al SAG. Circuito DSAG de pebbles: Se activa abriendo compuertas hacia acopio y fajas correspondientes.</p>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 60px;"></div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 3 -->
+                <div class="slide" id="slide-3">
+                    <div class="slide-header">
+                        <h2 class="slide-title">Partida y detención normal de equipos — Procedimientos</h2>
+                    </div>
+
+                    <div class="content-grid">
+                        <div class="info-card">
+                            <h3 class="card-title">Partida normal</h3>
+                            <div class="card-content">
+                                <p>Partida normal: Sistema colector de polvo: Se pone en servicio para garantizar control ambiental y seguridad. Molino SAG: Se pone en marcha siguiendo la secuencia indicada por el fabricante para evitar daños. Molino de bolas: Se pone en servicio siguiendo la secuencia indicada por el fabricante. Sistema de chancado de pebbles (circuito DSAG): Se activa para permitir la recirculación o derivación de pebbles. Zaranda vibratoria: Se pone en servicio para clasificar el material correctamente. Fajas de alimentación al SAG: Se activan para iniciar la alimentación de mineral. Dosificación de reactivos: Se activa para garantizar las condiciones químicas de proceso. Chancadora de pebbles (circuito SABC-A): Se inicia siguiendo la secuencia de fajas y compuertas regulables para alimentación correcta al SAG. Circuito DSAG de pebbles: Se activa abriendo compuertas hacia acopio y fajas correspondientes.</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card highlight">
+                            <h3 class="card-title">Partida y detención normal de equipos — Consideraciones</h3>
+                            <div class="card-content">
+                                <p>Al detener alimentación al SAG: La descarga proviene solo del molino de bolas, permitiendo detener las bombas a hidrociclones. Molino de bolas: Se detiene siguiendo la secuencia de seguridad. Molino SAG: Se detiene según las recomendaciones del fabricante. Sistema de chancado de pebbles: Se detiene siguiendo la secuencia desde la faja receptora hasta la que retorna pebbles chancados al SAG.</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <h3 class="card-title">Detención normal</h3>
+                            <div class="card-content">
+                                <p>Detención normal: Fajas de recuperación desde acopio: Se detienen para interrumpir el flujo de pebbles. Faja de alimentación mineral al SAG: Se detiene para suspender la alimentación de mineral. Dosificación de reactivos: Se detiene para interrumpir la adición química. Agua de procesos: Se detiene para controlar el flujo de pulpa. Zaranda vibratoria: Se detiene para suspender la clasificación de material.</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <h3 class="card-title">Notas operacionales finales</h3>
+                            <div class="card-content">
+                                <p>Es fundamental respetar las secuencias de arranque y paro para evitar daños mecánicos y asegurar la seguridad del personal. Mantener registro de eventos y tendencias (torque, potencia, vibración, temperatura) para análisis post-evento y mejora continua. Asegurar que las alarmas críticas (baja presión, muy bajo nivel, velocidad anómala, potencia fuera de rango) estén correctamente configuradas y verificadas periódicamente.</p>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 80px;"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+    <script src="../../../js/M5/xM5_pg1.js"></script>
+</body>
+</html>

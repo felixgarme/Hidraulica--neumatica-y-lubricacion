@@ -1,0 +1,420 @@
+<div class="hangman-container">
+
+  <div class="hangman-content">
+    <div class="hangman-game-area">
+      <div class="hangman-drawing">
+        <svg class="hangman-svg" viewBox="0 0 200 250">
+          <line x1="10" y1="240" x2="190" y2="240" class="hangman-base" />
+          <line x1="50" y1="240" x2="50" y2="20" class="hangman-pole" />
+          <line x1="50" y1="20" x2="130" y2="20" class="hangman-top" />
+          <line x1="130" y1="20" x2="130" y2="50" class="hangman-rope" />
+          <circle cx="130" cy="70" r="20" class="hangman-part hangman-head" id="head" />
+          <line x1="130" y1="90" x2="130" y2="150" class="hangman-part hangman-body" id="body" />
+          <line x1="130" y1="110" x2="110" y2="130" class="hangman-part hangman-arm" id="leftarm" />
+          <line x1="130" y1="110" x2="150" y2="130" class="hangman-part hangman-arm" id="rightarm" />
+          <line x1="130" y1="150" x2="110" y2="180" class="hangman-part hangman-leg" id="leftleg" />
+          <line x1="130" y1="150" x2="150" y2="180" class="hangman-part hangman-leg" id="rightleg" />
+        </svg>
+      </div>
+
+      <div class="hangman-word-display" id="wordDisplay"></div>
+
+      <div class="hangman-keyboard" id="keyboard"></div>
+
+      <div class="hangman-status" id="status"></div>
+
+      <button class="hangman-reset-btn" id="resetBtn">Nueva Palabra</button>
+    </div>
+
+    <div class="hangman-keywords">
+      <h3 class="keywords-title">Palabras clave:</h3>
+      <ul class="keywords-list">
+        <li class="keyword-item">Carga Circulante</li>
+        <li class="keyword-item">Tasa de Recuperación</li>
+        <li class="keyword-item">Consumo Energético</li>
+        <li class="keyword-item">Eficiencia</li>
+        <li class="keyword-item">Malla de Corte</li>
+      </ul>
+    </div>
+    <div class="space"></div>
+  </div>
+</div>
+
+<style>
+.hangman-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  /* padding: 10px; */
+  /* background: #F5F7FA; */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hangman-header {
+  text-align: center;
+  margin: 0 0 10px 0;
+  padding: 10px;
+  background: linear-gradient(90deg, #FF0000 0%, #351EBD 33%, #3479F6 66%, #1F87C6 100%);
+  border-radius: 8px;
+}
+
+.hangman-title {
+  margin: 0 0 5px 0;
+  padding: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.hangman-subtitle {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.hangman-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.hangman-game-area {
+  background: #FFFFFF;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #DDE8F5;
+}
+
+.hangman-drawing {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 10px 0;
+}
+
+.hangman-svg {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+}
+
+.hangman-base,
+.hangman-pole,
+.hangman-top,
+.hangman-rope {
+  stroke: #031794;
+  stroke-width: 3;
+  fill: none;
+}
+
+.hangman-part {
+  stroke: #FF0000;
+  stroke-width: 3;
+  fill: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hangman-part.show {
+  opacity: 1;
+}
+
+.hangman-head {
+  stroke: #FF0000;
+}
+
+.hangman-word-display {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 8px;
+  margin: 0 0 10px 0;
+  padding: 10px;
+  color: #031794;
+  min-height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hangman-keyboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(35px, 1fr));
+  gap: 5px;
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+
+.hangman-key {
+  background: linear-gradient(135deg, #031794 0%, #2A5BDF 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hangman-key:hover:not(:disabled) {
+  background: linear-gradient(135deg, #2A5BDF 0%, #6B8BDF 100%);
+  transform: translateY(-2px);
+}
+
+.hangman-key:disabled {
+  background: #B9B9B9;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.hangman-status {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  padding: 8px;
+  border-radius: 5px;
+  min-height: 36px;
+}
+
+.hangman-status.win {
+  background: #E5F0F9;
+  color: #031794;
+  border: 2px solid #031794;
+}
+
+.hangman-status.lose {
+  background: #FFE5E5;
+  color: #FF0000;
+  border: 2px solid #FF0000;
+}
+
+.hangman-reset-btn {
+  width: 100%;
+  background: linear-gradient(90deg, #FF0000 0%, #351EBD 33%, #3479F6 66%, #1F87C6 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hangman-reset-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(3, 23, 148, 0.3);
+}
+
+.hangman-keywords {
+  background: #E5F0F9;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #031794;
+}
+
+.keywords-title {
+  margin: 0 0 8px 0;
+  padding: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #031794;
+}
+
+.keywords-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.keyword-item {
+  background: #FFFFFF;
+  margin: 0 0 5px 0;
+  padding: 8px;
+  border-radius: 5px;
+  border-left: 4px solid #031794;
+  color: #4D4D4E;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.keyword-item:last-child {
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .hangman-container {
+    padding: 10px;
+  }
+
+  .hangman-content {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .hangman-title {
+    font-size: 36px;
+  }
+
+  .hangman-subtitle {
+    font-size: 24px;
+  }
+
+  .hangman-word-display {
+    font-size: 40px;
+    letter-spacing: 10px;
+  }
+
+  .hangman-keyboard {
+    grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+    gap: 8px;
+  }
+
+  .hangman-key {
+    padding: 10px;
+    font-size: 18px;
+  }
+  .space {
+    margin-bottom: 80px;
+  }
+
+}
+
+@media (min-width: 1280px) {
+  .hangman-svg {
+    max-width: 250px;
+  }
+
+  .hangman-word-display {
+    font-size: 48px;
+    letter-spacing: 12px;
+  }
+
+  .hangman-keyboard {
+    grid-template-columns: repeat(13, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .space {
+    margin-bottom: 80px;
+  }
+}
+</style>
+<script>
+    const words = [
+  'CARGACIRCULANTE',
+  'TASADERECUPERACION',
+  'CONSUMOENERGETICO',
+  'EFICIENCIA',
+  'MALLADECORTE'
+];
+
+let selectedWord = '';
+let guessedLetters = [];
+let wrongGuesses = 0;
+const maxWrongGuesses = 6;
+
+const wordDisplay = document.getElementById('wordDisplay');
+const keyboard = document.getElementById('keyboard');
+const status = document.getElementById('status');
+const resetBtn = document.getElementById('resetBtn');
+
+const hangmanParts = ['head', 'body', 'leftarm', 'rightarm', 'leftleg', 'rightleg'];
+
+function initGame() {
+  selectedWord = words[Math.floor(Math.random() * words.length)];
+  guessedLetters = [];
+  wrongGuesses = 0;
+  status.textContent = '';
+  status.className = 'hangman-status';
+  
+  hangmanParts.forEach(part => {
+    const element = document.getElementById(part);
+    if (element) {
+      element.classList.remove('show');
+    }
+  });
+  
+  createKeyboard();
+  updateWordDisplay();
+}
+
+function createKeyboard() {
+  keyboard.innerHTML = '';
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  
+  for (let letter of letters) {
+    const button = document.createElement('button');
+    button.textContent = letter;
+    button.className = 'hangman-key';
+    button.addEventListener('click', () => handleGuess(letter, button));
+    keyboard.appendChild(button);
+  }
+}
+
+function updateWordDisplay() {
+  const display = selectedWord
+    .split('')
+    .map(letter => (guessedLetters.includes(letter) ? letter : '_'))
+    .join(' ');
+  wordDisplay.textContent = display;
+}
+
+function handleGuess(letter, button) {
+  if (guessedLetters.includes(letter)) return;
+  
+  guessedLetters.push(letter);
+  button.disabled = true;
+  
+  if (selectedWord.includes(letter)) {
+    updateWordDisplay();
+    checkWin();
+  } else {
+    wrongGuesses++;
+    showHangmanPart();
+    checkLose();
+  }
+}
+
+function showHangmanPart() {
+  if (wrongGuesses <= hangmanParts.length) {
+    const part = document.getElementById(hangmanParts[wrongGuesses - 1]);
+    if (part) {
+      part.classList.add('show');
+    }
+  }
+}
+
+function checkWin() {
+  // Comprueba si todas las letras de la palabra han sido adivinadas
+  if (selectedWord.split('').every(letter => guessedLetters.includes(letter))) {
+    status.textContent = 'Felicidades, has ganado';
+    status.className = 'hangman-status win';
+    disableAllKeys();
+    // ----- MODIFICACIÓN AQUÍ -----
+    // Envía el mensaje a la consola cuando se gana el juego
+    console.log('ahoracado-terminado');
+    window.parent.postMessage('ahoracado-terminado', '*');
+  }
+}
+
+function checkLose() {
+  if (wrongGuesses >= maxWrongGuesses) {
+    status.textContent = `Perdiste. La palabra era: ${selectedWord}`;
+    status.className = 'hangman-status lose';
+    disableAllKeys();
+  }
+}
+
+function disableAllKeys() {
+  const keys = document.querySelectorAll('.hangman-key');
+  keys.forEach(key => key.disabled = true);
+}
+
+resetBtn.addEventListener('click', initGame);
+
+initGame();
+</script>

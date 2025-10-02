@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curso de Operaciones de Control Manual</title>
+  <link rel="stylesheet" href="../../../assets/css/M3/css_pg1.css">
+  
+</head>
+<body>
+  
+  <div class="curso-container">
+    
+    <div class="curso-content">
+      <div class="modulo-cards">
+        <div class="modulo-card active" id="card-bombas">
+          <div class="card-header">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor" stroke="none"/>
+                <path d="M2 17L12 22L22 17"/>
+                <path d="M2 12L12 17L22 12"/>
+              </svg>
+            </div>
+            <h2>Secuencias de operación bombas de alimentación nido hidrociclones</h2>
+          </div>
+          <div class="card-content">
+            <div class="proceso-item">
+              <h3>Control de Partida y Detención</h3>
+              <p>En el modo manual, el operador selecciona las secuencias de partida y detención de la bomba de forma manual.</p>
+              <div class="destacado-box">
+                <strong>Función clave:</strong> Control manual de inicio y detención de bombas
+              </div>
+            </div>
+            <div class="proceso-item">
+              <h3>Control de Válvulas y Velocidad</h3>
+              <p>El operador tiene control sobre la apertura y cierre de las válvulas, la activación de la bomba y el ajuste de la velocidad.</p>
+              <div class="parametros-box">
+                <div class="parametro">
+                  <span class="parametro-label">Control:</span>
+                  <span class="parametro-valor">Válvulas, activación y velocidad</span>
+                </div>
+                <div class="parametro">
+                  <span class="parametro-label">Ubicación:</span>
+                  <span class="parametro-valor">Sala de control</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modulo-card" id="card-hidrociclones">
+          <div class="card-header">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6V12L16 14"/>
+              </svg>
+            </div>
+            <h2>Control nido hidrociclones</h2>
+          </div>
+          <div class="card-content">
+            <div class="proceso-item">
+              <h3>Ajuste de Cantidad de Hidrociclones</h3>
+              <p>En modo manual, el operador puede ajustar la cantidad de hidrociclones en operación, agregando o quitando hidrociclones mediante el control de las válvulas on/off.</p>
+              <div class="control-box">
+                <div class="control-item">
+                  <span class="control-label">Parámetro:</span>
+                  <span class="control-valor">Cantidad de hidrociclones</span>
+                </div>
+                <div class="control-item">
+                  <span class="control-label">Tipo:</span>
+                  <span class="control-valor">Válvulas on/off</span>
+                </div>
+              </div>
+            </div>
+            <div class="proceso-item">
+              <h3>Ajuste de Adición de Agua y Alimentación</h3>
+              <p>El operador puede ajustar manualmente la referencia para la adición de agua al cajón y la alimentación de los molinos SAG, de acuerdo con los parámetros operativos requeridos.</p>
+              <div class="alarma-box">
+                <strong>Criterio de ajuste:</strong> Parámetros operativos requeridos
+              </div>
+              <div class="spacex"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="navegacion-controles">
+        <button class="nav-btn active" data-target="card-bombas">
+          <span class="btn-icon">1</span>
+          <span class="btn-text">Bombas</span>
+        </button>
+        <button class="nav-btn" data-target="card-hidrociclones">
+          <span class="btn-icon">2</span>
+          <span class="btn-text">Hidrociclones</span>
+        </button>
+      </div>
+
+      <div class="progreso-bar">
+        <div class="progreso-fill"></div>
+        <div class="progreso-indicador" style="left: 0%;">1</div>
+        <div class="progreso-indicador" style="left: 100%;">2</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../../assets/js/M3/js_pg1.js"></script>
+</body>
+</html>

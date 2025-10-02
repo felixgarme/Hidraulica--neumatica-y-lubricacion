@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curso de Operaciones de Control Manual</title>
+  <link rel="stylesheet" href="../../../assets/css/M3/css_pg1.css">
+  
+</head>
+<body>
+  
+  <div class="curso-container">
+    
+    <div class="curso-content">
+      <div class="modulo-cards">
+        <div class="modulo-card active" id="card-dilucion">
+          <div class="card-header">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor" stroke="none"/>
+                <path d="M2 17L12 22L22 17"/>
+                <path d="M2 12L12 17L22 12"/>
+              </svg>
+            </div>
+            <h2>Control de dilución alimentación a molino SAG</h2>
+          </div>
+          <div class="card-content">
+            <div class="proceso-item">
+              <h3>Ajuste de Referencia de Concentración</h3>
+              <p>El operador en la sala de control ingresa manualmente la referencia de concentración en sólidos (Cpref).</p>
+              <div class="destacado-box">
+                <strong>Función clave:</strong> Ingreso manual de Cpref
+              </div>
+            </div>
+            <div class="proceso-item">
+              <h3>Regulación del Flujo de Agua</h3>
+              <p>El operador ajusta la apertura de la válvula de control (3210-FV-071/171) para regular el flujo de agua de dilución.</p>
+              <div class="parametros-box">
+                <div class="parametro">
+                  <span class="parametro-label">Control:</span>
+                  <span class="parametro-valor">Válvula 3210-FV-071/171</span>
+                </div>
+                <div class="parametro">
+                  <span class="parametro-label">Ubicación:</span>
+                  <span class="parametro-valor">Sala de control</span>
+                </div>
+              </div>
+            </div>
+            <div class="proceso-item">
+              <h3>Posición de Falla de la Válvula</h3>
+              <p>La posición de falla de la válvula permanecerá en la última posición registrada.</p>
+              <div class="alerta-box">
+                <strong>Comportamiento en falla:</strong> Se mantiene la última posición
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modulo-card" id="card-trommel">
+          <div class="card-header">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6V12L16 14"/>
+              </svg>
+            </div>
+            <h2>Trommel molino SAG y zaranda vibratoria</h2>
+          </div>
+          <div class="card-content">
+            <div class="proceso-item">
+              <h3>Ajuste de Flujo de Agua de Lavado</h3>
+              <p>El operador en la sala de control ajusta manualmente los valores de referencia del flujo de agua para el lavado del trommel y la zaranda (3210-FV-073/173 y 3210-FV-074/174), basándose en inspecciones en terreno.</p>
+              <div class="control-box">
+                <div class="control-item">
+                  <span class="control-label">Parámetro:</span>
+                  <span class="control-valor">Flujo de agua de lavado</span>
+                </div>
+                <div class="control-item">
+                  <span class="control-label">Válvulas:</span>
+                  <span class="control-valor">3210-FV-073/173 y 3210-FV-074/174</span>
+                </div>
+              </div>
+            </div>
+            <div class="proceso-item">
+              <h3>Supervisión de Alarmas y Enclavamientos</h3>
+              <p>El operador supervisa alarmas y enclavamientos, tomando decisiones sobre la detención de equipos si es necesario.</p>
+              <div class="alarma-box">
+                <strong>Protocolo:</strong> Supervisión y toma de decisiones
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="navegacion-controles">
+        <button class="nav-btn active" data-target="card-dilucion">
+          <span class="btn-icon">1</span>
+          <span class="btn-text">Control de dilución</span>
+        </button>
+        <button class="nav-btn" data-target="card-trommel">
+          <span class="btn-icon">2</span>
+          <span class="btn-text">Trommel y Zaranda</span>
+        </button>
+      </div>
+
+      <div class="progreso-bar">
+        <div class="progreso-fill"></div>
+        <div class="progreso-indicador" style="left: 0%;">1</div>
+        <div class="progreso-indicador" style="left: 100%;">2</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../../assets/js/M3/js_pg1.js"></script>
+</body>
+</html>

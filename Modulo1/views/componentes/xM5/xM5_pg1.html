@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operación Local - Curso Interactivo</title>
+    <link rel="stylesheet" href="../../../assets/css/M5/xM5_p1.css">
+</head>
+<body>
+    <div class="curso-container">
+
+        <nav class="curso-nav">
+            <button class="nav-btn active" data-slide="1">Alimentación Molino SAG</button>
+            <button class="nav-btn" data-slide="2">Diagrama Tent</button>
+            <button class="nav-btn" data-slide="3">Control de Nivel</button>
+        </nav>
+
+        <main class="curso-main">
+            <div class="slide-controls">
+                <button class="control-btn" id="prevBtn">Anterior</button>
+                <div class="slide-indicators">
+                    <span class="indicator active" data-slide="1"></span>
+                    <span class="indicator" data-slide="2"></span>
+                    <span class="indicator" data-slide="3"></span>
+                </div>
+                <button class="control-btn" id="nextBtn">Siguiente</button>
+            </div>
+            
+            <div class="slide-container">
+                <div class="slide active" id="slide-1">
+                    <div class="slide-header">
+                        <h2 class="slide-title">Alimentación Molino SAG</h2>
+                    </div>
+
+                    <div class="content-grid">
+                        <div class="info-card">
+                            <h3 class="card-title">Fuentes de alimentación</h3>
+                            <div class="card-content">
+                                <p>Mineral fresco del acopio, pebbles chancados (SABC-A) y pebbles recirculados (DSAG), más carga de bolas.</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <h3 class="card-title">Control de flujo másico</h3>
+                            <div class="card-content">
+                                <p>Medición en faja de alimentación mediante balanza; velocidad de fajas ajustada automáticamente por controlador de tonelaje (WIC).</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <h3 class="card-title">Optimización de operación</h3>
+                            <div class="card-content">
+                                <p>Control avanzado coordinado entre controlador de potencia del molino (JIC) y flujo másico (WIC), considerando granulometría del mineral (P80) para evitar sobrecarga y optimizar consumo.</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <h3 class="card-title">Arranque seguro</h3>
+                            <div class="card-content">
+                                <p>Uso de variador de velocidad para partir con carga gradualmente.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 80px;"></div>
+                </div>
+
+                <div class="slide" id="slide-2">
+                    <div class="slide-header">
+                        <h2 class="slide-title">Diagrama Tent para Molino SAG</h2>
+
+                    </div>
+
+                    <div class="diagram-container">
+                        <div class="diagram-info">
+                            <h3 class="diagram-specs">Especificaciones: 40' x 22' EGL, 24% carga total, liners nuevos (Metso)</h3>
+                        </div>
+                        <img src="../../../assets/images/M5/A.jpeg" alt="Diagrama Tent de Molino SAG">
+                    </div>
+                </div>
+
+                <div class="slide" id="slide-3">
+                    <div class="slide-header">
+                        <h2 class="slide-title">Control de Nivel en Cajones de Descarga</h2>
+     
+                    </div>
+
+                    <div class="content-grid">
+                        <div class="info-card highlight">
+                            <h3 class="card-title">Control de nivel estable</h3>
+                            <div class="card-content">
+                                <p>Se mantiene nivel estable en los cajones de descarga de los molinos SAG midiendo pulpa y ajustando la velocidad de las bombas de alimentación a los hidrociclones.</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <h3 class="card-title">Sistema de alarmas</h3>
+                            <div class="card-content">
+                                <p>Alarmas generadas: nivel alto, muy alto, bajo y muy bajo; este último provoca enclavamiento y detención de bombas.</p>
+                                <div class="alarm-indicators">
+                                    <span class="alarm-level very-high">Muy Alto</span>
+                                    <span class="alarm-level high">Alto</span>
+                                    <span class="alarm-level low">Bajo</span>
+                                    <span class="alarm-level very-low">Muy Bajo</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <h3 class="card-title">Sistema de drenaje</h3>
+                            <div class="card-content">
+                                <p>Drenaje de cajones mediante válvulas on/off controladas desde sala; posición de falla última conocida.</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <h3 class="card-title">Prevención de embanques</h3>
+                            <div class="card-content">
+                                <p>Se asegura velocidad mínima de bombas para evitar embanques en líneas de pulpa.</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card highlight">
+                            <h3 class="card-title">Condiciones de arranque</h3>
+                            <div class="card-content">
+                                <p>Arranque de bombas bloqueado si hay flujo bajo de agua de sello, faja transportadora detenida o molinos SAG y carga de bolas detenidos.</p>
+                                <div class="status-grid">
+                                    <div class="status-item">
+                                        <span class="status-icon ok"></span>
+                                        <span>Agua de sello OK</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-icon ok"></span>
+                                        <span>Faja operando</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-icon ok"></span>
+                                        <span>Molino SAG activo</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-icon ok"></span>
+                                        <span>Carga de bolas OK</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div style="margin-bottom: 50px;"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+<script src="../../../js/M5/xM5_pg1.js"></script>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curso de Operaciones de Control Manual</title>
+  <link rel="stylesheet" href="../../../assets/css/M3/css_pg1.css">
+  
+</head>
+<body>
+  
+  <div class="curso-container">
+    
+    <div class="curso-content">
+      <div class="modulo-cards">
+        <div class="modulo-card active" id="card-pebbles">
+          <div class="card-header">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="currentColor" stroke="none"/>
+                <path d="M2 17L12 22L22 17"/>
+                <path d="M2 12L12 17L22 12"/>
+              </svg>
+            </div>
+            <h2>Chancado de Pebbles</h2>
+          </div>
+          <div class="card-content">
+            <div class="proceso-item">
+              <h3>Control del Flujo de Material</h3>
+              <p>En el modo manual, el operador controla directamente el flujo de pebbles mediante comandos desde la sala de control. Esto incluye la apertura o cierre de compuertas, la regulación de fajas transportadoras y la respuesta a alarmas o fallas en el sistema.</p>
+              <div class="destacado-box">
+                <strong>Funciones clave:</strong> Control de compuertas, regulación de fajas, respuesta a alarmas
+              </div>
+            </div>
+            <div class="proceso-item">
+              <h3>Manejo de Desvíos</h3>
+              <p>El operador debe tomar decisiones sobre el flujo de material a los molinos SAG y manejar desvíos o desvíos de flujo según las condiciones operativas.</p>
+              <div class="parametros-box">
+                <div class="parametro">
+                  <span class="parametro-label">Decisiones:</span>
+                  <span class="parametro-valor">Flujo a molinos SAG, manejo de desvíos</span>
+                </div>
+                <div class="parametro">
+                  <span class="parametro-label">Criterio:</span>
+                  <span class="parametro-valor">Condiciones operativas</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modulo-card" id="card-energia">
+          <div class="card-header">
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6V12L16 14"/>
+              </svg>
+            </div>
+            <h2>Operación con corte de energía</h2>
+          </div>
+          <div class="card-content">
+            <div class="proceso-item">
+              <h3>Gestión de Equipos Críticos</h3>
+              <p>En caso de corte de energía, el operador podrá gestionar manualmente los equipos críticos, activando las bombas de sumidero y manejando el cargador frontal para retirar los sólidos gruesos.</p>
+              <div class="control-box">
+                <div class="control-item">
+                  <span class="control-label">Acciones:</span>
+                  <span class="control-valor">Activación de bombas, manejo de cargador frontal</span>
+                </div>
+                <div class="control-item">
+                  <span class="control-label">Objetivo:</span>
+                  <span class="control-valor">Retiro de sólidos gruesos</span>
+                </div>
+              </div>
+            </div>
+            <div class="proceso-item">
+              <h3>Limpieza de Cañerías</h3>
+              <p>El operador también es responsable de realizar la limpieza de las cañerías para evitar obstrucciones.</p>
+              <div class="alarma-box">
+                <strong>Función:</strong> Limpieza manual de cañerías
+              </div>
+              <div class="spacex"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="navegacion-controles">
+        <button class="nav-btn active" data-target="card-pebbles">
+          <span class="btn-icon">1</span>
+          <span class="btn-text">Chancado de Pebbles</span>
+        </button>
+        <button class="nav-btn" data-target="card-energia">
+          <span class="btn-icon">2</span>
+          <span class="btn-text">Corte de Energía</span>
+        </button>
+      </div>
+
+      <div class="progreso-bar">
+        <div class="progreso-fill"></div>
+        <div class="progreso-indicador" style="left: 0%;">1</div>
+        <div class="progreso-indicador" style="left: 100%;">2</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../../assets/js/M3/js_pg1.js"></script>
+</body>
+</html>

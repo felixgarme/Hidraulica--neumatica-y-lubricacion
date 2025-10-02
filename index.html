@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirigiendo...</title>
+    <link rel="icon" href="assets/images/ico.png" type="image/png">
+
+
+    <link rel="icon" href="./Modulo 1 - Manual de operación de - grúa articulada Fassi, Hiab, Hyva/assets/images/ico.png" type="image/png">
+    
+    <noscript>
+        <meta http-equiv="refresh" content="0; url=./menu_principal/vista_general.html">
+    </noscript>
+
+    <style>
+        /* --- Paleta de Colores --- */
+        :root {
+            /* Neutros */
+            --neutral-1: #031794;
+            --neutral-3: #2A5BDF;
+            --neutral-4: #FFFFFF;
+            /* Bordes */
+            --border-1: #DDE8F5;
+            /* Texto */
+            --text-1: #4D4D4E;
+            /* Fondo */
+            --background-1: #F1F1F1;
+            /* Títulos */
+            --title-2: #031794;
+        }
+
+        /* --- Estilos Generales --- */
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: var(--background-1);
+            color: var(--text-1);
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* --- Animación de Carga --- */
+        .loader {
+            margin: 0 auto 20px auto;
+            border: 5px solid var(--border-1);
+            border-top: 5px solid var(--neutral-1);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* --- Textos y Enlaces --- */
+        h1 {
+            color: var(--title-2);
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1rem;
+        }
+
+        #fallback-message {
+            display: none; /* Oculto por defecto */
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+
+        #fallback-message a {
+            color: var(--neutral-3);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        #fallback-message a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="loader"></div>
+        <h1>Redirigiendo</h1>
+        <p>Por favor, espera un momento.</p>
+        
+        <div id="fallback-message">
+            <p>
+                Si no eres redirigido, <a href="./menu_principal/vista_general.html">haz clic aquí</a>.
+                <br>
+                Si el problema persiste, <a href="../menu_principal/error.html">ve a la página de error</a>.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // URLs de destino
+            const primaryUrl = './menu_principal/vista_general.html';
+            const errorUrl = '../menu_principal/error.html';
+
+            // Muestra el mensaje de fallback después de 3 segundos si la redirección aún no ha ocurrido.
+            setTimeout(function() {
+                document.getElementById('fallback-message').style.display = 'block';
+            }, 3000);
+            
+            // Intenta redirigir a la URL principal.
+            // Usamos fetch para verificar si el archivo existe antes de redirigir.
+            fetch(primaryUrl, { method: 'HEAD' })
+                .then(response => {
+                    if (response.ok) {
+                        // Si el archivo existe (respuesta 2xx), redirige.
+                        window.location.replace(primaryUrl);
+                    } else {
+                        // Si el archivo no existe (respuesta 4xx/5xx), redirige a la página de error.
+                        window.location.replace(errorUrl);
+                    }
+                })
+                .catch(() => {
+                    // Si hay un error de red (ej. CORS, sin conexión), redirige a la página de error.
+                    window.location.replace(errorUrl);
+                });
+        })();
+    </script>
+
+</body>
+</html>
