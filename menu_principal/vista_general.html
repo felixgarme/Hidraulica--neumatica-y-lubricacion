@@ -22,7 +22,7 @@
 
     <div class="main-container">
         <header class="page-header">
-            <h1 class="gradient-text">C-04 OPERACION DEL CIRCUITO</h1>
+            <h1 class="gradient-text">Hidraulica, Neumatica y Lubricacion</h1>
             <h4>Elige aquí el curso con el que quieres comenzar tu aprendizaje</h4>
         </header>
 
@@ -31,7 +31,7 @@
                 <div class="card" style="background-image: url('images/caratulas/A.jpg');">
                     <img src="images/logo_blanco.png" alt="Logo AngloAmerican" class="logo-inicio">
                     <div class="inicio-box">
-                        <h1 class="inicio-title">Operacion del Circuito pt1</h1>
+                        <h1 class="inicio-title">Hidraulica</h1>
                         <button id="empezarBtn-1" class="start-button-card">Comenzar</button>
                     </div>
                 </div>
@@ -39,8 +39,16 @@
                 <div class="card" style="background-image: url('images/caratulas/B.jpg');">
                     <img src="images/logo_blanco.png" alt="Logo AngloAmerican" class="logo-inicio">
                     <div class="inicio-box">
-                        <h1 class="inicio-title">Operacion del Circuito pt2</h1>
+                        <h1 class="inicio-title">Neumática</h1>
                         <button id="empezarBtn-2" class="start-button-card">Comenzar</button>
+                    </div>
+                </div>
+
+                <div class="card" style="background-image: url('images/caratulas/C.jpg');">
+                    <img src="images/logo_blanco.png" alt="Logo AngloAmerican" class="logo-inicio">
+                    <div class="inicio-box">
+                        <h1 class="inicio-title">Lubricación</h1>
+                        <button id="empezarBtn-3" class="start-button-card">Comenzar</button>
                     </div>
                 </div>
             </div>
@@ -93,7 +101,12 @@
 
         document.getElementById('empezarBtn-2').addEventListener('click', () => {
             // Asegúrate de que esta ruta sea la correcta para el nuevo módulo
-            abrirModulo("../Modulo2/index.html");
+            abrirModulo("../Modulo2/indexs.html");
+        });
+
+        document.getElementById('empezarBtn-3').addEventListener('click', () => {
+            // Asegúrate de que esta ruta sea la correcta para el nuevo módulo
+            abrirModulo("../Modulo3/index.html");
         });
 
         function backPage() {
