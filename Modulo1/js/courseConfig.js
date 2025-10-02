@@ -4,7 +4,7 @@
 const courseConfig = {
     // Información general del curso
     courseInfo: {
-        title: "C-04 Operacion del Circuito - Parte 1",
+        title: "Hidráulica",
         company: "Quellaveco",
         version: "1.0"
     },
