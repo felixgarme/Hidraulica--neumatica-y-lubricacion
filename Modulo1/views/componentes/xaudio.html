@@ -373,9 +373,8 @@
 
     audio.addEventListener('ended', () => {
         console.log("audio-terminado");
-        if (window.parent) {
-            window.parent.postMessage({ type: 'audio-ended' }, '*');
-        }
+        window.parent.postMessage({ type: 'audio-ended' }, '*');
+        
     });
 
     // Estado inicial
