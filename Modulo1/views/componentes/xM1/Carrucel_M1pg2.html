@@ -214,7 +214,7 @@
         <div class="carousel-track" id="carouselTrack">
 
           <div class="carousel-slide">
-            <img src="https://i.imgur.com/rLzF43B.png" alt="Actuadores Hidráulicos Lineales" class="slide-image">
+            <img src="../../../assets/images/M1/a.png" alt="Actuadores Hidráulicos Lineales" class="slide-image">
             <div class="slide-text">
               <h2 class="slide-title">Actuadores Hidráulicos Lineales</h2>
               <div class="slide-content">
@@ -224,7 +224,7 @@
           </div>
 
           <div class="carousel-slide">
-            <img src="https://i.imgur.com/gK9tO3s.png" alt="Cilindro de Simple Efecto" class="slide-image">
+            <img src="../../../assets/images/M1/b.png" alt="Cilindro de Simple Efecto" class="slide-image">
             <div class="slide-text">
               <h2 class="slide-title">Actuadores de Simple Efecto</h2>
               <div class="slide-content">
@@ -234,7 +234,7 @@
           </div>
 
           <div class="carousel-slide">
-            <img src="https://i.imgur.com/h5E42A6.png" alt="Retorno por Carga Externa" class="slide-image">
+            <video src="../../../assets/media/M1/a.mp4" class="slide-image" autoplay muted loop playsinline alt="Retorno por Carga Externa"></video>
             <div class="slide-text">
               <h2 class="slide-title">Retorno y Aplicaciones del Simple Efecto</h2>
               <div class="slide-content">
@@ -244,7 +244,7 @@
           </div>
 
           <div class="carousel-slide">
-            <img src="https://i.imgur.com/k6lP7fX.png" alt="Cilindro de Doble Efecto" class="slide-image">
+            <video src="../../../assets/media/M1/b.mp4" class="slide-image" autoplay muted loop playsinline alt="Retorno por Carga Externa"></video>
             <div class="slide-text">
               <h2 class="slide-title">Actuadores de Doble Efecto</h2>
               <div class="slide-content">
@@ -254,7 +254,7 @@
           </div>
           
           <div class="carousel-slide">
-            <img src="https://i.imgur.com/0uB3qA9.png" alt="Componentes y Problemas Comunes" class="slide-image">
+            <video src="../../../assets/media/M1/c.mp4" class="slide-image" autoplay muted loop playsinline alt="Retorno por Carga Externa"></video>
             <div class="slide-text">
               <h2 class="slide-title">Características Comunes</h2>
               <div class="slide-content">
@@ -264,14 +264,25 @@
           </div>
           
           <div class="carousel-slide">
-            <img src="https://i.imgur.com/q2yBw8j.png" alt="Simbología de Actuadores" class="slide-image">
+            <video src="../../../assets/media/M1/c.mp4" alt="Simbología de Actuadores" class="slide-image" autoplay muted loop playsinline></video>
             <div class="slide-text">
               <h2 class="slide-title">Simbología en Planos</h2>
               <div class="slide-content">
-               La simbología gráfica apenas varía entre neumática e hidráulica. En los planos, los cilindros se representan de forma idéntica, y la diferencia se establece por la <b>fuente de energía</b> del sistema: una red neumática o una central hidráulica.
+              La simbología gráfica apenas varía entre neumática e hidráulica. En los planos, los cilindros se representan de forma idéntica, y la diferencia se establece por la <b>fuente de energía</b> del sistema: una red neumática o una central hidráulica.
               </div>
             </div>
           </div>
+
+          <div class="carousel-slide">
+            <img src="../../../assets/images/M1/c.png" alt="Cilindro de Simple Efecto" class="slide-image">
+            <div class="slide-text">
+              <h2 class="slide-title">Actuadores de Simple Efecto</h2>
+              <div class="slide-content">
+                Poseen una sola entrada de aceite (cámara de inyección) y, por lo tanto, están diseñados para realizar trabajo en una única dirección. El retorno a la posición inicial no se realiza por presión de aceite.
+              </div>
+            </div>
+          </div>
+
 
         </div>
       </div>
@@ -310,6 +321,14 @@
           prevButton.disabled = currentSlideIndex === 0;
           nextButton.disabled = currentSlideIndex === totalSlides - 1;
           
+          // --- INICIO DE LA MODIFICACIÓN ---
+          // Comprueba si el carrusel está en la última diapositiva
+          if (currentSlideIndex === totalSlides - 1) {
+            console.log("carrucel-terminado");
+            window.parent.postMessage("carrucel-terminado", "*");
+          }
+          // --- FIN DE LA MODIFICACIÓN ---
+
           Array.from(indicatorsContainer.children).forEach((indicator, index) => {
             indicator.classList.toggle('active', index === currentSlideIndex);
           });

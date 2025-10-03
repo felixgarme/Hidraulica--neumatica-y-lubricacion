@@ -80,7 +80,7 @@
         </button>
       </div>
 
-      <audio id="audioPlayer" preload="metadata" controlslist="nodownload" playsinline crossorigin="anonymous">
+      <audio id="audioPlayer" preload="metadata" controlslist="nodownload" playsinline crossorigin="anonymous" autoplay>
         <source id="audioSource" src="" type="audio/wav" />
         Tu navegador no soporta el elemento de audio.
       </audio>
@@ -181,6 +181,8 @@
     }
 
     setAudioSrc();
+    // NOTA: El atributo 'autoplay' en el HTML ya intenta la reproducción.
+    // Este listener en JS sirve como un respaldo y para manejar el estado visual.
     audio.addEventListener('canplay', tryAutoplay, { once: true });
     
     // --- LÓGICA DEL ESPECTRO ---
