@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Hidráulica</title>
+  <style>
+    /* Estilos generales para el cuerpo del documento dentro del iframe */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: #FFFFFF; /* Fondo blanco para que se integre bien */
+    }
+
+    /* Estilos originales de la calculadora */
+    .hydraulic-calculator-container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    /* .hydraulic-calculator-content {
+      background: #FFFFFF;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 2px 8px rgba(3, 23, 148, 0.1);
+    } */
+
+    .hydraulic-calculator-header {
+      margin-bottom: 10px;
+    }
+
+    .hydraulic-calculator-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin: 0 0 8px 0;
+      background: linear-gradient(90deg, #FF0000 0%, #351EBD 33%, #3479F6 66%, #1F87C6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hydraulic-calculator-subtitle {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0;
+      color: #031794;
+    }
+
+    .hydraulic-calculator-problem {
+      background: #F5F7FA;
+      border: 2px solid #DDE8F5;
+      border-radius: 6px;
+      padding: 10px;
+      margin: 10px 0;
+    }
+
+    .hydraulic-calculator-question {
+      margin: 0;
+      font-size: 16px;
+      color: #4D4D4E;
+      line-height: 1.5;
+    }
+
+    .hydraulic-calculator-inputs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    .hydraulic-calculator-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .hydraulic-calculator-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #031794;
+    }
+
+    .hydraulic-calculator-input {
+      padding: 8px 10px;
+      font-size: 16px;
+      border: 2px solid #DDE8F5;
+      border-radius: 6px;
+      background: #FFFFFF;
+      color: #4D4D4E;
+      transition: border-color 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    .hydraulic-calculator-input:focus {
+      outline: none;
+      border-color: #031794;
+    }
+
+    .hydraulic-calculator-btn {
+      width: 100%;
+      padding: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #FFFFFF;
+      background: linear-gradient(90deg, #FF0000 0%, #351EBD 33%, #3479F6 66%, #1F87C6 100%);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 10px 0;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .hydraulic-calculator-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(3, 23, 148, 0.3);
+    }
+
+    .hydraulic-calculator-btn:active {
+      transform: translateY(0);
+    }
+
+    .hydraulic-calculator-result {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .hydraulic-calculator-result.hydraulic-calc-show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .hydraulic-calculator-result-box {
+      background: #E5F0F9;
+      border: 2px solid #031794;
+      border-radius: 6px;
+      padding: 10px;
+      min-width: 200px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .hydraulic-calculator-result-label {
+      font-size: 16px;
+      font-weight: 600;
+      color: #031794;
+    }
+
+    .hydraulic-calculator-result-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #031794;
+    }
+
+    .hydraulic-calculator-explanation {
+      background: #F5F7FA;
+      border: 2px solid #DDE8F5;
+      border-radius: 6px;
+      padding: 10px;
+      margin: 10px 0;
+      display: none;
+    }
+
+    .hydraulic-calculator-explanation.hydraulic-calc-show {
+      display: block;
+    }
+
+    .hydraulic-calculator-explanation-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #031794;
+      margin: 0 0 8px 0;
+    }
+
+    .hydraulic-calculator-explanation-content {
+      font-size: 14px;
+      color: #4D4D4E;
+      line-height: 1.6;
+    }
+
+    .hydraulic-calculator-explanation-step {
+      margin: 6px 0;
+      padding: 6px 10px;
+      background: #FFFFFF;
+      border-left: 3px solid #031794;
+      border-radius: 3px;
+    }
+
+    .hydraulic-calculator-formula {
+      background: #FFFFFF;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      margin: 4px 0;
+      color: #031794;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .hydraulic-calculator-title {
+        font-size: 24px;
+      }
+
+      .hydraulic-calculator-subtitle {
+        font-size: 18px;
+      }
+
+      .hydraulic-calculator-question {
+        font-size: 14px;
+      }
+
+      .hydraulic-calculator-inputs {
+        grid-template-columns: 1fr;
+      }
+
+      .hydraulic-calculator-result-value {
+        font-size: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hydraulic-calculator-title {
+        font-size: 20px;
+      }
+
+      .hydraulic-calculator-subtitle {
+        font-size: 16px;
+      }
+
+      .hydraulic-calculator-btn {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hydraulic-calculator-container">
+    <div class="hydraulic-calculator-content">
+      <div class="hydraulic-calculator-header">
+        <h1 class="hydraulic-calculator-title">Ejercicio interactivo</h1>
+        <h2 class="hydraulic-calculator-subtitle">Cálculo de caudal en un cilindro hidráulico</h2>
+      </div>
+
+      <div class="hydraulic-calculator-problem">
+        <p class="hydraulic-calculator-question">
+          ¿Cuál es el caudal necesario para que el vástago de un cilindro <strong>80/40/300</strong> se extienda a una velocidad de <strong>0.4 m/s</strong>?
+        </p>
+      </div>
+
+      <div class="hydraulic-calculator-inputs">
+        <div class="hydraulic-calculator-input-group">
+          <label class="hydraulic-calculator-label" for="hydraulic-calc-piston-diameter">Diámetro del pistón (mm)</label>
+          <input type="number" id="hydraulic-calc-piston-diameter" class="hydraulic-calculator-input" value="80" min="1">
+        </div>
+
+        <div class="hydraulic-calculator-input-group">
+          <label class="hydraulic-calculator-label" for="hydraulic-calc-rod-diameter">Diámetro del vástago (mm)</label>
+          <input type="number" id="hydraulic-calc-rod-diameter" class="hydraulic-calculator-input" value="40" min="1">
+        </div>
+
+        <div class="hydraulic-calculator-input-group">
+          <label class="hydraulic-calculator-label" for="hydraulic-calc-stroke">Carrera (mm)</label>
+          <input type="number" id="hydraulic-calc-stroke" class="hydraulic-calculator-input" value="300" min="1" disabled>
+        </div>
+
+        <div class="hydraulic-calculator-input-group">
+          <label class="hydraulic-calculator-label" for="hydraulic-calc-velocity">Velocidad de extensión (m/s)</label>
+          <input type="number" id="hydraulic-calc-velocity" class="hydraulic-calculator-input" value="0.4" step="0.01" min="0.01">
+        </div>
+      </div>
+
+      <button id="hydraulic-calc-calculate-btn" class="hydraulic-calculator-btn">Calcular Caudal</button>
+
+      <div class="hydraulic-calculator-result" id="hydraulic-calc-result">
+        <div class="hydraulic-calculator-result-box">
+          <span class="hydraulic-calculator-result-label">Caudal Requerido</span>
+          <span class="hydraulic-calculator-result-value" id="hydraulic-calc-flow-rate">-- l/m</span>
+        </div>
+      </div>
+
+      <div class="hydraulic-calculator-explanation" id="hydraulic-calc-explanation">
+        <h3 class="hydraulic-calculator-explanation-title">Cálculo detallado:</h3>
+        <div class="hydraulic-calculator-explanation-content" id="hydraulic-calc-explanation-content"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Se usa una función autoejecutable para evitar conflictos con otras variables globales
+    (function() {
+      // Selección de elementos del DOM
+      const calculateBtn = document.getElementById('hydraulic-calc-calculate-btn');
+      const resultDiv = document.getElementById('hydraulic-calc-result');
+      const explanationDiv = document.getElementById('hydraulic-calc-explanation');
+      const flowRateSpan = document.getElementById('hydraulic-calc-flow-rate');
+      const explanationContent = document.getElementById('hydraulic-calc-explanation-content');
+      
+      // Asignar el evento click al botón
+      calculateBtn.addEventListener('click', calculateFlowRate);
+
+      // Función principal de cálculo
+      function calculateFlowRate() {
+        // Obtener y convertir los valores de los inputs a números
+        const pistonDiameter = parseFloat(document.getElementById('hydraulic-calc-piston-diameter').value);
+        const velocity = parseFloat(document.getElementById('hydraulic-calc-velocity').value);
+        const rodDiameter = parseFloat(document.getElementById('hydraulic-calc-rod-diameter').value); // Necesario para la fórmula de retracción
+        
+        // --- Validación de datos ---
+        if (isNaN(pistonDiameter) || isNaN(velocity) || isNaN(rodDiameter)) {
+          alert('Por favor, ingrese valores numéricos válidos.');
+          return;
+        }
+        if (pistonDiameter <= 0 || velocity <= 0 || rodDiameter <= 0) {
+          alert('Todos los valores deben ser positivos y mayores que cero.');
+          return;
+        }
+        if (rodDiameter >= pistonDiameter) {
+          alert('El diámetro del vástago debe ser menor que el diámetro del pistón.');
+          return;
+        }
+
+        // --- Cálculos ---
+        // Convertir diámetros de mm a metros para consistencia de unidades
+        const pistonDiameterM = pistonDiameter / 1000;
+
+        // Calcular el área del pistón (lado de extensión) en metros cuadrados
+        // Fórmula del área: A = π * r² = π * (D/2)²
+        const pistonAreaM2 = Math.PI * Math.pow(pistonDiameterM / 2, 2);
+
+        // Calcular el caudal en metros cúbicos por segundo (m³/s)
+        // Fórmula de caudal: Q = Área * Velocidad
+        const flowRateM3s = pistonAreaM2 * velocity;
+
+        // Convertir el caudal de m³/s a litros por minuto (l/m)
+        // 1 m³ = 1000 litros
+        // 1 minuto = 60 segundos
+        const flowRateLmin = flowRateM3s * 1000 * 60;
+
+        // --- Mostrar resultados en la interfaz ---
+        flowRateSpan.textContent = flowRateLmin.toFixed(2) + ' l/m';
+        resultDiv.classList.add('hydraulic-calc-show');
+
+        // --- Generar y mostrar la explicación detallada ---
+        // Convertir áreas a cm² para que sean más fáciles de leer
+        const pistonAreaCm2 = pistonAreaM2 * 10000; 
+
+        const explanationHTML = `
+          <div class="hydraulic-calculator-explanation-step">
+            <strong>Paso 1:</strong> Calcular el área del pistón (lado de extensión). Esta es el área que empuja el fluido durante la extensión.
+            <div class="hydraulic-calculator-formula">Área = π × (Diámetro / 2)²</div>
+            <div class="hydraulic-calculator-formula">Área = π × (${pistonDiameter} mm / 2)² = ${pistonAreaCm2.toFixed(2)} cm²</div>
+          </div>
+          <div class="hydraulic-calculator-explanation-step">
+            <strong>Paso 2:</strong> Calcular el caudal (Q). Se multiplica el área por la velocidad requerida.
+            <div class="hydraulic-calculator-formula">Caudal = Área × Velocidad</div>
+            <div class="hydraulic-calculator-formula">Q = ${pistonAreaCm2.toFixed(2)} cm² × ${velocity} m/s</div>
+            <div class="hydraulic-calculator-formula"><strong>Q ≈ ${flowRateLmin.toFixed(2)} l/m</strong></div>
+          </div>
+        `;
+
+        explanationContent.innerHTML = explanationHTML;
+        explanationDiv.classList.add('hydraulic-calc-show');
+      }
+
+      // Ejecutar el cálculo una vez al cargar la página con los valores iniciales
+      calculateFlowRate();
+    })();
+  </script>
+
+</body>
+</html>

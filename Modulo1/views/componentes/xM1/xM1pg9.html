@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visor de Imagen Interactivo</title>
+    <style>
+        /* --- Estilos Generales --- */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* --- Contenedor Principal del Componente --- */
+        .interactive-viewer {
+            display: flex;
+            flex-direction: column; /* Apilado en pantallas pequeñas */
+            width: 100%;
+            max-width: 900px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+
+        /* --- Contenedor de la Imagen y sus Controles --- */
+        .image-container {
+            position: relative; /* Clave para posicionar la lupa y el botón */
+            flex-shrink: 0;
+            cursor: crosshair;
+        }
+
+        .image-container img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        /* --- La Lupa (Círculo de Zoom) --- */
+        #magnifying-glass {
+            position: absolute;
+            border: 4px solid #ffffff;
+            border-radius: 50%; /* La hacemos circular */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+            width: 150px;
+            height: 150px;
+            background-repeat: no-repeat;
+            display: none; /* Oculta por defecto */
+            pointer-events: none; /* Para que no interfiera con el cursor */
+        }
+        
+        /* --- Botón de Pantalla Completa --- */
+        #fullscreen-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.2s;
+            z-index: 10;
+        }
+
+        #fullscreen-btn:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        /* --- Contenedor de la Descripción --- */
+        .description-container {
+            padding: 25px;
+            box-sizing: border-box;
+        }
+
+        .description-container h2 {
+            margin-top: 0;
+            color: #1c1c1e;
+        }
+
+        .description-container p {
+            color: #6c6c70;
+            line-height: 1.6;
+        }
+
+        /* --- Media Query para pantallas más grandes (Tablet/Escritorio) --- */
+        @media (min-width: 768px) {
+            .interactive-viewer {
+                flex-direction: row; /* Lado a lado en pantallas grandes */
+            }
+
+            .image-container {
+                flex-basis: 55%; /* La imagen ocupa el 55% del ancho */
+            }
+
+            .description-container {
+                flex-basis: 45%; /* La descripción ocupa el 45% */
+                align-self: center; /* Centra verticalmente el texto */
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="interactive-viewer" id="viewer-container">
+        <div class="image-container">
+            <img id="main-image" src="../../../assets/images/M1/sibo.png" alt="Textura de tela detallada">
+            
+            <div id="magnifying-glass"></div>
+            
+            <button id="fullscreen-btn" title="Pantalla Completa">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+            </button>
+        </div>
+        <div class="description-container">
+            <h2>Recordatorio de simbología</h2>
+            <p>Los principales símbolos para bombas, motores o moto bombas</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const container = document.getElementById('viewer-container');
+            const image = document.getElementById('main-image');
+            const magnifyGlass = document.getElementById('magnifying-glass');
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            const zoomLevel = 2.5; // Puedes ajustar el nivel de zoom aquí
+
+            // Función para manejar el movimiento del ratón sobre la imagen
+            function moveMagnifier(e) {
+                // Prevenir comportamientos por defecto
+                e.preventDefault();
+
+                // Obtener posición y tamaño de la imagen
+                const rect = image.getBoundingClientRect();
+                
+                // Calcular la posición del cursor RELATIVA a la imagen
+                let x = e.pageX - rect.left - window.scrollX;
+                let y = e.pageY - rect.top - window.scrollY;
+
+                // Posicionar la lupa
+                // Centramos la lupa en el cursor (restando la mitad de su tamaño)
+                let glassX = x - magnifyGlass.offsetWidth / 2;
+                let glassY = y - magnifyGlass.offsetHeight / 2;
+                
+                // Evitar que la lupa se salga de los bordes de la imagen
+                if (glassX < 0) glassX = 0;
+                if (glassY < 0) glassY = 0;
+                if (glassX > image.width - magnifyGlass.offsetWidth) glassX = image.width - magnifyGlass.offsetWidth;
+                if (glassY > image.height - magnifyGlass.offsetHeight) glassY = image.height - magnifyGlass.offsetHeight;
+
+                magnifyGlass.style.left = `${glassX}px`;
+                magnifyGlass.style.top = `${glassY}px`;
+                
+                // Mover el fondo de la lupa para mostrar el zoom
+                // La posición del fondo se mueve en dirección opuesta al cursor y se multiplica por el nivel de zoom
+                const bgX = -(x * zoomLevel - magnifyGlass.offsetWidth / 2);
+                const bgY = -(y * zoomLevel - magnifyGlass.offsetHeight / 2);
+
+                magnifyGlass.style.backgroundPosition = `${bgX}px ${bgY}px`;
+            }
+
+            // Evento para mostrar la lupa al entrar en la imagen
+            image.addEventListener('mouseenter', () => {
+                // Actualizamos la imagen de fondo de la lupa y su tamaño
+                magnifyGlass.style.backgroundImage = `url('${image.src}')`;
+                magnifyGlass.style.backgroundSize = `${image.width * zoomLevel}px ${image.height * zoomLevel}px`;
+                magnifyGlass.style.display = 'block';
+            });
+
+            // Evento para ocultar la lupa al salir
+            image.addEventListener('mouseleave', () => {
+                magnifyGlass.style.display = 'none';
+            });
+            
+            // Mover la lupa con el cursor
+            image.addEventListener('mousemove', moveMagnifier);
+
+            // Funcionalidad de Pantalla Completa
+            fullscreenBtn.addEventListener('click', () => {
+                if (!document.fullscreenElement) {
+                    // Si no está en pantalla completa, la activamos
+                    container.requestFullscreen().catch(err => {
+                        alert(`Error al intentar activar la pantalla completa: ${err.message} (${err.name})`);
+                    });
+                } else {
+                    // Si ya está, la desactivamos
+                    document.exitFullscreen();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

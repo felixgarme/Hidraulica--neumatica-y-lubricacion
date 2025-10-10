@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Cilindro Hidráulico</title>
+  <style>
+    /* Reset básico y configuración global para el iframe */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .hydraulic-cylinder-calculator {
+      width: 100%;
+      height: 100%;
+      padding: 0px;
+    }
+
+    .calculator-container {
+      border-radius: 8px;
+      /* padding: 8px; */
+      box-shadow: 0 2px 8px rgba(3, 23, 148, 0.1);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .header-section {
+      margin-bottom: 8px;
+      padding: 8px;
+      background: linear-gradient(90deg, #FF0000 0%, #351EBD 33%, #3479F6 66%, #1F87C6 100%);
+      border-radius: 6px;
+    }
+
+    .main-title {
+      margin: 0 0 4px 0;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #FFFFFF;
+    }
+
+    .subtitle {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #FFFFFF;
+    }
+    
+    .content-wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+      padding: 8px;
+      flex-grow: 1;
+      overflow-y: auto;
+      min-height: 0;
+    }
+
+    .left-section, .right-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 0;
+    }
+    
+    .right-section {
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .problem-statement {
+      background: #E5F0F9;
+      padding: 8px;
+      border-radius: 6px;
+    }
+
+    .problem-text, .gravity-info, .instruction-text {
+      margin: 4px 0;
+      font-size: 0.95rem;
+    }
+
+    .results-box {
+      border: 2px solid #031794;
+      border-radius: 6px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .result-row, .input-group {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .result-label, .input-label {
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .result-input, .input-field {
+      border-radius: 4px;
+      padding: 6px 8px;
+      font-size: 1rem;
+      border: 1px solid #DDE8F5;
+      width: 120px;
+    }
+    
+    .result-input {
+      background: #E5F0F9;
+      border-color: #6B8BDF;
+      color: #031794;
+      font-weight: bold;
+      text-align: center;
+    }
+    
+    .input-field:focus {
+      outline: none;
+      border-color: #031794;
+    }
+
+    .input-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: #F5F7FA;
+      padding: 8px;
+      border-radius: 6px;
+    }
+
+    .calculate-btn {
+      background: linear-gradient(90deg, #FF0000 0%, #351EBD 33%, #3479F6 66%, #1F87C6 100%);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 6px;
+      padding: 10px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .calculate-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(3, 23, 148, 0.3);
+    }
+
+    .explanation-section {
+      background: #E5F0F9;
+      border-radius: 6px;
+      padding: 8px;
+    }
+
+    .explanation-title {
+      margin: 0 0 8px 0;
+      color: #031794;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+    
+    .explanation-content {
+      display: flex; flex-direction: column; gap: 8px;
+    }
+
+    .formula-step {
+      background: #FFFFFF;
+      padding: 8px;
+      border-radius: 4px;
+      border-left: 3px solid #031794;
+    }
+
+    .step-title, .formula, .calculation { font-size: 0.9rem; }
+    .step-title { margin: 0 0 4px 0; color: #031794; font-weight: 600; }
+    .formula { margin: 4px 0; font-family: 'Courier New', monospace; background: #F5F7FA; padding: 4px 6px; border-radius: 3px; }
+    .calculation { margin: 4px 0 0 0; color: #031794; font-weight: 600; word-break: break-all; }
+
+    /* --- CÓDIGO MODIFICADO --- */
+    .cylinder-visualization {
+      width: 100%;
+      max-width: 350px; /* Se añade un ancho máximo para evitar que sea demasiado grande en pantallas anchas */
+      border: 2px solid #DDE8F5;
+      border-radius: 6px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      /* Se elimina flex-grow: 1 para que NO se estire verticalmente */
+    }
+    
+    .cylinder-svg {
+      width: 100%;
+      height: auto; /* Se asegura que la altura sea automática para mantener la proporción */
+      /* Se elimina flex-grow: 1 para que el SVG no se estire y respete su aspect-ratio */
+    }
+    /* --- FIN DEL CÓDIGO MODIFICADO --- */
+
+    .dimension-info {
+      margin-top: 8px;
+      padding: 8px;
+      background: #E5F0F9;
+      border-radius: 4px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .dimension-text {
+      margin: 4px 0;
+      font-size: 0.95rem;
+    }
+    .dimension-text span {
+      color: #031794;
+      font-weight: bold;
+    }
+
+    @media (max-width: 450px) {
+      .cylinder-visualization{
+        margin-bottom: 90px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hydraulic-cylinder-calculator">
+    <div class="calculator-container">
+      <div class="content-wrapper">
+        <div class="left-section">
+          <div class="problem-statement">
+            <p class="problem-text">
+              Se debe elevar una masa de 800 kg. Si la presión no debe superar los 100 bar, ¿qué diámetro de pistón se necesita?
+            </p>
+            <p class="gravity-info">Considerar Gravedad 10 m/s²</p>
+          </div>
+
+          <div class="results-box">
+            <div class="result-row">
+              <label class="result-label">Área del cilindro</label>
+              <input type="text" class="result-input" id="areaResult" value="-" readonly>
+            </div>
+            <div class="result-row">
+              <label class="result-label">Diámetro del cilindro</label>
+              <input type="text" class="result-input" id="diameterResult" value="-" readonly>
+            </div>
+          </div>
+
+          <div class="input-section">
+            <div class="input-group">
+              <label class="input-label">Masa (kg)</label>
+              <input type="number" class="input-field" id="massInput" value="800" min="0">
+            </div>
+            <div class="input-group">
+              <label class="input-label">Presión (bar)</label>
+              <input type="number" class="input-field" id="pressureInput" value="100" min="0">
+            </div>
+            <div class="input-group">
+              <label class="input-label">Gravedad (m/s²)</label>
+              <input type="number" class="input-field" id="gravityInput" value="10" min="0" step="0.1">
+            </div>
+          </div>
+
+          <button class="calculate-btn" id="calculateBtn">Calcular</button>
+
+          <div class="explanation-section" id="explanationSection" style="display: none;">
+            <h3 class="explanation-title">Explicación del cálculo:</h3>
+            <div class="explanation-content">
+              <div class="formula-step">
+                <p class="step-title">1. Fuerza ($F = m \times g$)</p>
+                <p class="calculation" id="forceCalc"></p>
+              </div>
+              <div class="formula-step">
+                <p class="step-title">2. Presión ($P$ en Pascales)</p>
+                <p class="calculation" id="pressureCalc"></p>
+              </div>
+              <div class="formula-step">
+                <p class="step-title">3. Área ($A = F / P$)</p>
+                <p class="calculation" id="areaCalc"></p>
+              </div>
+              <div class="formula-step">
+                <p class="step-title">4. Diámetro ($d = \sqrt{4A/\pi}$)</p>
+                <p class="calculation" id="diameterCalc"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="right-section">
+          <div class="cylinder-visualization">
+            <svg class="cylinder-svg" viewBox="0 0 300 400" id="cylinderSvg" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <linearGradient id="cylinderGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" style="stop-color:#FF0000;stop-opacity:1" /><stop offset="33%" style="stop-color:#351EBD;stop-opacity:1" /><stop offset="66%" style="stop-color:#3479F6;stop-opacity:1" /><stop offset="100%" style="stop-color:#1F87C6;stop-opacity:1" />
+                </linearGradient>
+                <linearGradient id="pistonGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" style="stop-color:#031794;stop-opacity:1" /><stop offset="100%" style="stop-color:#34C0C0;stop-opacity:1" />
+                </linearGradient>
+                <marker id="arrowdown" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                  <polygon points="0,0 10,5 0,10 2,5" fill="#FF0000" />
+                </marker>
+              </defs>
+              <rect x="100" y="80" width="100" height="250" fill="url(#cylinderGradient)" opacity="0.3" stroke="#031794" stroke-width="2"/>
+              <ellipse cx="150" cy="80" rx="50" ry="15" fill="#E5F0F9" stroke="#031794" stroke-width="2"/>
+              <ellipse cx="150" cy="330" rx="50" ry="15" fill="#E5F0F9" stroke="#031794" stroke-width="2"/>
+              <rect x="120" y="150" width="60" height="120" fill="url(#pistonGradient)" stroke="#031794" stroke-width="2" id="piston"/>
+              <ellipse cx="150" cy="150" rx="30" ry="10" fill="#031794" id="pistonTop"/>
+              <line x1="150" y1="50" x2="150" y2="80" stroke="#FF0000" stroke-width="2" marker-end="url(#arrowdown)"/>
+              <text x="160" y="65" fill="#031794" font-size="14" font-weight="bold">F</text>
+              <line x1="200" y1="200" x2="250" y2="200" stroke="#031794" stroke-width="1" stroke-dasharray="5,5"/>
+              <text x="255" y="205" fill="#031794" font-size="12" id="diameterLabel">d</text>
+            </svg>
+            <div class="dimension-info">
+              <p class="dimension-text">Diámetro: <span id="visualDiameter">-</span></p>
+              <p class="dimension-text">Área: <span id="visualArea">-</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const massInput = document.getElementById('massInput');
+      const pressureInput = document.getElementById('pressureInput');
+      const gravityInput = document.getElementById('gravityInput');
+      const calculateBtn = document.getElementById('calculateBtn');
+      const areaResult = document.getElementById('areaResult');
+      const diameterResult = document.getElementById('diameterResult');
+      const explanationSection = document.getElementById('explanationSection');
+      const forceCalc = document.getElementById('forceCalc');
+      const pressureCalc = document.getElementById('pressureCalc');
+      const areaCalc = document.getElementById('areaCalc');
+      const diameterCalc = document.getElementById('diameterCalc');
+      const visualDiameter = document.getElementById('visualDiameter');
+      const visualArea = document.getElementById('visualArea');
+
+      function calculate() {
+        const mass = parseFloat(massInput.value) || 0;
+        const pressureBar = parseFloat(pressureInput.value) || 0;
+        const gravity = parseFloat(gravityInput.value) || 0;
+
+        if (mass <= 0 || pressureBar <= 0 || gravity <= 0) {
+          areaResult.value = 'Inválido';
+          diameterResult.value = 'Inválido';
+          return;
+        }
+
+        const force = mass * gravity;
+        const pressurePa = pressureBar * 100000;
+        const areaM2 = force / pressurePa;
+        const areaMm2 = areaM2 * 1000000;
+        const diameterM = Math.sqrt((4 * areaM2) / Math.PI);
+        const diameterMm = diameterM * 1000;
+
+        areaResult.value = areaMm2.toFixed(1) + ' mm²';
+        diameterResult.value = diameterMm.toFixed(1) + ' mm';
+        visualDiameter.textContent = diameterMm.toFixed(1) + ' mm';
+        visualArea.textContent = areaMm2.toFixed(1) + ' mm²';
+
+        forceCalc.innerHTML = `${mass} kg &times; ${gravity} m/s&sup2; = <strong>${force.toFixed(1)} N</strong>`;
+        pressureCalc.innerHTML = `${pressureBar} bar &times; 100,000 = <strong>${pressurePa.toExponential(1)} Pa</strong>`;
+        areaCalc.innerHTML = `${force.toFixed(1)} N / ${pressurePa.toExponential(1)} Pa = <strong>${areaMm2.toFixed(1)} mm&sup2;</strong>`;
+        diameterCalc.innerHTML = `&radic;(4 &times; ${areaMm2.toFixed(1)} mm&sup2; / &pi;) = <strong>${diameterMm.toFixed(1)} mm</strong>`;
+        
+        explanationSection.style.display = 'block';
+        updateVisualization(diameterMm);
+      }
+
+      function updateVisualization(diameter) {
+        const piston = document.getElementById('piston');
+        const pistonTop = document.getElementById('pistonTop');
+        const diameterLabel = document.getElementById('diameterLabel');
+        
+        const scale = Math.min(1.5, 40 / diameter);
+        const width = Math.max(20, 60 * scale);
+        const rx = Math.max(10, 30 * scale);
+        
+        piston.setAttribute('x', 150 - width / 2);
+        piston.setAttribute('width', width);
+        pistonTop.setAttribute('rx', rx);
+        diameterLabel.textContent = 'd=' + diameter.toFixed(0) + 'mm';
+      }
+
+      calculateBtn.addEventListener('click', calculate);
+      [massInput, pressureInput, gravityInput].forEach(input => {
+        input.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') calculate();
+        });
+        input.addEventListener('input', calculate);
+      });
+
+      calculate(); // Carga inicial
+    });
+  </script>
+</body>
+</html>

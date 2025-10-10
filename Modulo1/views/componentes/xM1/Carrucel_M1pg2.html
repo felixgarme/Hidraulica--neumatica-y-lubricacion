@@ -4,209 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actuadores Hidráulicos</title>
-    <style>
-    /* ==== CONFIGURACIÓN BASE PARA IFRAME ==== */
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-      background-color: transparent; /* Fondo transparente para integración */
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      box-sizing: border-box;
+    <link rel="stylesheet" href="../../../assets/css/M1/xM1_pg2.css">
 
-    }
-
-    body {
-        padding: 10px; /* Pequeño espacio para que el contenido no toque los bordes del iframe */
-        
-    }
-
-    /* ==== CONTENEDOR PRINCIPAL DEL CARRUSEL ==== */
-    .carousel-container {
-      width: 100%;
-      height: 100%;
-      background: #FFFFFF ;
-      border-radius: 12px;
-      /* box-shadow: 0 6px 30px rgba(0, 50, 150, 0.1); */
-      overflow: hidden;
-      border: 1px solid #E0E8F2;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .carousel-wrapper {
-      position: relative;
-      overflow: hidden;
-      flex: 1; /* Permite que el contenido ocupe el espacio vertical disponible */
-    }
-
-    .carousel-track {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-      height: 100%;
-    }
-
-    /* ==== ESTILO DE CADA DIAPOSITIVA ==== */
-    .carousel-slide {
-      min-width: 100%;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      padding: 30px;
-      box-sizing: border-box;
-      gap: 30px;
-      text-align: left;
-    }
-
-    .slide-image {
-      flex-shrink: 0;
-      width: 45%;
-      max-width: 450px; /* Límite para pantallas muy grandes */
-      height: auto; /* Altura automática para mantener la proporción */
-      object-fit: contain;
-      border-radius: 10px;
-      background: #F8F9FA;
-      padding: 10px;
-      border: 1px solid #E0E8F2;
-    }
-
-    .slide-text {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      max-width: 550px;
-    }
-
-    .slide-title {
-      color: #031794;
-      font-size: clamp(22px, 3vw, 28px); /* Tipografía fluida */
-      font-weight: 700;
-      margin: 0;
-      line-height: 1.2;
-    }
-
-    .slide-content {
-      color: #333;
-      font-size: clamp(16px, 2vw, 18px);
-      line-height: 1.6;
-      background: #F8F9FA;
-      padding: 15px;
-      border-radius: 8px;
-      border: 1px solid #E0E8F2;
-    }
-
-    /* ==== CONTROLES DE NAVEGACIÓN ==== */
-    .carousel-controls {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 15px;
-      gap: 15px;
-      background: #FFFFFF;
-      border-top: 1px solid #E0E8F2;
-    }
-
-    .carousel-btn {
-      background: linear-gradient(135deg, #031794 0%, #2A5BDF 100%);
-      color: #FFFFFF;
-      border: none;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      transition: all 0.3s ease;
-      font-weight: bold;
-    }
-
-    .carousel-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 4px 15px rgba(42, 91, 223, 0.4);
-    }
-
-    .carousel-btn:disabled {
-      background: #D0D0D0;
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
-    }
-
-    .carousel-indicators {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .indicator {
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-      background: #C0C8D4;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .indicator.active {
-      background: #031794;
-      transform: scale(1.2);
-    }
-
-    .slide-counter {
-      color: #555;
-      font-size: 14px;
-      font-weight: 500;
-      min-width: 50px;
-      text-align: center;
-    }
-
-    /* ==== BARRA DE PROGRESO ==== */
-    .progress-bar {
-      width: 100%;
-      height: 5px;
-      background: #E0E8F2;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #031794 0%, #2A5BDF 100%);
-      border-radius: 0 2px 2px 0;
-      transition: width 0.5s ease;
-    }
-
-    /* ==== AJUSTES RESPONSIVOS ==== */
-    @media (max-width: 768px) {
-      body {
-        padding: 0; /* Sin padding en móviles para aprovechar el espacio */
-      }
-      .carousel-container {
-        border-radius: 0;
-        border: none;
-      }
-      .carousel-slide {
-        flex-direction: column;
-        text-align: center;
-        padding: 20px;
-        gap: 15px;
-      }
-      .slide-image {
-        width: 100%;
-        max-width: 300px; /* Límite para la imagen en vista vertical */
-      }
-      .carousel-controls {
-        padding: 12px;
-      }
-      .carousel-btn {
-        width: 44px;
-        height: 44px;
-      }
-    }
-    </style>
 </head>
 <body>
     <div class="carousel-container">
@@ -228,7 +27,7 @@
             <div class="slide-text">
               <h2 class="slide-title">Actuadores de Simple Efecto</h2>
               <div class="slide-content">
-                Poseen una sola entrada de aceite (cámara de inyección) y, por lo tanto, están diseñados para realizar trabajo en una única dirección. El retorno a la posición inicial no se realiza por presión de aceite.
+                Los actuadores hidráulicos de simple efecto transforman la energía del fluido presurizado en <b>movimiento lineal en un solo sentido</b>. Están compuestos por un cilindro, pistón y vástago, donde el fluido ingresa por una única cámara para generar la carrera de trabajo. Por su fiabilidad y bajo mantenimiento, son muy utilizados en maquinaria pesada e industrial.
               </div>
             </div>
           </div>
@@ -238,33 +37,83 @@
             <div class="slide-text">
               <h2 class="slide-title">Retorno y Aplicaciones del Simple Efecto</h2>
               <div class="slide-content">
-                A diferencia de la neumática donde se usan resortes internos, en hidráulica es común que el retorno se produzca por una <b>carga externa</b>. Un ejemplo claro son los sistemas de elevación, donde el propio peso de la carga hace que el cilindro retorne por gravedad.
+                El retorno se realiza de forma externa, generalmente por el <b>peso de la carga</b> o mediante un resorte. En hidráulica es más común la recuperación por carga externa, debido a la mayor masa y fuerza de los sistemas. Su estructura simple los hace ideales para <b>prensas, gatos hidráulicos o mecanismos de bloqueo</b>.
+              </div>
+            </div>
+          </div>
+          
+          <div class="carousel-slide">
+            <video src="../../../assets/media/M1/b.mp4" class="slide-image" autoplay muted loop playsinline alt="Actuador de Doble Efecto"></video>
+            <div class="slide-text">
+              <h2 class="slide-title">Actuadores de Doble Efecto</h2>
+              <div class="slide-content">
+                Generan movimiento en ambos sentidos mediante presión hidráulica. Poseen dos cámaras: una para el <b>avance</b> y otra para el <b>retorno</b>, lo que permite un control total de la carrera del pistón y una fuerza constante en ambos sentidos. Son los más utilizados en sistemas hidráulicos por su versatilidad: prensas, máquinas industriales y sistemas automatizados.
+              </div>
+            </div>
+          </div>
+          
+          <div class="carousel-slide">
+            <video src="../../../assets/media/M1/c.mp4" class="slide-image" autoplay muted loop playsinline alt="Cilindro de Doble Vástago"></video>
+            <div class="slide-text">
+              <h2 class="slide-title">Variantes: Cilindro de Doble Vástago</h2>
+              <div class="slide-content">
+                Entre sus variantes, destacan los <b>cilindros de doble vástago</b>, que equilibran la fuerza y reducen el pandeo. Su robustez y capacidad de generar fuerza controlada en ambos sentidos los convierten en el estándar de los actuadores hidráulicos modernos.
+              </div>
+            </div>
+          </div>
+          
+          <div class="carousel-slide">
+            <video src="../../../assets/media/M1/f.mp4" class="slide-image" autoplay muted loop playsinline alt="Actuadores Diferencial"></video>
+            <div class="slide-text">
+              <h2 class="slide-title">Actuadores Diferenciales</h2>
+              <div class="slide-content">
+                Son cilindros de doble efecto que aprovechan la <b>diferencia de superficie</b> entre los lados del pistón (relación típica 2:1). Si las cámaras se conectan en modo diferencial, el cilindro avanza más rápido con el mismo caudal, aunque con menor fuerza. Se usan para optimizar el ciclo de trabajo en prensas de apertura rápida o sistemas de carga.
+              </div>
+            </div>
+          </div>
+          
+          <div class="carousel-slide">
+            <video src="../../../assets/media/M1/g.mp4" class="slide-image" autoplay muted loop playsinline alt="Actuadores Tándem"></video>
+            <div class="slide-text">
+              <h2 class="slide-title">Actuadores Tándem</h2>
+              <div class="slide-content">
+                Están compuestos por <b>dos cilindros de doble efecto alineados</b> que comparten el mismo vástago. Esta configuración permite <b>duplicar la fuerza</b> de empuje sin aumentar el diámetro del pistón, siendo perfecta para espacios reducidos donde se requiere máxima potencia con mínimo volumen, como en prensas hidráulicas o sistemas de sujeción.
               </div>
             </div>
           </div>
 
           <div class="carousel-slide">
-            <video src="../../../assets/media/M1/b.mp4" class="slide-image" autoplay muted loop playsinline alt="Retorno por Carga Externa"></video>
+            <img src="../../../assets/images/M1/d.png" alt="Actuador Telescópico" class="slide-image">
             <div class="slide-text">
-              <h2 class="slide-title">Actuadores de Doble Efecto</h2>
+              <h2 class="slide-title">Actuadores Telescópicos</h2>
               <div class="slide-content">
-                Son el estándar en la industria. Cuentan con dos entradas de aceite, lo que les permite realizar trabajo tanto en la carrera de <b>salida (avance)</b> como en la de <b>retroceso</b> mediante la presión del fluido en ambas cámaras.
+                Permiten <b>grandes recorridos con poco espacio inicial</b> gracias a su estructura extensible formada por varios cuerpos concéntricos. Cada etapa se extiende secuencialmente, alcanzando carreras muy superiores a su longitud retraída. Son ideales para camiones volquete, grúas y plataformas elevadoras.
               </div>
             </div>
           </div>
           
           <div class="carousel-slide">
-            <video src="../../../assets/media/M1/c.mp4" class="slide-image" autoplay muted loop playsinline alt="Retorno por Carga Externa"></video>
+            <img src="../../../assets/images/M1/e.png" alt="Servoactuador Hidráulico" class="slide-image">
             <div class="slide-text">
-              <h2 class="slide-title">Características Comunes</h2>
+              <h2 class="slide-title">Servoactuadores</h2>
               <div class="slide-content">
-                Tanto en hidráulica como en neumática, los actuadores de doble efecto comparten componentes básicos y problemas similares, como deficiencias de fuerza o velocidad. Para corregirlos, se aplican técnicas parecidas, como el uso de un cilindro con <b>doble vástago</b>.
+                También llamados servocilindros, se emplean para un <b>control muy preciso</b> del movimiento. Incorporan <b>sensores de posición y válvulas servo controladas</b> que ajustan la presión y el caudal en tiempo real. Ofrecen gran exactitud y repetibilidad, siendo ideales para simuladores, robótica hidráulica y bancos de prueba.
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-slide">
+            <video src="../../../assets/media/M1/h.mp4" class="slide-image" autoplay muted loop playsinline alt="Actuador de Giro"></video>
+            <div class="slide-text">
+              <h2 class="slide-title">Actuadores de Giro (Rotativos)</h2>
+              <div class="slide-content">
+                Convierten la energía del fluido en <b>movimiento rotativo o angular</b>, generando un par de torsión. Los de <b>piñón y cremallera</b> son los más comunes. Se usan en válvulas, pinzas mecánicas, sistemas de orientación y mecanismos de bloqueo industrial que requieren altos pares de torsión.
               </div>
             </div>
           </div>
           
           <div class="carousel-slide">
-            <video src="../../../assets/media/M1/c.mp4" alt="Simbología de Actuadores" class="slide-image" autoplay muted loop playsinline></video>
+            <!-- <img src="../../../assets/images/M1/simbologia.png" alt="Simbología de Actuadores" class="slide-image"> -->
             <div class="slide-text">
               <h2 class="slide-title">Simbología en Planos</h2>
               <div class="slide-content">
@@ -272,17 +121,6 @@
               </div>
             </div>
           </div>
-
-          <div class="carousel-slide">
-            <img src="../../../assets/images/M1/c.png" alt="Cilindro de Simple Efecto" class="slide-image">
-            <div class="slide-text">
-              <h2 class="slide-title">Actuadores de Simple Efecto</h2>
-              <div class="slide-content">
-                Poseen una sola entrada de aceite (cámara de inyección) y, por lo tanto, están diseñados para realizar trabajo en una única dirección. El retorno a la posición inicial no se realiza por presión de aceite.
-              </div>
-            </div>
-          </div>
-
 
         </div>
       </div>
@@ -295,7 +133,7 @@
         <button class="carousel-btn" id="prevBtn" title="Anterior">‹</button>
         <div class="carousel-indicators" id="indicators"></div>
         <div class="slide-counter">
-          <span id="currentSlide">1</span> / <span id="totalSlides">6</span>
+          <span id="currentSlide">1</span> / <span id="totalSlides">11</span>
         </div>
         <button class="carousel-btn" id="nextBtn" title="Siguiente">›</button>
       </div>

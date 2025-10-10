@@ -1,0 +1,30 @@
+.contenido {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.iframe-carrusel {
+    width: 90%;
+    height: 60vh;
+}
+
+/* Estilo opcional para mostrar visualmente que el botón está desbloqueado */
+.start-button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.start-button.enabled {
+    opacity: 1;
+    cursor: pointer;
+    transition: opacity .2s ease-in-out;
+}
+
+@media (max-width: 470px) {
+
+    .iframe-carrusel {
+        width: 100%;
+        height: 75vh;
+    }
+
+}

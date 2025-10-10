@@ -1,0 +1,551 @@
+<div class="curso-container">
+  <div class="curso-content">
+    <div class="curso-header">
+
+      <p class="curso-subtitle">Identificación de actuadores hidráulicos en equipos de planta concentradora</p>
+    </div>
+
+    <div class="curso-contexto">
+      <h2 class="contexto-title">CONTEXTO</h2>
+      <p class="contexto-text">El mecánico de mantenimiento de planta concentradora de la unidad minera debe identificar según lo revisado en el manual de operaciones el tipo de actuadores hidráulicos con los que cuentan los siguientes equipos</p>
+    </div>
+
+    <div class="curso-interactivo">
+      <div class="equipo-display">
+        <div class="equipo-card">
+          <div class="equipo-nombre" id="equipoNombre">ESPESADOR</div>
+          <div class="equipo-imagen">
+            <img id="equipoImagen" src="../../../assets/images/M1/b1.png" alt="Equipo" class="imagen-equipo" />
+          </div>
+          <div class="zona-drop" id="zonaDrop">
+            <img src="../../../assets/images/Icons/selcC.gif" style="width: 40px; border-radius: 90px;" class="zona-text">
+            <p class="zona-text">Arrastra aquí el actuador hidráulico</p>
+            <div class="respuesta-container" id="respuestaContainer"></div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="opciones-container">
+        <h3 class="opciones-title">Selecciona el actuador hidráulico:</h3>
+        <div class="opciones-grid" id="opcionesGrid">
+          <div class="opcion-card" draggable="true" data-opcion="cilindro-nivel">
+            <p>Cilindro de nivel de rastra y motor de giro de rastra</p>
+          </div>
+          <div class="opcion-card" draggable="true" data-opcion="hidroset">
+            <p>Hidroset</p>
+          </div>
+          <div class="opcion-card" draggable="true" data-opcion="sistema-frenos">
+            <p>Sistema de frenos</p>
+          </div>
+          <div class="opcion-card" draggable="true" data-opcion="qac-cilindros">
+            <p>QAC, Cilindro de sellado y Cilindro estabilizador</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="curso-controles">
+      <button class="btn-anterior" id="btnAnterior" disabled>Anterior</button>
+      <div class="progreso-info">
+        <span class="progreso-texto" id="progresoTexto">Equipo 1 de 4</span>
+      </div>
+
+      <button class="btn-siguiente" id="btnSiguiente">Siguiente</button>
+    </div>
+
+    <div class="resultado-modal" id="resultadoModal">
+      <div class="resultado-content">
+        <div class="resultado-icono" id="resultadoIcono"></div>
+        <h3 class="resultado-titulo" id="resultadoTitulo"></h3>
+        <p class="resultado-mensaje" id="resultadoMensaje"></p>
+        <button class="btn-continuar" id="btnContinuar">Continuar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.curso-container {
+  width: 100%;
+  min-height: 100vh;
+  /* background: #F5F7FA; */
+  padding: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  overflow-x: hidden;
+}
+
+.curso-content {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  background: #FFFFFF;
+  border-radius: 6px;
+  padding: 8px;
+  box-shadow: 0 2px 6px rgba(3, 23, 148, 0.1);
+}
+
+.curso-header {
+  text-align: center;
+  padding: 8px;
+  border-bottom: 2px solid #DDE8F5;
+  margin: 0 0 8px 0;
+}
+
+.curso-title {
+  font-size: clamp(16px, 3.5vw, 22px);
+  font-weight: 700;
+  background: linear-gradient(90deg, #FF0000 0%, #351EBD 33%, #3479F6 66%, #1F87C6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 5px 0;
+  padding: 0;
+}
+
+.curso-subtitle {
+  font-size: clamp(11px, 2vw, 14px);
+  color: #4D4D4E;
+  margin: 0;
+  padding: 0;
+  line-height: 1.3;
+}
+
+.curso-contexto {
+  background: #E5F0F9;
+  border-radius: 5px;
+  padding: 8px;
+  margin: 0 0 8px 0;
+  border-left: 3px solid #031794;
+}
+
+.contexto-title {
+  font-size: clamp(13px, 2.5vw, 15px);
+  font-weight: 700;
+  color: #031794;
+  margin: 0 0 5px 0;
+  padding: 0;
+}
+
+.contexto-text {
+  font-size: clamp(11px, 2vw, 13px);
+  color: #4D4D4E;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.curso-interactivo {
+  padding: 8px 0;
+  margin: 0 0 8px 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.equipo-display {
+  margin: 0;
+  padding: 0;
+}
+
+.equipo-card {
+  background: #FFFFFF;
+  border: 2px solid #DDE8F5;
+  border-radius: 6px;
+  padding: 8px;
+  margin: 0;
+}
+
+.equipo-nombre {
+  font-size: clamp(14px, 3vw, 18px);
+  font-weight: 700;
+  color: #031794;
+  text-align: center;
+  margin: 0 0 8px 0;
+  padding: 6px;
+  background: linear-gradient(90deg, #031794 0%, #34C0C0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.equipo-imagen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 8px 0;
+  padding: 5px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.imagen-equipo {
+  max-width: 100%;
+  max-height: 180px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 5px;
+  display: block;
+}
+
+.zona-drop {
+    min-height: 60px;
+    border: 2px dashed #6B8BDF;
+    border-radius: 5px;
+    background: #F5F7FA;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    margin: 0;
+    transition: all 0.3s ease;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.zona-drop.drag-over {
+  background: #E5F0F9;
+  border-color: #031794;
+  border-style: solid;
+}
+
+.zona-text {
+    /* Tu código existente */
+    font-size: clamp(11px, 2vw, 12px);
+    color: #B9B9B9;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.respuesta-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.respuesta-seleccionada {
+  background: #E5F0F9;
+  border: 2px solid #031794;
+  border-radius: 5px;
+  padding: 8px;
+  margin: 0;
+  font-size: clamp(11px, 2vw, 12px);
+  color: #031794;
+  font-weight: 600;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.opciones-container {
+  margin: 0;
+  padding: 0;
+}
+
+.opciones-title {
+  font-size: clamp(12px, 2.3vw, 14px);
+  font-weight: 600;
+  color: #031794;
+  margin: 0 0 8px 0;
+  padding: 0;
+}
+
+.opciones-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+
+.opcion-card {
+  background: #FFFFFF;
+  border: 2px solid #DDE8F5;
+  border-radius: 5px;
+  padding: 8px;
+  margin: 0;
+  cursor: grab;
+  transition: all 0.3s ease;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.opcion-card:hover {
+  border-color: #2A5BDF;
+  box-shadow: 0 2px 5px rgba(3, 23, 148, 0.15);
+  transform: translateY(-1px);
+}
+
+.opcion-card:active {
+  cursor: grabbing;
+}
+
+.opcion-card.dragging {
+  opacity: 0.5;
+}
+
+.opcion-card.hidden {
+  display: none;
+}
+
+.opcion-card p {
+  margin: 0;
+  padding: 0;
+  font-size: clamp(10px, 1.8vw, 12px);
+  color: #4D4D4E;
+  text-align: center;
+  line-height: 1.3;
+  word-wrap: break-word;
+}
+
+.curso-controles {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  margin: 0;
+  border-top: 2px solid #DDE8F5;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-anterior,
+.btn-siguiente {
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  font-size: clamp(11px, 2vw, 13px);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 80px;
+  flex: 0 1 auto;
+}
+
+.btn-anterior {
+  background: #FFFFFF;
+  color: #031794;
+  border: 2px solid #031794;
+}
+
+.btn-anterior:hover:not(:disabled) {
+  background: #E5F0F9;
+}
+
+.btn-anterior:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-siguiente {
+  background: #031794;
+  color: #FFFFFF;
+}
+
+.btn-siguiente:hover:not(:disabled) {
+  background: #2A5BDF;
+}
+
+.btn-siguiente:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.progreso-info {
+  text-align: center;
+  flex: 1 1 auto;
+}
+
+.progreso-texto {
+  font-size: clamp(11px, 2vw, 13px);
+  color: #4D4D4E;
+  font-weight: 600;
+}
+
+.resultado-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(0 28 203 / 15%);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 150px;
+}
+
+.resultado-modal.show {
+  display: flex;
+}
+
+.resultado-content {
+  background: #FFFFFF;
+  border-radius: 6px;
+  padding: 10px;
+  max-width: 350px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.resultado-icono {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 8px auto;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+
+.resultado-icono.correcto {
+  background: #34C0C0;
+  color: #FFFFFF;
+}
+
+.resultado-icono.correcto::after {
+  content: '✓';
+}
+
+.resultado-icono.incorrecto {
+  background: #FF0000;
+  color: #FFFFFF;
+}
+
+.resultado-icono.incorrecto::after {
+  content: '✗';
+}
+
+.resultado-titulo {
+  font-size: clamp(15px, 3vw, 18px);
+  font-weight: 700;
+  color: #031794;
+  margin: 0 0 6px 0;
+  padding: 0;
+}
+
+.resultado-mensaje {
+  font-size: clamp(11px, 2vw, 13px);
+  color: #4D4D4E;
+  margin: 0 0 8px 0;
+  padding: 0;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.btn-continuar {
+  background: #031794;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+  font-size: clamp(11px, 2vw, 13px);
+  font-weight: 600;
+  cursor: pointer;
+  min-width: 100px;
+  transition: all 0.3s ease;
+}
+
+.btn-continuar:hover {
+  background: #2A5BDF;
+}
+
+@media (min-width: 768px) {
+  .curso-interactivo {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .imagen-equipo {
+    max-height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .curso-container {
+    padding: 5px;
+  }
+
+  .curso-content {
+    padding: 6px;
+    margin-bottom: 100px;
+  }
+
+  .curso-header,
+  .curso-contexto,
+  .equipo-card,
+  .curso-controles {
+    padding: 6px;
+  }
+
+  .curso-controles {
+    flex-direction: column;
+  }
+
+  .btn-anterior,
+  .btn-siguiente {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .progreso-info {
+    order: -1;
+    width: 100%;
+    margin: 0 0 6px 0;
+  }
+
+  .imagen-equipo {
+    max-height: 150px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .curso-content {
+    max-width: 1000px;
+  }
+
+  .imagen-equipo {
+    max-height: 220px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .curso-content {
+    max-width: 1200px;
+  }
+
+  .imagen-equipo {
+    max-height: 280px;
+  }
+}
+
+@media (max-height: 600px) {
+  .curso-container {
+    min-height: auto;
+  }
+
+  .imagen-equipo {
+    max-height: 120px;
+  }
+
+  .zona-drop {
+    min-height: 50px;
+  }
+}
+</style>
+
+<script src="../../../js/M1/js_pg10.js"></script>

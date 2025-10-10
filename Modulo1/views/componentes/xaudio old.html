@@ -115,7 +115,6 @@
     let isDraggingProgress = false;
     let isDraggingVolume = false;
     let lastVolume = 1;
-    const VOLUME_STORAGE_KEY = 'audioPlayerSavedVolume'; // <-- CAMBIO: Clave para guardar en memoria.
     
     // --- VARIABLES DE WEB AUDIO API ---
     let audioContext;
@@ -362,9 +361,6 @@
         volumeIcon.style.display = isMuted ? 'none' : 'block';
         muteIcon.style.display = isMuted ? 'block' : 'none';
         if (!isMuted) lastVolume = audio.volume;
-
-        // <-- CAMBIO: Guardar el nivel de volumen actual en la memoria del navegador.
-        localStorage.setItem(VOLUME_STORAGE_KEY, String(audio.volume));
     });
 
     setupDrag(volumeSlider, setVolumeFromEvent, () => isDraggingVolume = true, () => isDraggingVolume = false);
@@ -383,20 +379,10 @@
         
     });
 
-    // <-- CAMBIO: Función para cargar el volumen guardado al iniciar.
-    function initializeVolume() {
-        const savedVolume = localStorage.getItem(VOLUME_STORAGE_KEY);
-        // Si hay un valor guardado, usarlo. Si no, usar 1 (100%) como predeterminado.
-        const initialVolume = savedVolume !== null ? parseFloat(savedVolume) : 1;
-        
-        audio.volume = initialVolume;
-        
-        // Disparamos el evento para que la interfaz se actualice con este volumen.
-        audio.dispatchEvent(new Event('volumechange'));
-    }
-
-    initializeVolume();
-
+    // Estado inicial
+    audio.volume = 1;
+    lastVolume = 1;
+    volumeFill.style.width = '100%';
     })();
   </script>
 </body>

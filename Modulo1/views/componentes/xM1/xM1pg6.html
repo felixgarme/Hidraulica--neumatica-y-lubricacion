@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actuadores hidráulicos</title>
+    <style>
+        /* Estilos base para el documento */
+        body {
+            margin: 0;
+            padding: 0;
+         
+            overflow-x: hidden; /* Evita desbordamiento horizontal en el iframe */
+        }
+        
+        /* Estilos originales proporcionados */
+        .hydraulic-motors-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px;
+            /* background-color: #F5F7FA; */
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: #4D4D4E;
+            line-height: 1.6;
+        }
+
+        .hydraulic-motors-container * {
+            box-sizing: border-box;
+        }
+
+        .content-wrapper {
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 2px 8px rgba(3, 23, 148, 0.1);
+            overflow: hidden; /* Asegura que las animaciones de entrada/salida no generen scrollbars temporales */
+            position: relative; /* [CORRECCIÓN] Necesario para contener las secciones con posicionamiento absoluto durante la animación */
+        }
+
+        .main-section,
+        .classification-section,
+        .function-section,
+        .applications-section {
+            margin: 0;
+            padding: 10px;
+            display: none;
+        }
+
+        .main-section.active,
+        .classification-section.active,
+        .function-section.active,
+        .applications-section.active {
+            display: block;
+        }
+
+        /* [MODIFICACIÓN] Se quita la propiedad 'animation' de aquí, ya que se asigna dinámicamente con JavaScript */
+        .main-section.hidden,
+        .classification-section.hidden,
+        .function-section.hidden,
+        .applications-section.hidden {
+            display: block; /* Mantener visible mientras se anima para salir */
+            position: absolute; /* Para que la animación de salida no afecte el flujo de la siguiente sección */
+            top: 10px;    /* Se ajusta al padding del content-wrapper */
+            left: 10px;   /* Se ajusta al padding del content-wrapper */
+            right: 10px;  /* Se ajusta al padding del content-wrapper */
+            padding: 10px; /* Mantiene el mismo padding que las secciones activas */
+            width: calc(100% - 20px); /* Ajusta el ancho al padding */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+
+        /* [NUEVO] Keyframes para la animación de "Anterior" */
+        @keyframes fadeInPrev {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* [NUEVO] Keyframes para la animación de "Anterior" */
+        @keyframes fadeOutPrev {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+
+        .main-title {
+            background: linear-gradient(90deg, #FF0000 0%, #351EBD 33%, #3479F6 66%, #1F87C6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+            padding: 0;
+        }
+
+        .section-title {
+            color: #031794;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0 0 10px 0;
+            padding: 0 0 8px 0;
+            border-bottom: 2px solid #DDE8F5;
+        }
+
+        .intro-card {
+            background-color: #E5F0F9;
+            border-left: 4px solid #031794;
+            padding: 10px;
+            margin: 0 0 10px 0;
+            border-radius: 4px;
+        }
+
+        .intro-text {
+            margin: 0 0 8px 0;
+            padding: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .intro-text:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-label {
+            background: linear-gradient(90deg, #031794 0%, #34C0C0 100%);
+            color: #FFFFFF;
+            padding: 6px 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 4px;
+            margin: 10px 0;
+            display: inline-block;
+        }
+
+        .info-card {
+            background-color: #F5F7FA;
+            border: 1px solid #DDE8F5;
+            border-radius: 6px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .info-header {
+            color: #031794;
+            font-weight: 600;
+            margin: 0 0 6px 0;
+            padding: 0;
+            font-size: 0.95rem;
+        }
+
+        .info-content {
+            margin: 0 0 8px 0;
+            padding: 0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .info-content:last-child {
+            margin-bottom: 0;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .speed-card {
+            background-color: #FFFFFF;
+            border: 2px solid #DDE8F5;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .speed-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(3, 23, 148, 0.15);
+            border-color: #2A5BDF;
+        }
+
+        .card-header {
+            background: linear-gradient(90deg, #FF0000 0%, #351EBD 33%, #3479F6 66%, #1F87C6 100%);
+            color: #FFFFFF;
+            padding: 8px 10px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .card-content {
+            padding: 10px;
+        }
+
+        .card-content p {
+            margin: 0;
+            padding: 0;
+            font-size: 0.9rem;
+            color: #4D4D4E;
+        }
+
+        .function-card {
+            background-color: #E5F0F9;
+            border-radius: 6px;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #2A5BDF;
+        }
+
+        .function-text {
+            margin: 0 0 8px 0;
+            padding: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .function-text:last-child {
+            margin-bottom: 0;
+        }
+
+        .intro-applications {
+            background-color: #F5F7FA;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 0 0 10px 0;
+        }
+
+        .intro-applications p {
+            margin: 0;
+            padding: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .applications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .application-card {
+            background-color: #FFFFFF;
+            border: 2px solid #DDE8F5;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .application-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 16px rgba(3, 23, 148, 0.2);
+            border-color: #031794;
+        }
+
+        .application-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #031794 0%, #2A5BDF 100%);
+            border-radius: 50%;
+            color: #FFFFFF;
+        }
+
+        .application-title {
+            color: #031794;
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 0 0 6px 0;
+            padding: 0;
+        }
+
+        .application-description {
+            color: #4D4D4E;
+            font-size: 0.85rem;
+            margin: 0;
+            padding: 0;
+            line-height: 1.4;
+        }
+
+        .navigation-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin: 10px 0 0 0;
+            border-top: 2px solid #DDE8F5;
+        }
+
+        /* Estilos para los botones de navegación */
+        .nav-button {
+            background-color: #FFFFFF; /* Fondo blanco */
+            color: #031794; /* Texto azul oscuro */
+            border: 1px solid #031794; /* Borde azul oscuro */
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 90px;
+        }
+
+        .nav-button:hover:not(:disabled) {
+            background-color: #E5F0F9; /* Un ligero cambio de fondo al pasar el ratón */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(3, 23, 148, 0.3);
+        }
+
+        .nav-button:disabled {
+            background-color: #F0F0F0; /* Fondo más claro para deshabilitado */
+            color: #A0A0A0; /* Texto gris para deshabilitado */
+            border-color: #DDE8F5; /* Borde gris claro para deshabilitado */
+            cursor: not-allowed;
+            opacity: 0.8; /* Ligeramente más opaco que antes */
+            box-shadow: none; /* Sin sombra para deshabilitado */
+            transform: none; /* Evita cualquier transformación en estado deshabilitado */
+        }
+
+        .page-indicator {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #031794;
+        }
+
+        @media (max-width: 768px) {
+            .hydraulic-motors-container {
+                padding: 8px;
+            }
+            .content-wrapper {
+                padding: 8px;
+            }
+            .main-section,
+            .classification-section,
+            .function-section,
+            .applications-section {
+                padding: 8px;
+            }
+            .main-title {
+                font-size: 1.5rem;
+            }
+            .section-title {
+                font-size: 1.2rem;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            .applications-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-button {
+                min-width: 70px;
+                font-size: 0.85rem;
+                padding: 6px 8px;
+            }
+            .page-indicator {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (min-width: 1920px) {
+            .hydraulic-motors-container {
+                max-width: 1400px;
+            }
+            .main-title {
+                font-size: 2.5rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .intro-text,
+            .info-content,
+            .function-text {
+                font-size: 1.05rem;
+            }
+            .cards-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .applications-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hydraulic-motors-container">
+        <div class="content-wrapper">
+            <section class="main-section">
+                <h1 class="main-title">Motores Hidráulicos</h1>
+                <div class="intro-card">
+                    <p class="intro-text">
+                        Los actuadores hidráulicos por excelencia son los de carácter lineal, pero ello no limita otro tipo de actuaciones como son por ejemplo los motores hidráulicos. De hecho, en los últimos años su empleo se ha generalizado debido a sus excelentes cualidades (y en especial a su relación potencia – peso).
+                    </p>
+                    <p class="intro-text">
+                        De funcionamiento similar a las bombas (incluso algunas de estas pueden trabajar como motores). Se diferencian mecánicas de engranajes, paletas y pistones.
+                    </p>
+                </div>
+                <div class="section-label">Actuadores hidráulicos</div>
+                <div class="info-card">
+                    <!-- <div class="info-header">Locución:</div> -->
+                    <p class="info-content">
+                        Las diferencias simbólicas entre motores y bombas son mínimas (al igual que sucede con su mecánica).
+                    </p>
+                    <p class="info-content">
+                        En las bombas, se entiende que la aplicación de un giro forzado (motor), mueve la mecánica realizándose entonces la aspiración. Se dice que la bomba "impulsa el caudal" y por ello la simbología (punta de flecha) lo indica.
+                    </p>
+                </div>
+            </section>
+
+            <section class="classification-section">
+                <h2 class="section-title">Clasificación por Velocidad</h2>
+                <div class="cards-grid">
+                    <div class="speed-card">
+                        <div class="card-header">Baja Velocidad</div>
+                        <div class="card-content">
+                            <p>Rara vez se superan las 500 r.p.m.</p>
+                        </div>
+                    </div>
+                    <div class="speed-card">
+                        <div class="card-header">Media Velocidad</div>
+                        <div class="card-content">
+                            <p>Velocidades entre 500 y 2000 r.p.m.</p>
+                        </div>
+                    </div>
+                    <div class="speed-card">
+                        <div class="card-header">Alta Velocidad</div>
+                        <div class="card-content">
+                            <p>Se superan las 2000 r.p.m.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-label">Actuadores hidráulicos</div>
+                <div class="info-card">
+                    <!-- <div class="info-header">Locución:</div> -->
+                    <p class="info-content">
+                        Los motores pueden ser de un sentido de giro o dos (reversibles), siendo estos últimos los más empleados.
+                    </p>
+                    <p class="info-content">
+                        El control de los mismos es ejecutado mediante elementos direccionales clásicos (válvulas de vías, estranguladores, etc.).
+                    </p>
+                </div>
+            </section>
+
+            <section class="function-section">
+                <h2 class="section-title">Funcionamiento</h2>
+                <div class="function-card">
+                    <p class="function-text">
+                        Mientras, en los motores hidráulicos sucede lo contrario. La aplicación de un fluido hace que la mecánica responda para obtener el giro del eje.
+                    </p>
+                    <p class="function-text">
+                        La simbología específica que se ha de inyectar fluido...
+                    </p>
+                </div>
+                <div class="section-label">Actuadores hidráulicos</div>
+            </section>
+
+            <section class="applications-section">
+                <h2 class="section-title">Campos de Aplicación</h2>
+                <div class="intro-applications">
+                    <p>
+                        Como se acaba de ver, la simplicidad de accionamiento (tanto en simple como en doble sentido de giro), hace que los motores hidráulicos sean cada vez más empleados. Algunos campos de aplicación típicos son...
+                    </p>
+                </div>
+                <div class="applications-grid">
+                    <div class="application-card" data-index="0">
+                        <div class="application-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="5" y="10" width="30" height="20" />
+                                <rect x="10" y="15" width="8" height="10" fill="currentColor" stroke-width="0"/>
+                                <rect x="22" y="15" width="8" height="10" fill="currentColor" stroke-width="0"/>
+                                <line x1="20" y1="5" x2="20" y2="10" />
+                            </svg>
+                        </div>
+                        <div class="application-title">Industrias Pesadas</div>
+                        <div class="application-description">
+                            Accionamiento de puentes grúa
+                        </div>
+                    </div>
+                    <div class="application-card" data-index="1">
+                        <div class="application-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 25 Q10 15, 20 20 T35 25" fill="none" />
+                                <circle cx="20" cy="20" r="8" fill="none" />
+                                <rect x="15" y="28" width="10" height="8" fill="currentColor" stroke-width="0" />
+                            </svg>
+                        </div>
+                        <div class="application-title">Marina</div>
+                        <div class="application-description">
+                            Accionamiento de cabestrantes
+                        </div>
+                    </div>
+                    <div class="application-card" data-index="2">
+                        <div class="application-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="20" cy="20" r="12" fill="none" />
+                                <circle cx="20" cy="20" r="6" fill="currentColor" stroke-width="0"/>
+                                <line x1="20" y1="8" x2="20" y2="14" />
+                                <line x1="32" y1="20" x2="26" y2="20" />
+                            </svg>
+                        </div>
+                        <div class="application-title">Máquina Herramienta</div>
+                        <div class="application-description">
+                            Accionamiento de grandes cabezales - plato de torno
+                        </div>
+                    </div>
+                    <div class="application-card" data-index="3">
+                        <div class="application-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="10" y="10" width="20" height="20" fill="none" />
+                                <line x1="15" y1="15" x2="25" y2="25" />
+                                <line x1="25" y1="15" x2="15" y2="25" />
+                            </svg>
+                        </div>
+                        <div class="application-title">Otras</div>
+                        <div class="application-description">
+                            Diversas aplicaciones industriales
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="navigation-bar">
+                <button class="nav-button" id="prevBtn">Anterior</button>
+                <div class="page-indicator">
+                    <span id="currentPage">1</span> / <span id="totalPages">4</span>
+                </div>
+                <button class="nav-button" id="nextBtn">Siguiente</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const sections = [
+                document.querySelector('.main-section'),
+                document.querySelector('.classification-section'),
+                document.querySelector('.function-section'),
+                document.querySelector('.applications-section')
+            ];
+
+            let currentSection = 0;
+            const totalSections = sections.length;
+
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const currentPageSpan = document.getElementById('currentPage');
+            const totalPagesSpan = document.getElementById('totalPages');
+            const contentWrapper = document.querySelector('.content-wrapper');
+
+            // [MODIFICACIÓN] Lógica de transición mejorada
+            function showSection(index, direction = 'next') {
+                const outgoingSection = sections[currentSection];
+                const incomingSection = sections[index];
+
+                if (!incomingSection || !outgoingSection) return;
+
+                // Deshabilitar botones para prevenir clics durante la animación
+                prevBtn.disabled = true;
+                nextBtn.disabled = true;
+
+                // Ajustar la altura del contenedor para evitar saltos visuales
+                contentWrapper.style.height = `${outgoingSection.offsetHeight}px`;
+
+                // Animar la salida de la sección actual
+                outgoingSection.classList.remove('active');
+                outgoingSection.classList.add('hidden');
+                outgoingSection.style.animation = direction === 'next' 
+                    ? 'fadeOut 0.5s ease-in forwards' 
+                    : 'fadeOutPrev 0.5s ease-in forwards';
+                
+                // Esperar a que la animación de salida termine
+                setTimeout(() => {
+                    // Limpiar la sección que salió
+                    outgoingSection.classList.remove('hidden');
+                    outgoingSection.style.animation = '';
+                    
+                    // Mostrar la nueva sección y animar su entrada
+                    incomingSection.classList.add('active');
+                    
+                    // Ajustar la altura del contenedor a la de la nueva sección
+                    const incomingHeight = incomingSection.offsetHeight;
+                    contentWrapper.style.transition = 'height 0.25s ease-out';
+                    contentWrapper.style.height = `${incomingHeight}px`;
+
+                    incomingSection.style.animation = direction === 'next' 
+                        ? 'fadeIn 0.5s ease-out forwards' 
+                        : 'fadeInPrev 0.5s ease-out forwards';
+
+                    // Actualizar el estado
+                    currentSection = index;
+                    currentPageSpan.textContent = index + 1;
+                    
+                    // Habilitar los botones según la nueva posición
+                    prevBtn.disabled = currentSection === 0;
+                    nextBtn.disabled = currentSection === totalSections - 1;
+
+                    // Una vez que la nueva sección ha entrado y la altura se ha ajustado,
+                    // podemos volver a la altura automática para contenido dinámico.
+                    setTimeout(() => {
+                        contentWrapper.style.height = 'auto';
+                        contentWrapper.style.transition = '';
+                    }, 250); // Coincide con la transición de altura
+
+                    // Si estamos en la última página, enviar el mensaje al padre
+                    if (currentSection === totalSections - 1) {
+                        try {
+                            // Después: enviamos un objeto con la propiedad 'type'
+                            window.parent.postMessage({ type: "terminado" }, "*");
+                            console.log("Mensaje 'terminado' enviado al parent.");
+                        } catch (e) {
+                            console.error("Error al enviar postMessage:", e);
+                        }
+                    }
+
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 500); // Duración de la animación de salida (fadeOut)
+            }
+
+            function nextSection() {
+                if (currentSection < totalSections - 1) {
+                    showSection(currentSection + 1, 'next');
+                }
+            }
+
+            function prevSection() {
+                if (currentSection > 0) {
+                    showSection(currentSection - 1, 'prev');
+                }
+            }
+            
+            if (nextBtn && prevBtn) {
+                nextBtn.addEventListener('click', nextSection);
+                prevBtn.addEventListener('click', prevSection);
+            }
+
+            if (totalPagesSpan) {
+                totalPagesSpan.textContent = totalSections;
+            }
+            
+            // Iniciar en la primera sección
+            if (sections.length > 0 && sections[0]) {
+                sections[0].classList.add('active');
+            }
+            currentPageSpan.textContent = 1;
+            prevBtn.disabled = true;
+            nextBtn.disabled = totalSections <= 1;
+
+            const applicationCards = document.querySelectorAll('.application-card');
+            applicationCards.forEach((card) => {
+                card.addEventListener('click', function() {
+                    // Reiniciar cualquier animación en la tarjeta si es necesario
+                    this.style.animation = 'none';
+                    void this.offsetHeight; 
+                    this.style.animation = '';
+                });
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight' && !nextBtn.disabled) {
+                    nextSection();
+                } else if (e.key === 'ArrowLeft' && !prevBtn.disabled) {
+                    prevSection();
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -4,13 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-    <link rel="stylesheet" href="../../assets/css/main_ex.css" />
-    <link rel="stylesheet" href="../../assets/css/sidebar.css" />
-    <link rel="stylesheet" href="../../assets/css/ProgressBar.css" />
-    <link rel="stylesheet" href="../../assets/css/ex1.css" />
+  <link rel="stylesheet" href="../../assets/css/main_ex.css" />
+  <link rel="stylesheet" href="../../assets/css/sidebar.css" />
+  <link rel="stylesheet" href="../../assets/css/ProgressBar.css" />
+  <link rel="stylesheet" href="../../assets/css/ex1.css" />
 
-    <link rel="stylesheet" href="../../assets/css/reproductor-iframe.css">
-
+  <link rel="stylesheet" href="../../assets/css/reproductor-iframe.css">
+  
+  <title>Actuadores hidráulicos</title>
 
   <script src="../../js/sidebar.js" defer></script>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
@@ -44,6 +45,7 @@
       justify-content: center; /* Centra verticalmente el iframe */
       align-items: center; /* Centra horizontalmente el iframe */
       width: 100%;
+      background: #f1f1f1;
     }
 
     .iframe-carrusel {
@@ -99,30 +101,29 @@
 
     <div class="main-container">
       <div class="logo-container"><img src="../../assets/images/logo_color.png" alt="Logo AngloAmerican" class="logo" /></div>
-      <header><h1 class="titulo-epp"><span class="gradient-text2">Calculadora de Actuadores</span></h1></header>
+      <header><h1 class="titulo-epp"><span class="gradient-text2">Actuadores hidráulicos</span></h1></header>
 
       <div class="contenido">
-          <iframe id="exerciseIframe" src="../componentes/xM1/xM1pg3.html" frameborder="0" class="iframe-carrusel"> </iframe>
+          <iframe id="exerciseIframe" src="../componentes/xM1/xM1pg9.html" frameborder="0" class="iframe-carrusel"> </iframe>
       </div>
     </div>
 
-  <!-- botón inicialmente bloqueado; se desbloquea al recibir el mensaje desde el iframe -->
   <button id="continueBtn" class="start-button" onclick="goToNextPage()" disabled>Continuar <span class="arrow">❯</span></button>
 
-  <!-- Reproductor -->
-  <iframe src="../componentes/xaudio.html" class="audio-iframe" data-audio="../../assets/audio/M2/Ejer.wav" title="Reproductor de audio"></iframe>
+  <iframe src="../componentes/xaudio.html" class="audio-iframe" data-audio="../../assets/audio/M1/pg9.wav" title="Reproductor de audio"></iframe>
 
 
   <script src="../../js/audioPlayer.js"></script>
   <script src="../../js/SCORM.js"></script>
+  <script src="../../js/audioUnlock.js"></script>
   <script>
     // Navegación
     function goHome() { window.location.href = 'index.html'; }
-    function backPage() { window.location.href = 'M1_pg2.html'; }
-    function goToNextPage() { window.location.href = 'M1_pg4.html'; }
+    function backPage() { window.location.href = 'M1_pg8.html'; }
+    function goToNextPage() { window.location.href = 'M1_pg10.html'; }
 
     ScormManager.init();
-    ScormManager.guardarProgreso("M1_pg3.html");
+    ScormManager.guardarProgreso("M1_pg8.html");
 
     document.addEventListener("DOMContentLoaded", () => {
       const progreso = ScormManager.cargarProgreso();
@@ -144,55 +145,6 @@
     });
   </script>
 
-    <script>
-    // Escucha de mensajes desde el iframe del carrusel y desbloqueo del botón "Continuar"
-    (function() {
-      const iframe = document.querySelector('.iframe-carrusel');
-      const continueBtn = document.getElementById('continueBtn');
-      const STORAGE_KEY = "M1_pg2_unlocked";
-
-      // Helper para habilitar el botón (solo una vez)
-      function unlockContinueButton() {
-        if (!continueBtn) return;
-        if (!continueBtn.disabled) return; // ya desbloqueado
-        continueBtn.disabled = false;
-        continueBtn.classList.add('enabled');
-        try { continueBtn.focus(); } catch (e) {}
-        // Guardar estado en memoria
-        localStorage.setItem(STORAGE_KEY, "true");
-      }
-
-      // Restaurar estado desde memoria
-      document.addEventListener("DOMContentLoaded", () => {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved === "true") {
-          unlockContinueButton();
-        }
-      });
-
-      // Manejador de mensajes
-      window.addEventListener('message', (event) => {
-        try {
-          if (iframe && event.source !== iframe.contentWindow) return;
-          const data = event.data;
-
-          let isFinished = false;
-          if (typeof data === 'string' && data === 'terminado') {
-            isFinished = true;
-          } else if (typeof data === 'object' && data !== null) {
-            if (data.message === 'carrucel-terminado') isFinished = true;
-            if (data.type === 'carousel-status' && data.status === 'finished') isFinished = true;
-          }
-
-          if (isFinished) {
-            unlockContinueButton();
-          }
-        } catch (err) {
-          console.error('Error manejando message event:', err);
-        }
-      }, false);
-    })();
-  </script>
 
 </body>
 </html>

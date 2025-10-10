@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Actuadores</title>
+    <link rel="stylesheet" href="../../../assets/css/M1/xM1_pg3.css">
+</head>
+<body>
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-active" onclick="switchTab('fuerza')">Cálculo de Fuerza</button>
+            <button class="tab" onclick="switchTab('velocidad')">Cálculo de Velocidad</button>
+            <button class="tab" onclick="switchTab('area')">Cálculo de Área</button>
+        </div>
+
+        <div id="fuerza" class="tab-content active">
+            <div class="formula-box">
+                <div>Fórmula del Área del Émbolo</div>
+                <div class="formula">A = π × D² / 4</div>
+                <div style="margin-top: 15px;">Fórmula de la Fuerza</div>
+                <div class="formula">F = P × A</div>
+            </div>
+            
+            <div class="main-grid">
+                <div class="input-section">
+                    <h3 style="color: #031794; margin-bottom: 20px;">Parámetros de Entrada</h3>
+                    
+                    <div class="input-group">
+                        <label>Diámetro del émbolo (D) - mm:</label>
+                        <input type="number" id="diametro" placeholder="Ejemplo: 50" step="0.1" oninput="calcularFuerzaAuto()">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Presión (P) - bar:</label>
+                        <input type="number" id="presion" placeholder="Ejemplo: 100" step="0.1" oninput="calcularFuerzaAuto()">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>¿Incluir área del vástago?</label>
+                        <select id="vastago-option" onchange="toggleVastago(); calcularFuerzaAuto()">
+                            <option value="no">No - Avance (solo émbolo)</option>
+                            <option value="si">Sí - Retroceso (émbolo - vástago)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group" id="vastago-input" style="display:none;">
+                        <label>Diámetro del vástago (d) - mm:</label>
+                        <input type="number" id="diametro-vastago" placeholder="Ejemplo: 25" step="0.1" oninput="calcularFuerzaAuto()">
+                    </div>
+                    
+                    <button onclick="calcularFuerza()">Calcular Fuerza</button>
+                </div>
+                
+                <div class="visualization-section">
+                    <div class="visual-title">Visualización del Cilindro</div>
+                    <div class="cylinder-container" id="cylinder-visual">
+                        <div class="placeholder-text">Ingrese los valores para ver la simulación</div>
+                    </div>
+                    <div class="result-cards" id="result-cards-fuerza" style="display:none;">
+                        <div class="result-card">
+                            <div class="result-label">Área del Émbolo</div>
+                            <div class="result-value" id="area-resultado">0</div>
+                            <div class="result-unit">cm²</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Fuerza Generada</div>
+                            <div class="result-value" id="fuerza-resultado">0</div>
+                            <div class="result-unit" id="fuerza-unit">N</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <h3>Información Importante</h3>
+                <p><strong>Fuerza = Presión × Área</strong></p>
+                <p>• El área se calcula usando el diámetro del émbolo mediante la fórmula A = π × D² / 4</p>
+                <p>• Para cálculo en retroceso, se resta el área del vástago (sección anular de retorno)</p>
+                <p>• 1 bar equivale aproximadamente a 10 N/cm²</p>
+                <p>• Nota: Este cálculo no incluye factores de rozamiento ni carga máxima deseada</p>
+            </div>
+        </div>
+        
+        <div id="velocidad" class="tab-content">
+            <div class="formula-box">
+                <div>Fórmula de la Velocidad</div>
+                <div class="formula">V = (Q × 1000) / (A × 60)</div>
+                <div style="font-size: 0.9em; margin-top: 10px;">
+                    V = velocidad (cm/s) | Q = caudal (l/min) | A = área (cm²)
+                </div>
+            </div>
+            
+            <div class="main-grid">
+                <div class="input-section">
+                    <h3 style="color: #031794; margin-bottom: 20px;">Parámetros de Entrada</h3>
+                    
+                    <div class="input-group">
+                        <label>Diámetro del émbolo (D) - mm:</label>
+                        <input type="number" id="diametro-vel" placeholder="Ejemplo: 50" step="0.1" oninput="calcularVelocidadAuto()">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Caudal de la bomba (Q) - l/min:</label>
+                        <input type="number" id="caudal" placeholder="Ejemplo: 10" step="0.1" oninput="calcularVelocidadAuto()">
+                    </div>
+                    
+                    <button onclick="calcularVelocidad()">Calcular Velocidad</button>
+                </div>
+                
+                <div class="visualization-section">
+                    <div class="visual-title">Animación de Velocidad</div>
+                    <div class="speed-animation" id="speed-visual">
+                        <div class="placeholder-text">Ingrese los valores para ver la animación</div>
+                    </div>
+                    <div class="result-cards" id="result-cards-velocidad" style="display:none;">
+                        <div class="result-card">
+                            <div class="result-label">Velocidad</div>
+                            <div class="result-value" id="velocidad-resultado">0</div>
+                            <div class="result-unit">cm/s</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Velocidad</div>
+                            <div class="result-value" id="velocidad-ms">0</div>
+                            <div class="result-unit">m/min</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <h3>Información Importante</h3>
+                <p><strong>Velocidad = Caudal / Área</strong></p>
+                <p>• El caudal se mide en litros por minuto (l/min)</p>
+                <p>• El área del émbolo se calcula en cm²</p>
+                <p>• La velocidad resultante se expresa en cm/s y m/min</p>
+                <p>• A mayor caudal o menor área, mayor será la velocidad del pistón</p>
+            </div>
+        </div>
+        
+        <div id="area" class="tab-content">
+            <div class="formula-box">
+                <div>Fórmula del Área del Círculo</div>
+                <div class="formula">A = π × D² / 4</div>
+                <div style="font-size: 0.9em; margin-top: 10px;">
+                    También: A = π × r² (donde r = D/2)
+                </div>
+            </div>
+            
+            <div class="main-grid">
+                <div class="input-section">
+                    <h3 style="color: #031794; margin-bottom: 20px;">Parámetros de Entrada</h3>
+                    
+                    <div class="input-group">
+                        <label>Tipo de cálculo:</label>
+                        <select id="tipo-area" onchange="toggleAreaInput()">
+                            <option value="diametro">Por Diámetro (D)</option>
+                            <option value="radio">Por Radio (r)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group" id="input-diametro-area">
+                        <label>Diámetro (D) - mm:</label>
+                        <input type="number" id="diametro-area" placeholder="Ejemplo: 50" step="0.1" oninput="calcularAreaAuto()">
+                    </div>
+                    
+                    <div class="input-group" id="input-radio-area" style="display:none;">
+                        <label>Radio (r) - mm:</label>
+                        <input type="number" id="radio-area" placeholder="Ejemplo: 25" step="0.1" oninput="calcularAreaAuto()">
+                    </div>
+                    
+                    <button onclick="calcularArea()">Calcular Área</button>
+                </div>
+                
+                <div class="visualization-section">
+                    <div class="visual-title">Visualización del Área</div>
+                    <div id="area-visual">
+                        <div class="placeholder-text">Ingrese el diámetro o radio para ver la visualización</div>
+                    </div>
+                    <div class="result-cards" id="result-cards-area" style="display:none;">
+                        <div class="result-card">
+                            <div class="result-label">Área</div>
+                            <div class="result-value" id="area-final-resultado">0</div>
+                            <div class="result-unit">cm²</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Área</div>
+                            <div class="result-value" id="area-mm2">0</div>
+                            <div class="result-unit">mm²</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <h3>Información Importante</h3>
+                <p><strong>Área del círculo = π × r² = π × D² / 4</strong></p>
+                <p>• D = Diámetro del émbolo, r = Radio del émbolo</p>
+                <p>• Relación: Radio = Diámetro / 2</p>
+                <p>• π ≈ 3.14159265359</p>
+                <p>• El área es fundamental para calcular tanto la fuerza como la velocidad del actuador</p>
+            </div>
+           
+        </div>
+        <div style="margin-bottom: 100px;"></div>
+    </div>
+    
+    <script>
+        let pistonAnimation = null;
+        
+        const totalTabs = document.querySelectorAll('.tab').length;
+        const visitedTabs = new Set();
+        let allTabsVisitedMessageSent = false;
+        
+        function switchTab(tabName) {
+            const tabs = document.querySelectorAll('.tab');
+            const contents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+            
+            if (pistonAnimation) {
+                clearInterval(pistonAnimation);
+                pistonAnimation = null;
+            }
+            
+            visitedTabs.add(tabName);
+            
+            if (visitedTabs.size === totalTabs && !allTabsVisitedMessageSent) {
+                window.parent.postMessage("terminado", "*");
+                allTabsVisitedMessageSent = true;
+            }
+        }
+        
+        function toggleVastago() {
+            const option = document.getElementById('vastago-option').value;
+            const input = document.getElementById('vastago-input');
+            input.style.display = option === 'si' ? 'block' : 'none';
+        }
+        
+        function toggleAreaInput() {
+            const tipo = document.getElementById('tipo-area').value;
+            const inputDiametro = document.getElementById('input-diametro-area');
+            const inputRadio = document.getElementById('input-radio-area');
+            
+            if (tipo === 'diametro') {
+                inputDiametro.style.display = 'block';
+                inputRadio.style.display = 'none';
+            } else {
+                inputDiametro.style.display = 'none';
+                inputRadio.style.display = 'block';
+            }
+            calcularAreaAuto();
+        }
+        
+        function calcularFuerzaAuto() {
+            const diametro = parseFloat(document.getElementById('diametro').value);
+            const presion = parseFloat(document.getElementById('presion').value);
+            
+            if (!isNaN(diametro) && !isNaN(presion) && diametro > 0 && presion > 0) {
+                calcularFuerza();
+            }
+        }
+        
+        function calcularFuerza() {
+            const diametro = parseFloat(document.getElementById('diametro').value);
+            const presion = parseFloat(document.getElementById('presion').value);
+            const incluirVastago = document.getElementById('vastago-option').value;
+            
+            if (isNaN(diametro) || isNaN(presion)) {
+                return;
+            }
+            
+            let area = Math.PI * Math.pow(diametro / 10, 2) / 4;
+            
+            if (incluirVastago === 'si') {
+                const diametroVastago = parseFloat(document.getElementById('diametro-vastago').value);
+                if (!isNaN(diametroVastago)) {
+                    const areaVastago = Math.PI * Math.pow(diametroVastago / 10, 2) / 4;
+                    area = area - areaVastago;
+                }
+            }
+            
+            const fuerza = presion * 10 * area;
+            const fuerzaKgf = fuerza / 9.81;
+            
+            document.getElementById('area-resultado').textContent = area.toFixed(2);
+            document.getElementById('fuerza-resultado').textContent = fuerza.toFixed(0);
+            document.getElementById('fuerza-unit').textContent = `N (≈ ${fuerzaKgf.toFixed(0)} kgf)`;
+            
+            document.getElementById('result-cards-fuerza').style.display = 'grid';
+            
+            const pistonWidth = Math.max(25, Math.min(80, (fuerza / 100)));
+            const cylinderHTML = `
+                <div class="cylinder">
+                    <div class="pressure-indicator">P = ${presion} bar</div>
+                    <div class="piston" style="width: ${pistonWidth}%;">
+                        <span style="font-size: 0.8em;">Pistón</span>
+                    </div>
+                    <div class="force-arrow">→</div>
+                </div>
+                ${incluirVastago === 'si' ? `<div class="rod" style="width: 40%; margin-top: 10px;"></div>` : ''}
+            `;
+            
+            document.getElementById('cylinder-visual').innerHTML = cylinderHTML;
+        }
+        
+        function calcularVelocidadAuto() {
+            const diametro = parseFloat(document.getElementById('diametro-vel').value);
+            const caudal = parseFloat(document.getElementById('caudal').value);
+            
+            if (!isNaN(diametro) && !isNaN(caudal) && diametro > 0 && caudal > 0) {
+                calcularVelocidad();
+            }
+        }
+        
+        function calcularVelocidad() {
+            const diametro = parseFloat(document.getElementById('diametro-vel').value);
+            const caudal = parseFloat(document.getElementById('caudal').value);
+            
+            if (isNaN(diametro) || isNaN(caudal)) {
+                return;
+            }
+            
+            const area = Math.PI * Math.pow(diametro / 10, 2) / 4;
+            const velocidad = (caudal * 1000) / (area * 60);
+            const velocidadMMin = velocidad * 60 / 100;
+            
+            document.getElementById('velocidad-resultado').textContent = velocidad.toFixed(2);
+            document.getElementById('velocidad-ms').textContent = velocidadMMin.toFixed(2);
+            
+            document.getElementById('result-cards-velocidad').style.display = 'grid';
+            
+            if (pistonAnimation) {
+                clearInterval(pistonAnimation);
+            }
+            
+            const speedVisual = document.getElementById('speed-visual');
+            const duration = 5000 / velocidad; 
+            
+            speedVisual.innerHTML = `<div class="moving-piston" id="moving-piston">Pistón</div>`;
+            
+            const movingPiston = document.getElementById('moving-piston');
+            let position = 0;
+            const pistonElementWidth = 60; 
+            const maxPosition = speedVisual.offsetWidth - pistonElementWidth;
+            
+            if (maxPosition < 0) return;
+
+            pistonAnimation = setInterval(() => {
+                position += 2;
+                if (position > maxPosition) {
+                    position = 0;
+                }
+                movingPiston.style.left = position + 'px';
+            }, duration / 100);
+        }
+        
+        function calcularAreaAuto() {
+            const tipo = document.getElementById('tipo-area').value;
+            
+            if (tipo === 'diametro') {
+                const diametro = parseFloat(document.getElementById('diametro-area').value);
+                if (!isNaN(diametro) && diametro > 0) {
+                    calcularArea();
+                }
+            } else {
+                const radio = parseFloat(document.getElementById('radio-area').value);
+                if (!isNaN(radio) && radio > 0) {
+                    calcularArea();
+                }
+            }
+        }
+        
+        function calcularArea() {
+            const tipo = document.getElementById('tipo-area').value;
+            let area, diametroReal;
+            
+            if (tipo === 'diametro') {
+                const diametro = parseFloat(document.getElementById('diametro-area').value);
+                if (isNaN(diametro)) {
+                    return;
+                }
+                diametroReal = diametro;
+                area = Math.PI * Math.pow(diametro / 10, 2) / 4;
+            } else {
+                const radio = parseFloat(document.getElementById('radio-area').value);
+                if (isNaN(radio)) {
+                    return;
+                }
+                diametroReal = radio * 2;
+                area = Math.PI * Math.pow(radio / 10, 2);
+            }
+            
+            const areaMm2 = area * 100;
+            
+            document.getElementById('area-final-resultado').textContent = area.toFixed(2);
+            document.getElementById('area-mm2').textContent = areaMm2.toFixed(2);
+            
+            document.getElementById('result-cards-area').style.display = 'grid';
+            
+            const circleSize = Math.min(250, 100 + diametroReal * 2);
+            const fontSize = Math.max(8, Math.min(16, circleSize / 14));
+
+            const areaHTML = `
+                <div class="area-circle" style="width: ${circleSize}px; height: ${circleSize}px;">
+                    <div class="diameter-line">
+                        <div class="diameter-label">D = ${diametroReal.toFixed(1)} mm</div>
+                    </div>
+                    <div style="font-size: ${fontSize}px; color: #FFFFFF; font-weight: bold; text-align: center; z-index: 10;">
+                        A = ${area.toFixed(2)} cm²
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('area-visual').innerHTML = areaHTML;
+        }
+    </script>
+</body>
+</html>
