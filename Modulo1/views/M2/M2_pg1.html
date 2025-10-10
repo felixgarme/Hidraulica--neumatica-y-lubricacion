@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Circuito de Molienda</title>
+    <title>Válvulas Direccionales</title>
     <link rel="stylesheet" href="../../assets/css/main.css">
     <link rel="stylesheet" href="../../assets/css/sidebar.css">
     <link rel="stylesheet" href="../../assets/css/ProgressBar.css">
@@ -205,7 +205,6 @@
         </div>
         <div id="menu-container"></div>
     </nav>
-    <!-- Reproductor -->
     <iframe src="../componentes/xaudio.html" class="audio-iframe" data-audio="../../assets/audio/M2/pg1.wav" title="Reproductor de audio"></iframe>
 
     <div class="logo-container">
@@ -213,241 +212,103 @@
     </div>
     <div class="container">
         <div class="header">
-            <h1>Circuito de Molienda</h1>
-            <h2>Operación Normal del Proceso</h2>
+            <h1>Válvulas Direccionales</h1>
+            <h2>Concepto, Funcionamiento y Simbología</h2>
         </div>
         <div class="instruction-box">
             <img src="../../assets/images/Icons/selcA.gif" alt="click-gif" class="gif">
-            <p>Navega por las pestañas para explorar cada etapa del circuito de molienda. Puedes presionar las tarjetas desplegables para conocer más información técnica.</p>
+            <p>Navega por las pestañas para explorar los conceptos, funcionamiento y simbología de las válvulas direccionales.</p>
         </div>
         <div class="capacity-highlight">
-            Capacidad de Tratamiento: 127,500 tpd (5,652 t/h)
+            Controlan el paso y la dirección del fluido en un circuito.
         </div>
         <div class="navigation-tabs">
-            <button class="tab-btn active" onclick="showTab('vision-general')">Visión General</button>
-            <button class="tab-btn" onclick="showTab('molienda-primaria')">Molienda Primaria</button>
-            <button class="tab-btn" onclick="showTab('extracción-grueso')">Extracción de Gruesos</button>
-            <button class="tab-btn" onclick="showTab('molienda-secundaria')">Molienda Secundaria</button>
-            <button class="tab-btn" onclick="showTab('chancado-pebbles')">Chancado de Pebbles</button>
+            <button class="tab-btn active" onclick="showTab('concepto')">Concepto</button>
+            <button class="tab-btn" onclick="showTab('funcionamiento')">Funcionamiento</button>
+            <button class="tab-btn" onclick="showTab('simbologia')">Simbología</button>
         </div>
         <div class="content-area">
-            <div id="vision-general" class="tab-content active">
-                <div class="timeline-container">
-                    <div class="timeline-item">
-                        <div class="timeline-content">
-                            <h3 style="color: var(--color-azul); margin-bottom: 15px;">Función Principal del Circuito</h3>
-                            <p>Reducir el tamaño del mineral grueso proveniente del área de chancado desde un tamaño de alimentación F80 de 150mm hasta obtener partículas finas con un tamaño P80 entre 165μm a 180μm, características requeridas por la etapa de flotación.</p>
-                        </div>
-                    </div>
-                    <div class="process-diagram">
-                        <h4 style="color: var(--color-azul); text-align: center; margin-bottom: 20px;">Flujo del Proceso</h4>
-                        <div class="diagram-step">
-                            <div class="step-number">1</div>
-                            <div>
-                                <strong>Alimentación</strong><br>
-                                Mineral grueso F80: 150mm
-                            </div>
-                        </div>
-                        <div class="step-arrow">↓</div>
-                        <div class="diagram-step">
-                            <div class="step-number">2</div>
-                            <div>
-                                <strong>Molienda Primaria (SAG)</strong><br>
-                                Reducción a P80: 2-3mm
-                            </div>
-                        </div>
-                        <div class="step-arrow">↓</div>
-                        <div class="diagram-step">
-                            <div class="step-number">3</div>
-                            <div>
-                                <strong>Clasificación</strong><br>
-                                Hidrociclones separan gruesos y finos
-                            </div>
-                        </div>
-                        <div class="step-arrow">↓</div>
-                        <div class="diagram-step">
-                            <div class="step-number">4</div>
-                            <div>
-                                <strong>Molienda Secundaria (Bolas)</strong><br>
-                                Producto final P80: 165-180μm
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="molienda-primaria" class="tab-content">
+            <div id="concepto" class="tab-content active">
                 <div class="process-flow-container">
                     <div class="flow-step">
-                        <h4>Molinos SAG (Semi-Autógenos)</h4>
-                        <p>Los molinos SAG 1 y 2 (3210-MI001 y 002) procesan el mineral desde un tamaño F80 de 150mm hasta un P80 de 2-3mm.
-                        </p>
-                        <div class="technical-specs">
-                            <h5 style="color: var(--color-azul);">Especificaciones Técnicas</h5>
-                            <div class="specs-grid">
-                                <div class="spec-item">
-                                    <strong>Velocidad Operación:</strong> 75% de velocidad crítica
-                                </div>
-                                <div class="spec-item">
-                                    <strong>Rango Velocidad:</strong> 72% - 76% velocidad crítica
-                                </div>
-                                <div class="spec-item">
-                                    <strong>Carga Total:</strong> 24% - 27% del volumen del molino
-                                </div>
-                                <div class="spec-item">
-                                    <strong>Carga de Bolas:</strong> 10% del volumen del molino
-                                </div>
-                            </div>
-                        </div>
+                        <h4>Definición de Válvulas Direccionales</h4>
+                        <p>Las válvulas direccionales controlan el paso y la dirección del fluido en un circuito, permitiendo o bloqueando su flujo hacia diferentes puntos de aplicación.</p>
                     </div>
-                    <div class="flow-step">
-                        <h4>Flujo del Proceso</h4>
-                        <p>El flujo procesado fluye por gravedad hacia los cajones de descarga SAG 1 y 2 (3210-BX-001 y 002), para posteriormente ser enviado a clasificación en dos nidos de hidrociclones (3210-CY-001/002 y 003/004).</p>
+                     <div class="flow-step">
+                        <h4>Función Principal</h4>
+                        <p>Su funcionamiento depende del número de vías y posiciones que posea. Las vías determinan las conexiones de la válvula: presión, trabajo y retorno (en hidráulica) o presión, trabajo y escape (en neumática).</p>
                     </div>
                 </div>
+                <img src="../../assets/images/M2/a1.png" style="width: 50%; display: block; margin: 0 auto;">
+                <img src="../../assets/images/M2/a3.png" style="width: 60%; display: block; margin: 0 auto;">
+                <img src="../../assets/images/M2/a4.png" style="width: 100%; display: block; margin: 0 auto;">
+                <img src="../../assets/images/M2/a5.png" style="width: 100%; display: block; margin: 0 auto;">
+                <img src="../../assets/images/M2/a6.png" style="width: 100%; display: block; margin: 0 auto;">
+                <div style="margin-bottom: 90px;"></div>
+
             </div>
-            <div id="extracción-grueso" class="tab-content">
+            
+            <div id="funcionamiento" class="tab-content">
                 <div class="process-flow-container">
                     <div class="flow-step">
-                        <h4>Sistema de Extracción de Mineral Grueso</h4>
-                        <p>El mineral proveniente del cajón de descarga de los molinos SAG pasa a través de una parrilla de separación y una zaranda vibratoria para separar las partículas gruesas y finas.</p>
-                        <div class="image-container" style="display: flex; justify-content: space-around; gap: 20px; margin-top: 20px;">
-                            <img src="../../assets/images/M2/A.png" alt="Zaranda Vibratoria" style="width: 45%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-                            <img src="../../assets/images/M2/B.png" alt="Parrilla de Separación" style="width: 45%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-                        </div>
-                        <p style="margin-top: 20px;">
-                            El material fino es el producto principal de la molienda primaria y se dirige al circuito de clasificación. El material grueso (pebbles) es desviado hacia el chancado de pebbles para su posterior procesamiento.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div id="molienda-secundaria" class="tab-content">
-                <div class="process-flow-container">
-                    <div class="flow-step">
-                        <h4>Sistema de Bombeo</h4>
-                        <p>Las bombas de alimentación de nidos de hidrociclones 1 y 2 (3210-PU-001/002 y 003/021) envían la pulpa hacia sus respectivos nidos.</p>
-                        <div class="technical-specs">
-                            <h5 style="color: var(--color-azul);">Especificaciones de Bombas</h5>
-                            <div class="specs-grid">
-                                <div class="spec-item">
-                                    <strong>Capacidad:</strong> 7,050 m³/h por bomba
-                                </div>
-                                <div class="spec-item">
-                                    <strong>Motor:</strong> 1,790 kW
-                                </div>
-                                <div class="spec-item">
-                                    <strong>Flujo Proceso:</strong> 5,652 t/h por línea
-                                </div>
-                                <div class="spec-item">
-                                    <strong>% Sólidos:</strong> 58.3%
-                                </div>
+                        <h4>Aplicaciones Comunes</h4>
+                        <div class="operational-modes">
+                            <div class="mode-card">
+                                <div class="mode-title">Sistemas Hidráulicos</div>
+                                <p>En hidráulica se utilizan comúnmente válvulas de <strong>4 vías y 3 posiciones</strong>. La tercera posición se emplea para fijar la posición del actuador o controlar la presión del sistema. El retorno del fluido se marca con la letra “T” y se prefiere un solo punto de retorno para simplificar el conexionado.</p>
+                            </div>
+                            <div class="mode-card">
+                                <div class="mode-title">Sistemas Neumáticos</div>
+                                <p>En neumática predominan las de <strong>5 vías y 2 posiciones</strong>. En estos sistemas, suelen emplearse escapes diferenciados, marcados con las letras R y S.</p>
                             </div>
                         </div>
                     </div>
                     <div class="flow-step">
-                        <h4>Clasificación en Hidrociclones</h4>
-                        <p>Cada nido tiene 10 hidrociclones de 33" de diámetro (8 operativos + 2 reserva) configurados radialmente alrededor de un distribuidor.</p>
+                        <h4>Normativa y Ejemplos</h4>
+                        <p>Según la norma <strong>CETOP</strong>, cada vía se designa con letras específicas que identifican la presión, el retorno y las salidas de trabajo.</p>
+                         <div class="technical-specs">
+                            <h5 style="color: var(--color-azul);">Ejemplo: Centro Tándem</h5>
+                            <p>Un ejemplo característico es el centro tándem, que permite la recirculación del fluido entre la bomba y el tanque, favoreciendo la despresurización del sistema cuando no se requiere trabajo.</p>
+                        </div>
+                    </div>
+                </div>
+                <img src="../../assets/images/M2/a2.png" style="width: 100%; display: block; margin: 0 auto;">
+                <div style="margin-bottom: 100px;"></div>
+    
+            </div>
+            
+            <div id="simbologia" class="tab-content">
+                 <div class="process-flow-container">
+                    <div class="flow-step">
+                        <h4>Representación Gráfica</h4>
+                        <p>La simbología de las válvulas direccionales representa sus <strong>posiciones</strong> y <strong>accionamientos</strong> (manuales, mecánicos, eléctricos, etc.).</p>
                         <div class="technical-specs">
-                            <h5 style="color: var(--color-azul);">Condiciones de Operación</h5>
                             <div class="specs-grid">
                                 <div class="spec-item">
-                                    <strong>Flujo Alimentación:</strong> 5,652 m³/h
+                                    <strong>Posiciones:</strong> Cada posición se representa mediante un cuadro. Las más comunes son las de 3 posiciones.
                                 </div>
-                                <div class="spec-item">
-                                    <strong>Presión Nominal:</strong> 75 kPa
+                                 <div class="spec-item">
+                                    <strong>Normas:</strong> Estas representaciones siguen las mismas normas que las empleadas en los sistemas neumáticos y electroneumáticos.
                                 </div>
-                                <div class="spec-item">
-                                    <strong>% Sólidos:</strong> 58.3%
-                                </div>
-                                <div class="spec-item">
-                                    <strong>Control:</strong> Válvulas ON/OFF remotas
-                                </div>
-                            </div>
-                        </div>
-                        <div class="classification-results">
-                            <div class="result-card overflow">
-                                <h5>Rebose (O/F)</h5>
-                                <p><strong>Flujo:</strong> 1,413 t/h<br>
-                                <strong>% Sólidos:</strong> 35%<br>
-                                <strong>Tamaño:</strong> P80 165-180μm<br>
-                                <strong>Destino:</strong> Flotación rougher</p>
-                            </div>
-                            <div class="result-card">
-                                <h5>Descarga (U/F)</h5>
-                                <p><strong>Flujo:</strong> 4,239 t/h<br>
-                                <strong>% Sólidos:</strong> 75%<br>
-                                <strong>Tamaño:</strong> P80 2,262μm<br>
-                                <strong>Destino:</strong> Molinos de bolas</p>
                             </div>
                         </div>
                     </div>
-                    <div class="interactive-section" onclick="toggleDetails('molino-bolas')">
-                        <div class="section-trigger">
-                            <h4>Molinos de Bolas - Especificaciones Técnicas</h4>
-                            <div class="toggle-indicator" id="molino-bolas-indicator">+</div>
-                        </div>
-                        <div class="section-details" id="molino-bolas-details">
-                            <div class="technical-specs">
-                                <h5 style="color: var(--color-azul);">Características del Molino</h5>
-                                <div class="specs-grid">
-                                    <div class="spec-item">
-                                        <strong>Tipo Motor:</strong> Gearless (sin engranajes)
-                                    </div>
-                                    <div class="spec-item">
-                                        <strong>Potencia:</strong> 22.0 MW
-                                    </div>
-                                    <div class="spec-item">
-                                        <strong>Diámetro:</strong> 28 pies
-                                    </div>
-                                    <div class="spec-item">
-                                        <strong>Longitud:</strong> 44 pies
-                                    </div>
-                                    <div class="spec-item">
-                                        <strong>Alimentación:</strong> 8,478 t/h (75% sólidos)
-                                    </div>
-                                    <div class="spec-item">
-                                        <strong>Reducción:</strong> De 2,262μm a P80 788μm
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="flow-step">
+                        <h4>Ejemplo de Símbolos</h4>
+                        <p>A continuación se muestra un ejemplo de la simbología utilizada para las válvulas direccionales, donde se aprecian las vías, posiciones y tipos de accionamiento.</p>
+                        
                     </div>
                 </div>
-            </div>
-            <div id="chancado-pebbles" class="tab-content">
-                <div class="regulations-panel">
-                    <div class="panel-header">
-                        <h3 style="color: var(--color-azul); font-size: var(--font-4);">Modos de Operación</h3>
-                        <p style="color: var(--color-gris); font-size: var(--font-6); margin-top: 15px;">
-                            El manejo del chancado de pebbles tiene dos modos de operación disponibles según las condiciones del proceso.
-                        </p>
-                    </div>
-                    <div class="operational-modes">
-                        <div class="mode-card">
-                            <div class="mode-title">Circuito SABC-A (Normal)</div>
-                            <p>Los pebbles descargados de la molienda SAG son derivados al chancado de pebbles para ser procesados en una chancadora de cono (3220-CR-001) y luego retornados a la molienda SAG.</p>
-                            <div style="margin-top: 15px; padding: 10px; background: #e8f5e8; border-radius: 6px;">
-                                <strong>Ventaja:</strong> Mayor control del tamaño de partícula
-                            </div>
-                        </div>
-                        <div class="mode-card">
-                            <div class="mode-title">Circuito DSAG (Alternativo)</div>
-                            <p>Operación alternativa que considera retornar pebbles sin chancar a los molinos SAG mediante el chute (3220-CH-037).</p>
-                            <div style="margin-top: 15px;">
-                                <p><strong>Opción de Emergencia:</strong> Si existe problema en el circuito de pebbles, se pueden desviar hacia acopio mediante chute (3220-CH-005) y retornar con cargador frontal.</p>
-                            </div>
-                            <div style="margin-top: 10px; padding: 10px; background: #fff3cd; border-radius: 6px;">
-                                <strong>Criterio:</strong> El operador determina el método más eficiente según consumos de energía
-                            </div>
-                        </div>
-                    </div>
-                    <div class="btn-siguiente">
-                        <button class="interactive-button" onclick="goToNextPage()">
-                            Continuar
-                            <span class="arrow">❯</span>
-                        </button>
-                    </div>
+
+                <div class="btn-siguiente" style="text-align: right; margin-top: 20px;">
+                    <button class="interactive-button" onclick="goToNextPage()">
+                        Continuar
+                        <span class="arrow">❯</span>
+                    </button>
                 </div>
+            
             </div>
+
         </div>
     </div>
     <script src="../js/SCORM.js"></script>
