@@ -1,0 +1,378 @@
+<style>
+    .curso-valvulas-container {
+  width: 100%;
+  max-width: 100%;
+  /* background: #F5F7FA; */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  box-sizing: border-box;
+}
+
+.curso-valvulas-container *,
+.curso-valvulas-container *::before,
+.curso-valvulas-container *::after {
+  box-sizing: border-box;
+}
+
+.curso-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 10px;
+  background: #FFFFFF;
+  min-height: 100vh;
+}
+
+.curso-titulo {
+  background: linear-gradient(90deg, #FF0000 0%, #351EBD 33%, #3479F6 66%, #1F87C6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  padding: 10px 0;
+}
+
+.curso-seccion {
+  margin: 10px 0;
+  padding: 10px;
+  border-left: 4px solid #031794;
+}
+
+.curso-subtitulo {
+  color: #031794;
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 600;
+  margin: 0 0 10px 0;
+  padding: 5px 0;
+}
+
+.curso-subseccion {
+  margin: 10px 0;
+  padding: 10px;
+  background: #F5F7FA;
+  border-radius: 6px;
+}
+
+.curso-subtitulo-pequeno {
+  color: #031794;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-weight: 600;
+  margin: 0 0 10px 0;
+}
+
+.curso-texto {
+  color: #4D4D4E;
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  line-height: 1.6;
+  margin: 8px 0;
+}
+
+.tabla-container {
+  width: 100%;
+  overflow-x: auto;
+  margin: 10px 0;
+  border-radius: 6px;
+  border: 1px solid #DDE8F5;
+}
+
+.curso-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  background: #FFFFFF;
+  min-width: 300px;
+}
+
+.curso-tabla thead {
+  background: linear-gradient(90deg, #031794 0%, #34C0C0 100%);
+}
+
+.curso-tabla th {
+  color: #FFFFFF;
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  font-weight: 600;
+  padding: 10px;
+  text-align: left;
+  border-bottom: 2px solid #031794;
+}
+
+.curso-tabla td {
+  color: #4D4D4E;
+  font-size: clamp(0.8125rem, 1.8vw, 0.9375rem);
+  padding: 10px;
+  border-bottom: 1px solid #DDE8F5;
+}
+
+.curso-tabla tbody tr:hover {
+  background: #E5F0F9;
+  transition: background 0.3s ease;
+}
+
+.curso-lista-items {
+  margin: 10px 0;
+  padding: 0;
+}
+
+.curso-item {
+  display: flex;
+  align-items: flex-start;
+  margin: 8px 0;
+  padding: 5px;
+}
+
+.item-icono {
+  width: 8px;
+  height: 8px;
+  background: #031794;
+  border-radius: 50%;
+  margin: 8px 10px 0 0;
+  flex-shrink: 0;
+}
+
+.info-box {
+  background: #E5F0F9;
+  border-left: 4px solid #031794;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 4px;
+}
+
+.info-destacada {
+  background: linear-gradient(135deg, #E5F0F9 0%, #FFFFFF 100%);
+  border: 1px solid #6B8BDF;
+}
+
+.curso-navegacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0 0 0;
+  padding: 10px;
+  border-top: 2px solid #DDE8F5;
+}
+
+.btn-nav {
+  background: linear-gradient(90deg, #031794 0%, #34C0C0 100%);
+  color: #FFFFFF;
+  border: none;
+  padding: 10px;
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  min-width: 100px;
+}
+
+.btn-nav:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.btn-nav:active {
+  transform: translateY(0);
+}
+
+.btn-nav:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.indicador-pagina {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #031794;
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  font-weight: 600;
+}
+
+.pagina-actual {
+  color: #FF0000;
+}
+
+.separador {
+  color: #B9B9B9;
+}
+
+@media (max-width: 768px) {
+  .curso-content {
+    padding: 8px;
+  }
+
+  .curso-seccion {
+    padding: 8px;
+  }
+
+  .curso-subseccion {
+    padding: 8px;
+  }
+
+  .curso-tabla th,
+  .curso-tabla td {
+    padding: 8px;
+  }
+
+  .info-box {
+    padding: 8px;
+  }
+
+  .btn-nav {
+    min-width: 80px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .curso-navegacion {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .btn-nav {
+    width: 100%;
+  }
+
+  .indicador-pagina {
+    order: -1;
+  }
+}
+</style>
+
+<div class="curso-valvulas-container">
+  <div class="curso-content">
+    <h1 class="curso-titulo">Otras Válvulas</h1>
+    
+    <section class="curso-seccion">
+      <h2 class="curso-subtitulo">Distribuidores – Montaje y Tamaño</h2>
+      <p class="curso-texto">
+        Los distribuidores hidráulicos se fabrican en distintos tamaños o tallajes, lo que determina el caudal que pueden direccionar. Su montaje se realiza sobre placas base, utilizando juntas tóricas para asegurar la estanqueidad. Estas placas varían en tamaño y en la disposición de sus orificios.
+      </p>
+      
+      <div class="curso-subseccion">
+        <h3 class="curso-subtitulo-pequeno">Principales tamaños normalizados:</h3>
+        <div class="tabla-container">
+          <table class="curso-tabla">
+            <thead>
+              <tr>
+                <th>Tamaño</th>
+                <th>Norma CETOP</th>
+                <th>Tipo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>TN 6</td>
+                <td>CETOP 3</td>
+                <td>Directa</td>
+              </tr>
+              <tr>
+                <td>TN 10</td>
+                <td>CETOP 5</td>
+                <td>Directa</td>
+              </tr>
+              <tr>
+                <td>TN 16</td>
+                <td>CETOP 7</td>
+                <td>Servopiloto</td>
+              </tr>
+              <tr>
+                <td>TN 25</td>
+                <td>CETOP 8</td>
+                <td>Servopiloto</td>
+              </tr>
+              <tr>
+                <td>TN 32</td>
+                <td>CETOP 10</td>
+                <td>Servopiloto</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="curso-subseccion">
+        <h3 class="curso-subtitulo-pequeno">Valores típicos:</h3>
+        <div class="tabla-container">
+          <table class="curso-tabla">
+            <thead>
+              <tr>
+                <th>Tamaño</th>
+                <th>Presión (bar)</th>
+                <th>Caudal (l/min)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>TN 6</td>
+                <td>315</td>
+                <td>80</td>
+              </tr>
+              <tr>
+                <td>TN 10</td>
+                <td>315</td>
+                <td>100</td>
+              </tr>
+              <tr>
+                <td>TN 16</td>
+                <td>350</td>
+                <td>200</td>
+              </tr>
+              <tr>
+                <td>TN 25</td>
+                <td>350</td>
+                <td>350</td>
+              </tr>
+              <tr>
+                <td>TN 32</td>
+                <td>350</td>
+                <td>700</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="curso-seccion">
+      <h2 class="curso-subtitulo">Accionamientos Indirectos – Servo Pilotos</h2>
+      <p class="curso-texto">
+        Cuando se requieren grandes caudales, se emplean válvulas de accionamiento indirecto o servopilotos, que combinan dos válvulas:
+      </p>
+      
+      <div class="curso-lista-items">
+        <div class="curso-item">
+          <div class="item-icono"></div>
+          <p class="curso-texto">Una válvula principal (hidráulica).</p>
+        </div>
+        <div class="curso-item">
+          <div class="item-icono"></div>
+          <p class="curso-texto">Una válvula piloto (electroválvula TN 6) que la controla.</p>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <p class="curso-texto">
+          Una pequeña señal eléctrica acciona la válvula piloto, la cual dirige el fluido hacia los pilotajes del cuerpo principal, provocando su conmutación. De esta forma, una señal mínima controla un caudal mucho mayor.
+        </p>
+      </div>
+
+      <p class="curso-texto">
+        El acople entre ambas se hace como si la válvula principal fuese la placa base de la auxiliar. Las conexiones pueden ser internas o externas, según el circuito.
+      </p>
+
+      <p class="curso-texto">
+        Cuando se activa una bobina (Y1 o Y2), la válvula conmuta en una dirección u otra. Al desactivar ambas, el sistema vuelve a su posición de reposo, gracias al centro P/ABT.
+      </p>
+
+      <div class="info-box info-destacada">
+        <p class="curso-texto">
+          En los esquemas, los servopilotos se representan de forma simplificada, mostrando solo el cuerpo principal con la indicación del mando indirecto.
+        </p>
+      </div>
+    </section>
+
+
+  </div>
+</div>
+

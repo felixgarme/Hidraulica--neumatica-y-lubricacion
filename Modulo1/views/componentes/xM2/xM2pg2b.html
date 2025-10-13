@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrusel Ajustado al Iframe</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Muy importante: evita el scroll en el iframe */
+            font-family: sans-serif;
+        }
+
+        #carousel-wrapper {
+            /* Contenedor principal para centrar el carrusel vertical y horizontalmente */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            padding: 10px; /* Un pequeño margen opcional */
+        }
+
+        #carousel-container {
+            /* El tamaño de este contenedor será calculado por JavaScript */
+            position: relative;
+            overflow: hidden;
+            background-color: #222;
+            /* Flex-shrink para evitar que se desborde del wrapper en casos extremos */
+            flex-shrink: 1;
+        }
+
+        #carousel-slide {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide img {
+            width: calc(100% / 3);
+            height: 100%;
+            object-fit: contain; /* Mantiene la imagen visible sin recortes */
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10;
+            border-radius: 5px;
+        }
+        
+        .carousel-btn:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        #prevBtn {
+            left: 10px;
+        }
+
+        #nextBtn {
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="carousel-wrapper">
+        <div id="carousel-container">
+            <div id="carousel-slide">
+                <img src="../../../assets/images/M2/b1.png" alt="Imagen 1">
+                <img src="../../../assets/images/M2/b2.png" alt="Imagen 2">
+                <img src="../../../assets/images/M2/b3.png" alt="Imagen 3">
+            </div>
+        </div>
+        <button id="prevBtn" class="carousel-btn">&#10094;</button>
+        <button id="nextBtn" class="carousel-btn">&#10095;</button>
+    </div>
+
+    <script>
+        const container = document.getElementById('carousel-container');
+        const slide = document.getElementById('carousel-slide');
+        const firstImage = slide.querySelector('img');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        let currentIndex = 0;
+        const totalSlides = 3;
+
+        // --- INICIA EL CÓDIGO MODIFICADO ---
+
+        function adjustCarouselSize() {
+            // 1. Obtiene las dimensiones del espacio disponible (el iframe)
+            const availableWidth = container.parentElement.clientWidth;
+            const availableHeight = container.parentElement.clientHeight;
+
+            // 2. Calcula la proporción (aspect ratio) del espacio disponible
+            const viewportRatio = availableHeight / availableWidth;
+
+            // 3. Calcula la proporción de la imagen
+            const imageRatio = firstImage.naturalHeight / firstImage.naturalWidth;
+            
+            // 4. Compara las proporciones para decidir si el ancho o el alto es el límite
+            if (imageRatio > viewportRatio) {
+                // Si la imagen es más "alta" que el iframe, la altura es el límite
+                container.style.height = `${availableHeight}px`;
+                const newWidth = availableHeight / imageRatio;
+                container.style.width = `${newWidth}px`;
+            } else {
+                // Si la imagen es más "ancha" que el iframe, el ancho es el límite
+                container.style.width = `${availableWidth}px`;
+                const newHeight = availableWidth * imageRatio;
+                container.style.height = `${newHeight}px`;
+            }
+        }
+
+        // Se asegura de que la primera imagen haya cargado para leer su tamaño
+        if (firstImage.complete) {
+            adjustCarouselSize();
+        } else {
+            firstImage.addEventListener('load', adjustCarouselSize);
+        }
+
+        // Vuelve a ajustar el tamaño si la ventana (o el iframe) cambia
+        window.addEventListener('resize', adjustCarouselSize);
+
+        // --- TERMINA EL CÓDIGO MODIFICADO ---
+
+        function goToSlide(index) {
+            const offset = index * (100 / totalSlides);
+            slide.style.transform = `translateX(-${offset}%)`;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            goToSlide(currentIndex);
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            goToSlide(currentIndex);
+        });
+        
+        goToSlide(0);
+
+    </script>
+
+</body>
+</html>
