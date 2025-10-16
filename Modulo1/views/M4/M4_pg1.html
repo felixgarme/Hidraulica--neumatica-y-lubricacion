@@ -4,18 +4,73 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-    <link rel="stylesheet" href="../../assets/css/main_ex.css" />
-    <link rel="stylesheet" href="../../assets/css/sidebar.css" />
-    <link rel="stylesheet" href="../../assets/css/ProgressBar.css" />
-    <link rel="stylesheet" href="../../assets/css/ex1.css" />
-    <link rel="stylesheet" href="../../assets/css/M4/Acss_pg1.css" />
-    <link rel="stylesheet" href="../../assets/css/reproductor-iframe.css">
+  <link rel="stylesheet" href="../../assets/css/main_ex.css" />
+  <link rel="stylesheet" href="../../assets/css/sidebar.css" />
+  <link rel="stylesheet" href="../../assets/css/ProgressBar.css" />
+  <link rel="stylesheet" href="../../assets/css/ex1.css" />
 
-    <link rel="icon" href="../../assets/images/ico.png" type="image/png">
+  <link rel="stylesheet" href="../../assets/css/reproductor-iframe.css">
+  
+  <title>Ejercicio 2</title>
 
+  <script src="../../js/sidebar.js" defer></script>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
-    <script src="../../js/sidebar.js" defer></script>
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <link rel="icon" href="../../assets/images/ico.png" type="image/png">
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden; /* Evita el scroll no deseado */
+    }
+
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh; /* Altura total de la ventana */
+      /* padding: 20px; */
+      box-sizing: border-box;
+    }
+
+    .logo-container, header {
+      flex-shrink: 0; /* Evita que el logo y el título se encojan */
+    }
+
+    .contenido {
+      flex-grow: 1; /* Permite que el contenedor del iframe ocupe el espacio restante */
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* Centra verticalmente el iframe */
+      align-items: center; /* Centra horizontalmente el iframe */
+      width: 100%;
+    }
+
+    .iframe-carrusel {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    .titulo-epp {
+      padding-top: 0 !important;
+      padding-bottom: 20px;
+    }
+    .start-button[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    @media (min-width: 400px) {
+    /* Esta regla parece no tener relación con el resto del código,
+       pero se mantiene por si es usada en el HTML. */
+    .iframe-carrusel {
+        width: 95%;
+    }
+}
+    
+  </style>
+
 </head>
 
 <body>
@@ -43,41 +98,28 @@
         <div id="menu-container"></div>
     </nav>
 
+    <div class="main-container">
+      <div class="logo-container"><img src="../../assets/images/logo_color.png" alt="Logo AngloAmerican" class="logo" /></div>
+      <header><h1 class="titulo-epp"><span class="gradient-text2">Guía de Mantenimiento de Sistemas Hidráulicos</span></h1></header>
 
-    <div class="logo-container"><img src="../../assets/images/logo_color.png" alt="Logo AngloAmerican" class="logo" /></div>
-    
-    <header><h1 class="titulo-epp"><span class="gradient-text2">Sistema de recuperación de gruesos, molienda y pebbles
-    </span></h1></header>
-
-    <!-- CONTENIDO -->
-    <div class="general">
-        <div class="contenido">
-            <iframe 
-                src="../componentes/xM4/Carrucel_M4pg1.html" 
-                frameborder="0" 
-                class="iframe-carrusel"
-                id="carruselIframe"
-                title="carrusel">
-            </iframe>
-        </div>
-
-        <div class="contenido container-video">
-            <h2 class="titulo-video">Molino SAG</h2>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/1wglNqMmDGk?si=-FPndL3YiU6oy8aE&autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
+      <div class="contenido">
+          <iframe id="exerciseIframe" src="../componentes/xM4/xM4pg1.html" frameborder="0" class="iframe-carrusel"> </iframe>
+      </div>
     </div>
 
+  <button id="continueBtn" class="start-button" onclick="goToNextPage()" disabled>Continuar <span class="arrow">❯</span></button>
 
-    <button id="continue-btn" class="start-button" onclick="goToNextPage()" disabled>Continuar <span class="arrow">❯</span></button>
+  <iframe src="../componentes/xaudio.html" class="audio-iframe" data-audio="../../assets/audio/M4/pg1.wav" title="Reproductor de audio"></iframe>
 
-    <!-- Reproductor -->
-    <iframe src="../componentes/xaudio.html" class="audio-iframe" data-audio="../../assets/audio/M4/pg1.wav" title="Reproductor de audio"></iframe>
-    <script src="../../js/SCORM.js"></script>
-    <script>
+
+  <script src="../../js/audioPlayer.js"></script>
+  <script src="../../js/SCORM.js"></script>
+  <script src="../../js/audioUnlock.js"></script>
+  <script>
     // Navegación
     function goHome() { window.location.href = 'index.html'; }
     function backPage() { window.location.href = 'M4_inicio.html'; }
-    function goToNextPage() { window.location.href = 'M4_pg2.html'; }
+    function goToNextPage() { window.location.href = '../M5/M5_inicio.html'; }
 
     ScormManager.init();
     ScormManager.guardarProgreso("M4_pg1.html");
@@ -87,96 +129,21 @@
       const porcentaje = progreso.score ? parseInt(progreso.score) : 0;
       document.getElementById("progreso-barra").style.width = porcentaje + "%";
       document.getElementById("progreso-texto").textContent = porcentaje + "%";
+    });
 
-      // --- lógica para habilitar "Continuar" cuando se detecte "terminado" ---
-      const continueButton = document.getElementById('continue-btn');
-      const completionKey = 'carruselTerminado'; // Clave para localStorage
-
-      const originalLog = console.log.bind(window);
-
-      // Si ya está marcado como completado en localStorage, habilita botón.
-      if (localStorage.getItem(completionKey) === 'true') {
-        continueButton.disabled = false;
-        originalLog('TareaYaEstabaCompletada');
+    // Código nuevo para manejar el mensaje del iframe
+    window.addEventListener('message', (event) => {
+      // Verifica si el mensaje viene del iframe y si es el mensaje de finalización
+      if (event.data.type === 'exerciseComplete' && event.data.success) {
+        // Muestra el botón de "Continuar"
+        const continueButton = document.getElementById('continueButton');
+        if (continueButton) {
+          continueButton.style.display = 'inline-flex'; // O 'block' dependiendo del estilo
+        }
       }
-
-      // 1) Interceptar console.log en la página padre (para detectar "terminado" desde scripts de la propia página)
-      console.log = function(...args) {
-        originalLog(...args);
-
-        const containsTerminado = args.some(arg => typeof arg === 'string' && arg.includes('terminado'));
-        if (containsTerminado) {
-          if (continueButton.disabled) {
-            continueButton.disabled = false;
-            localStorage.setItem(completionKey, 'true');
-            originalLog('BotonContinuarHabilitado');
-          }
-        }
-      };
-
-      // 2) Escuchar mensajes postMessage desde iframes (recomendado: el iframe debe hacer parent.postMessage('terminado','*'))
-      window.addEventListener('message', (event) => {
-        const data = event.data;
-
-        // Acepta:
-        // - 'terminado' como string
-        // - objetos { fromIframeConsole: true, args: [...] } (forwarded console)
-        // - objetos con { type: 'terminado' }
-        let matched = false;
-
-        if (typeof data === 'string' && data.includes('terminado')) matched = true;
-
-        if (!matched && data && typeof data === 'object') {
-          if (data.fromIframeConsole && Array.isArray(data.args)) {
-            matched = data.args.some(arg => typeof arg === 'string' && arg.includes('terminado'));
-          }
-          if (!matched && data.type && typeof data.type === 'string' && data.type.includes('terminado')) {
-            matched = true;
-          }
-        }
-
-        if (matched) {
-          if (continueButton.disabled) {
-            continueButton.disabled = false;
-            localStorage.setItem(completionKey, 'true');
-            originalLog('BotonContinuarHabilitado');
-          }
-        }
-      });
-
-      // 3) Intentar parchear console.log dentro del iframe (solo funciona si same-origin)
-      const iframeEl = document.querySelector('#carruselIframe');
-      if (iframeEl) {
-        iframeEl.addEventListener('load', () => {
-          try {
-            const iw = iframeEl.contentWindow;
-            if (!iw || !iw.console) return;
-
-            // Guardar referencia al console.log original del iframe
-            const originalIframeLog = iw.console.log && iw.console.log.bind(iw.console);
-
-            // Sobrescribir console.log en el iframe: seguirá mostrando en la consola del iframe
-            // y además enviará un postMessage al padre con el contenido de args.
-            iw.console.log = function(...args) {
-              try { if (originalIframeLog) originalIframeLog(...args); } catch (e) { /* ignore */ }
-
-              try {
-                // enviar como objeto reconocible
-                iw.parent.postMessage({ fromIframeConsole: true, args: args }, '*');
-              } catch (err) {
-                // ignore
-              }
-            };
-          } catch (err) {
-            // Cross-origin: no se puede inyectar, depende de postMessage dentro del iframe
-          }
-        });
-      }
-
-      // Nota: para pruebas locales sin el iframe, puedes descomentar:
-      // console.log('simulacion terminado');
     });
   </script>
+
 
 </body>
 </html>

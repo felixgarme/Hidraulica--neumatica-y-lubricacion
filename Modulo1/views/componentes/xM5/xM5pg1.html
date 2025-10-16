@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Carrusel</title>
+<style>
+  :root {
+    --neutral-1: #031794;
+    --neutral-2: #ff0000;
+    --neutral-3: #2a5bdf;
+    --neutral-4: #ffffff;
+
+    --info-1: #ffffff;
+    --info-2: #e5f0f9;
+    --info-3: #031794;
+
+    --border-1: #dde8f5;
+    --border-2: #031794;
+    --border-3: #6b8bdf;
+
+    --text-1: #4d4d4e;
+    --text-2: #b9b9b9;
+    --text-3: #031794;
+    --text-4: #ffffff;
+
+    --background-1: #f1f1f1;
+    --background-2: #f5f7fa;
+
+    --icon-1: #ffffff;
+    --icon-2: #031794;
+  }
+
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: var(--text-1);
+    /* background-color: var(--background-1); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 1040px;
+    overflow: hidden;
+    border: 2px solid var(--border-2);
+    border-radius: 16px;
+    background-color: #f5f7fa;
+  }
+
+  .carousel-slide {
+    display: flex;
+    transition: transform 0.7s ease-in-out;
+  }
+
+  .carousel-item {
+    min-width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 26px;
+  }
+
+  .carousel-item img {
+    width: 100%;
+    max-height: 520px;
+    object-fit: contain;
+    border-radius: 12px;
+    background-color: var(--background-2);
+  }
+
+  .caption {
+    margin-top: 18px;
+    font-size: 20px;
+    color: var(--neutral-1);
+    font-weight: 600;
+  }
+
+  /* Botones de navegación */
+  .btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--neutral-4);
+    color: var(--neutral-1);
+    border: 2px solid var(--border-2);
+    border-radius: 50%;
+    padding: 12px 17px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 22px;
+    z-index: 10;
+    transition: all 0.3s ease;
+  }
+
+  .btn:hover {
+    background-color: var(--neutral-3);
+    color: var(--neutral-4);
+  }
+
+  .btn-prev { left: 15px; }
+  .btn-next { right: 15px; }
+
+  /* Botón pantalla completa */
+  .fullscreen-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 44px;
+    height: 44px;
+    background-color: var(--neutral-3);
+    color: var(--neutral-4);
+    border: none;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: background-color 0.3s;
+  }
+
+  .fullscreen-btn:hover {
+    background-color: var(--neutral-1);
+  }
+
+  :fullscreen .carousel-container {
+    max-width: none;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  :fullscreen .carousel-item img {
+    width: 90%;
+    max-height: 90vh;
+  }
+
+  @media (max-width: 768px) {
+    .carousel-container {
+      max-width: 95%;
+      margin-bottom: 90px;
+    }
+    .carousel-item img {
+      width: 100%;
+      max-height: 300px;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="carousel-container" id="carouselContainer">
+    <button class="fullscreen-btn" id="fullscreenBtn">🔍</button>
+
+    <div class="carousel-slide" id="carouselSlide">
+      <div class="carousel-item">
+        <img src="../../../assets/images/M5/a1.png" alt="Rompe rocas">
+        <div class="caption">Rompe rocas</div>
+      </div>
+      <div class="carousel-item">
+        <img src="../../../assets/images/M5/a2.png" alt="Molino Sag">
+        <div class="caption">Molino Sag</div>
+      </div>
+      <div class="carousel-item">
+        <img src="../../../assets/images/M5/a3.png" alt="Molino Sag Sistema de freno">
+        <div class="caption">Molino Sag – Sistema de freno</div>
+      </div>
+      <div class="carousel-item">
+        <img src="../../../assets/images/M5/a4.png" alt="Sistema de ajuste tazón chancadora pebbles">
+        <div class="caption">Sistema de ajuste tazón chancadora pebbles</div>
+      </div>
+    </div>
+
+    <button class="btn btn-prev" id="prevBtn">&#10094;</button>
+    <button class="btn btn-next" id="nextBtn">&#10095;</button>
+  </div>
+
+  <script>
+    const slide = document.getElementById("carouselSlide");
+    const items = document.querySelectorAll(".carousel-item");
+    const total = items.length;
+    let index = 0;
+
+    const nextBtn = document.getElementById("nextBtn");
+    const prevBtn = document.getElementById("prevBtn");
+    const fullscreenBtn = document.getElementById("fullscreenBtn");
+    const container = document.getElementById("carouselContainer");
+
+    function showSlide(i) {
+      slide.style.transform = `translateX(${-i * 100}%)`;
+    }
+
+    nextBtn.addEventListener("click", () => {
+      if (index < total - 1) {
+        index++;
+        showSlide(index);
+        if (index === total - 1) {
+          // Espera un momento antes de avisar
+          setTimeout(() => {
+            window.parent.postMessage({ type: "terminado" }, "*");
+          }, 1000);
+        }
+      }
+    });
+
+    prevBtn.addEventListener("click", () => {
+      if (index > 0) {
+        index--;
+        showSlide(index);
+      }
+    });
+
+    // Pantalla completa
+    fullscreenBtn.addEventListener("click", () => {
+      if (!document.fullscreenElement) {
+        container.requestFullscreen().catch(err => {
+          console.error(`Error al activar pantalla completa: ${err.message}`);
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    });
+  </script>
+</body>
+</html>

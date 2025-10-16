@@ -70,11 +70,24 @@ ScormManager.paginasCurso = [
   "M1_pg1.html",
   "M1_pg2.html",
   "M1_pg3.html",
+  "M1_pg4.html",
+  "M1_pg5.html",
+  "M1_pg6.html",  
+  "M1_pg7.html",
+  "M1_pg8.html",
+  "M1_pg9.html",
+  "M1_pg10.html",
+  
 
   // Módulo 2
   "M2_inicio.html",
   "M2_pg1.html",
   "M2_pg2.html",
+  "M2_pg3.html",
+  "M2_pg4.html",
+  "M2_pg5.html",
+  "M2_pg6.html",
+  "M2_pg7.html",
 
   // Módulo 3
   "M3_inicio.html",
@@ -84,21 +97,11 @@ ScormManager.paginasCurso = [
   "M3_pg4.html",
   "M3_pg5.html",
   "M3_pg6.html",
-  "M3_pg7.html",
-  "M3_pg8.html",
-  "M3_pg9.html",
-  "M3_pg10.html",
-  "M3_pg11.html",
-  "M3_pg12.html",
+
 
   // Módulo 4
   "M4_inicio.html",
   "M4_pg1.html",
-  "M4_pg2.html",
-  "M4_pg3.html",
-  "M4_pg4.html",
-  "M4_pg5.html",
-  "M4_pg6.html",
 
   // Módulo 5
   "M5_inicio.html",

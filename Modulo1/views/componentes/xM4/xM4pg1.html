@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Mantenimiento de Sistemas Hidráulicos</title>
+ 
+</head>
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .hydraulic-course-container {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* background-color: #F5F7FA; */
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .hydraulic-header {
+            background: linear-gradient(90deg, #FF0000 0%, #351EBD 33%, #3479F6 66%, #1F87C6 100%);
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px;
+            margin: 0 0 10px 0;
+        }
+
+        .hydraulic-title {
+            color: #FFFFFF;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin: 0 0 10px 0;
+            font-weight: 700;
+        }
+
+        .hydraulic-subtitle {
+            color: #FFFFFF;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hydraulic-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hydraulic-section {
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            margin: 0 0 10px 0;
+            border: 2px solid #DDE8F5;
+            overflow: hidden;
+        }
+
+        .hydraulic-section-header {
+            background-color: #031794;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .hydraulic-section-header:hover {
+            background-color: #2A5BDF;
+        }
+
+        .hydraulic-section-title {
+            color: #FFFFFF;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 600;
+        }
+
+        .hydraulic-toggle-icon {
+            color: #FFFFFF;
+            font-size: 1.5rem;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .hydraulic-section.active .hydraulic-toggle-icon {
+            transform: rotate(45deg);
+        }
+
+        .hydraulic-section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            padding: 0 10px;
+        }
+
+        .hydraulic-section.active .hydraulic-section-content {
+            max-height: 3000px;
+            padding: 10px;
+        }
+
+        .hydraulic-card {
+            background-color: #E5F0F9;
+            border: 1px solid #DDE8F5;
+            border-radius: 6px;
+            padding: 10px;
+            margin: 0 0 10px 0;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .hydraulic-card:last-child {
+            margin: 0;
+        }
+
+        .hydraulic-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(3, 23, 148, 0.15);
+        }
+
+        .hydraulic-card-title {
+            color: #031794;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .hydraulic-card-text {
+            color: #4D4D4E;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            line-height: 1.6;
+        }
+
+        .hydraulic-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .hydraulic-list li {
+            color: #4D4D4E;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            line-height: 1.6;
+            padding: 5px 0 5px 10px;
+            position: relative;
+        }
+
+        .hydraulic-list li::before {
+            content: '▪';
+            color: #031794;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .hydraulic-conclusion {
+            background: linear-gradient(90deg, #031794 0%, #34C0C0 100%);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 10px 0 0 0;
+        }
+
+        .hydraulic-conclusion-title {
+            color: #FFFFFF;
+            font-size: clamp(1.3rem, 3vw, 2rem);
+            margin: 0 0 10px 0;
+            font-weight: 600;
+        }
+
+        .hydraulic-conclusion-text {
+            color: #FFFFFF;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .hydraulic-course-container {
+                padding: 10px;
+            }
+
+            .hydraulic-header {
+                padding: 10px;
+                margin: 0 0 10px 0;
+            }
+
+            .hydraulic-section-content {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 10px;
+            }
+
+            .hydraulic-card {
+                margin: 0;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hydraulic-course-container {
+                padding: 10px;
+            }
+
+            .hydraulic-section-content {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+    </style>
+
+    <div class="hydraulic-course-container">
+
+        <main class="hydraulic-content">
+            <section class="hydraulic-section">
+                <div class="hydraulic-section-header" data-section="tipos">
+                    <h2 class="hydraulic-section-title">Tipos de Mantenimiento</h2>
+                    <span class="hydraulic-toggle-icon">+</span>
+                </div>
+                <div class="hydraulic-section-content">
+                    <div class="hydraulic-card">
+                        <h3 class="hydraulic-card-title">Correctivo</h3>
+                        <p class="hydraulic-card-text">Se aplica tras una avería. Consiste en reparar o sustituir componentes dañados. Aunque inevitable a veces, debe minimizarse mediante un buen mantenimiento preventivo.</p>
+                    </div>
+                    <div class="hydraulic-card">
+                        <h3 class="hydraulic-card-title">Preventivo</h3>
+                        <p class="hydraulic-card-text">Busca anticipar fallos mediante inspecciones periódicas, cambio de fluidos y filtros, lubricación y ajustes. Su objetivo es maximizar la disponibilidad y reducir inactividad.</p>
+                    </div>
+                    <div class="hydraulic-card">
+                        <h3 class="hydraulic-card-title">Predictivo</h3>
+                        <p class="hydraulic-card-text">Utiliza análisis de datos (vibraciones, temperatura, etc.) para prever fallos futuros. Es el método más avanzado y preciso.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="hydraulic-section">
+                <div class="hydraulic-section-header" data-section="componentes">
+                    <h2 class="hydraulic-section-title">Componentes Clave y su Cuidado</h2>
+                    <span class="hydraulic-toggle-icon">+</span>
+                </div>
+                <div class="hydraulic-section-content">
+                    <div class="hydraulic-card">
+                        <h3 class="hydraulic-card-title">Fluidos hidráulicos</h3>
+                        <ul class="hydraulic-list">
+                            <li>Revisar nivel y calidad regularmente.</li>
+                            <li>Cambiar según indicaciones del fabricante.</li>
+                            <li>Usar el fluido correcto y mantenerlo limpio para evitar contaminación.</li>
+                        </ul>
+                    </div>
+                    <div class="hydraulic-card">
+                        <h3 class="hydraulic-card-title">Filtros</h3>
+                        <ul class="hydraulic-list">
+                            <li>Reemplazarlos según el plan de mantenimiento.</li>
+                            <li>Usar filtros de alta calidad para proteger el sistema.</li>
+                        </ul>
+                    </div>
+                    <div class="hydraulic-card">
+                        <h3 class="hydraulic-card-title">Bombas y válvulas</h3>
+                        <ul class="hydraulic-list">
+                            <li>Revisar fugas, presión y caudal.</li>
+                            <li>Realizar pruebas de funcionamiento.</li>
+                        </ul>
+                    </div>
+                    <div class="hydraulic-card">
+                        <h3 class="hydraulic-card-title">Cilindros y actuadores</h3>
+                        <ul class="hydraulic-list">
+                            <li>Inspeccionar juntas y sellos, lubricar y verificar alineación.</li>
+                        </ul>
+                    </div>
+                    <div class="hydraulic-card">
+                        <h3 class="hydraulic-card-title">Tuberías y mangueras</h3>
+                        <ul class="hydraulic-list">
+                            <li>Revisar fugas o grietas, comprobar conexiones y reemplazar si hay desgaste.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="hydraulic-section">
+                <div class="hydraulic-section-header" data-section="practicas">
+                    <h2 class="hydraulic-section-title">Prácticas Esenciales</h2>
+                    <span class="hydraulic-toggle-icon">+</span>
+                </div>
+                <div class="hydraulic-section-content">
+                    <div class="hydraulic-card">
+                        <h3 class="hydraulic-card-title">Limpieza y lubricación</h3>
+                        <p class="hydraulic-card-text">Mantener el sistema limpio y bien lubricado para evitar fricción y desgaste.</p>
+                    </div>
+                    <div class="hydraulic-card">
+                        <h3 class="hydraulic-card-title">Inspección visual</h3>
+                        <p class="hydraulic-card-text">Detectar fugas, daños o ruidos inusuales.</p>
+                    </div>
+                    <div class="hydraulic-card">
+                        <h3 class="hydraulic-card-title">Capacitación</h3>
+                        <p class="hydraulic-card-text">El personal debe estar entrenado en manejo y seguridad hidráulica.</p>
+                    </div>
+                    <div class="hydraulic-card">
+                        <h3 class="hydraulic-card-title">Seguridad</h3>
+                        <ul class="hydraulic-list">
+                            <li>Despresurizar antes de intervenir.</li>
+                            <li>Usar equipo de protección personal.</li>
+                            <li>Seguir normas y manuales del fabricante.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="hydraulic-conclusion">
+                <h2 class="hydraulic-conclusion-title">Conclusión</h2>
+                <p class="hydraulic-conclusion-text">Aplicar estas prácticas permite reducir costos, prevenir fallos y garantizar la seguridad y eficiencia de los sistemas hidráulicos.</p>
+            </section>
+        </main>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sectionHeaders = document.querySelectorAll('.hydraulic-section-header');
+            
+            sectionHeaders.forEach(function(header) {
+                header.addEventListener('click', function() {
+                    const section = this.parentElement;
+                    const isActive = section.classList.contains('active');
+                    
+                    const allSections = document.querySelectorAll('.hydraulic-section');
+                    allSections.forEach(function(sec) {
+                        sec.classList.remove('active');
+                    });
+                    
+                    if (!isActive) {
+                        section.classList.add('active');
+                    }
+                });
+            });
+            
+            const firstSection = document.querySelector('.hydraulic-section');
+            if (firstSection) {
+                firstSection.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
