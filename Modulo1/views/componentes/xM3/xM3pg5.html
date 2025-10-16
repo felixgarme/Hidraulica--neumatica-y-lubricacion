@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso de Hidráulica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .course-header {
+            background: linear-gradient(135deg, #031794 0%, #020d4d 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .course-header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .course-header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        
+        .module-nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .module-btn {
+            background: white;
+            border: 2px solid #031794;
+            padding: 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .module-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            background: #031794;
+            color: white;
+        }
+        
+        .module-btn.active {
+            background: #031794;
+            color: white;
+        }
+        
+        .module-btn h3 {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+        
+        .module-btn p {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        .content-area {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            min-height: 400px;
+        }
+        
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .content-section h2 {
+            color: #031794;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #031794;
+            padding-bottom: 10px;
+        }
+        
+        .content-section h3 {
+            color: #020d4d;
+            margin: 20px 0 10px 0;
+            font-size: 1.3em;
+        }
+        
+        .info-box {
+            background: #f0f4ff;
+            border-left: 4px solid #031794;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .interactive-demo {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px dashed #031794;
+        }
+        
+        .demo-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .demo-btn {
+            background: white;
+            color: #031794;
+            border: 2px solid #031794;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .demo-btn:hover {
+            background: #f0f4ff;
+        }
+        
+        .demo-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .visual-diagram {
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            margin: 20px auto;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            position: relative;
+            background: white;
+            overflow: hidden;
+        }
+        
+        .cylinder {
+            position: absolute;
+            top: 50%;
+            left: 20%;
+            transform: translateY(-50%);
+            width: 200px;
+            height: 60px;
+            background: linear-gradient(to bottom, #ccc 0%, #999 50%, #ccc 100%);
+            border: 2px solid #333;
+            border-radius: 5px;
+        }
+        
+        .piston {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 30px;
+            height: 100%;
+            background: #031794;
+            transition: left 1s ease;
+        }
+        
+        .flow-arrow {
+            position: absolute;
+            font-size: 24px;
+            color: #031794;
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #031794, #020d4d);
+            transition: width 0.3s ease;
+        }
+        
+        .quiz-container {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .quiz-question {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .quiz-option {
+            padding: 10px;
+            margin: 8px 0;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-option:hover {
+            border-color: #031794;
+            background: #f0f4ff;
+        }
+        
+        .quiz-option.correct {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+        
+        .quiz-option.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .course-header {
+                padding: 20px;
+            }
+            
+            .course-header h1 {
+                font-size: 1.5em;
+            }
+            
+            .module-nav {
+                grid-template-columns: 1fr;
+            }
+            
+            .content-area {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="module-nav">
+        <div class="module-btn active" onclick="showModule('diferencial')">
+            <h3>Circuitos Diferenciales</h3>
+            <p>Conceptos y aplicaciones básicas</p>
+        </div>
+        <div class="module-btn" onclick="showModule('velocidad')">
+            <h3>Cambio de Velocidad</h3>
+            <p>Sistemas rápido/lento</p>
+        </div>
+        <div class="module-btn" onclick="showModule('multiplicadores')">
+            <h3>Multiplicadores</h3>
+            <p>Presión y cilindros especiales</p>
+        </div>
+        <div class="module-btn" onclick="showModule('acumuladores')">
+            <h3>Acumuladores</h3>
+            <p>Almacenamiento de energía</p>
+        </div>
+    </div>
+
+    <div class="content-area">
+        <!-- Módulo 1: Circuitos Diferenciales -->
+        <div id="diferencial" class="content-section active">
+            <h2>Circuitos Diferenciales</h2>
+            
+            <div class="info-box">
+                <strong>Concepto clave:</strong> Los circuitos diferenciales permiten el control direccional del cilindro mediante la suma de caudales (Q1 + Q2), logrando velocidades superiores a las que se obtendrían solo con el caudal de bomba.
+            </div>
+
+            <h3>Control Direccional</h3>
+            <p>Los conceptos de control direccional son fundamentales para comprender los circuitos diferenciales:</p>
+            <ul>
+                <li><strong>2 posiciones:</strong> El cilindro puede avanzar o retornar</li>
+                <li><strong>3 posiciones:</strong> Permite avance, retorno y detención (posicionamiento)</li>
+            </ul>
+
+            <h3>Posicionamiento Intermedio</h3>
+            <div class="warning-box">
+                <strong>Importante:</strong> Deben considerarse las posibles generaciones de presiones importantes debido a efectos de multiplicación en cámaras. La descarga a presión reducida puede corregir este problema.
+            </div>
+
+            <p>Este efecto puede emplearse para forzar cambios de velocidad en la carrera lineal del cilindro, creando ciclos típicos de marcha rápida/trabajo lento.</p>
+
+            <div class="interactive-demo">
+                <h4>Demostración Interactiva: Cilindro Diferencial</h4>
+                <p>Controla el movimiento del cilindro y observa el comportamiento diferencial:</p>
+                <div class="visual-diagram" id="diagram1">
+                    <div class="cylinder">
+                        <div class="piston" id="piston1"></div>
+                    </div>
+                    <div class="flow-arrow" style="top: 30%; left: 10%;">→</div>
+                </div>
+                <div class="demo-controls">
+                    <button class="demo-btn" onclick="avanzarCilindro()">Avanzar (Diferencial)</button>
+                    <button class="demo-btn" onclick="retornarCilindro()">Retornar</button>
+                    <button class="demo-btn" onclick="detenerCilindro()">Detener</button>
+                </div>
+                <p id="estado1" style="margin-top: 10px; font-weight: bold; color: #031794;">Estado: En reposo</p>
+            </div>
+
+            <h3>Funcionamiento del Diferencial</h3>
+            <div class="success-box">
+                <strong>Velocidad rápida:</strong> Se realiza la conexión diferencial, sumando caudales (Q1 + Q2)
+            </div>
+            <div class="info-box">
+                <strong>Velocidad lenta:</strong> Se corta la conexión diferencial, moviendo solo con Q1 (caudal de bomba)
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-question">¿Cuándo se produce la mayor velocidad en un cilindro diferencial?</div>
+                <div class="quiz-option" onclick="checkAnswer(this, false)">A) Cuando se corta la conexión diferencial</div>
+                <div class="quiz-option" onclick="checkAnswer(this, true)">B) Cuando se realiza la suma de caudales (Q1 + Q2)</div>
+                <div class="quiz-option" onclick="checkAnswer(this, false)">C) Durante el retorno del cilindro</div>
+                <div class="quiz-option" onclick="checkAnswer(this, false)">D) Con válvulas de 2 posiciones</div>
+            </div>
+        </div>
+
+        <!-- Módulo 2: Cambio de Velocidad -->
+        <div id="velocidad" class="content-section">
+            <h2>Sistemas de Cambio de Velocidad</h2>
+
+            <div class="info-box">
+                <strong>Objetivo:</strong> Controlar la velocidad del cilindro durante su recorrido, alternando entre marcha rápida y trabajo lento según las necesidades de la aplicación.
+            </div>
+
+            <h3>Sistema con Electroválvulas</h3>
+            <p>El funcionamiento típico de un sistema de cambio de velocidad incluye:</p>
+            <ol>
+                <li><strong>Activación inicial (Y4):</strong> Generación de presión en el sistema</li>
+                <li><strong>Avance rápido (Y1):</strong> Movimiento con suma de caudales (diferencial establecido)</li>
+                <li><strong>Cambio a baja velocidad (Y3):</strong> Se rompe el diferencial, moviendo a velocidad nominal</li>
+            </ol>
+
+            <div class="interactive-demo">
+                <h4>Simulación: Control de Velocidad</h4>
+                <div class="visual-diagram" id="diagram2">
+                    <div class="cylinder" style="left: 10%;">
+                        <div class="piston" id="piston2"></div>
+                    </div>
+                </div>
+                <div class="demo-controls">
+                    <button class="demo-btn" onclick="velocidadRapida()">Alta Velocidad (Q1+Q2)</button>
+                    <button class="demo-btn" onclick="velocidadLenta()">Baja Velocidad (Q1)</button>
+                    <button class="demo-btn" onclick="resetVelocidad()">Reset</button>
+                </div>
+                <p id="estado2" style="margin-top: 10px; font-weight: bold; color: #031794;">Modo: Detenido</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress2" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <h3>Bloques Rápido/Lento</h3>
+            <p>Los grupos de "rápido/lento" son sistemas comunes que ofrecen mayores posibilidades de ajuste. Están formados por:</p>
+            <ul>
+                <li><strong>Regulador de caudal:</strong> Montado en paralelo</li>
+                <li><strong>Válvula direccional 2/2:</strong> Función de corte o establecimiento del paralelo</li>
+                <li><strong>Electroválvula monoestable:</strong> Normalmente abierta o cerrada según diseño</li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>Aplicación vertical:</strong> En taladros o sistemas verticales, se requiere un bloqueo riguroso. Se recomienda usar bloques rápido/lento con regulador de caudal para mayor precisión en el avance.
+            </div>
+
+            <h3>Fases de Operación</h3>
+            <div class="success-box">
+                <p><strong>Fase 1 - Marcha Rápida:</strong></p>
+                <p>El cilindro se mueve por encima de la velocidad que desarrollaría a pleno caudal de bomba, ejecutando la suma de caudales (Q1 + Q2 regenerativo).</p>
+            </div>
+            <div class="info-box">
+                <p><strong>Fase 2 - Trabajo Lento:</strong></p>
+                <p>Al activar en punto intermedio, se rompe el diferencial y el cilindro se mueve a velocidad nominal con solo el caudal de bomba (Q1).</p>
+            </div>
+        </div>
+
+        <!-- Módulo 3: Multiplicadores -->
+        <div id="multiplicadores" class="content-section">
+            <h2>Multiplicadores de Presión</h2>
+
+            <div class="info-box">
+                <strong>Problema fundamental:</strong> Es difícil encontrar una buena relación presión/caudal en hidráulica. Las bombas que soportan presiones importantes suelen aportar bajos caudales y viceversa.
+            </div>
+
+            <h3>Soluciones Alternativas</h3>
+            <p>Cuando se requieren tanto caudales como presiones importantes, existen varios métodos:</p>
+            <ul>
+                <li>Empleo de doble bomba</li>
+                <li>Uso de válvulas de prellenado</li>
+                <li><strong>Multiplicadores de presión</strong> (método a estudiar)</li>
+            </ul>
+
+            <h3>Principio de Funcionamiento</h3>
+            <p>Los multiplicadores basan su funcionamiento en la relación entre las fuerzas actuantes sobre un sistema y las secciones donde estas son aplicadas.</p>
+
+            <div class="interactive-demo">
+                <h4>Simulación: Multiplicador de Presión</h4>
+                <p><strong>Fase actual:</strong> <span id="fase-multi">Reposo</span></p>
+                <div style="background: white; padding: 20px; border-radius: 8px; margin: 15px 0;">
+                    <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 200px;">
+                            <p><strong>Presión entrada:</strong> <span id="p-entrada">0</span> bar</p>
+                            <p><strong>Presión salida:</strong> <span id="p-salida">0</span> bar</p>
+                            <p><strong>Factor multiplicación:</strong> <span id="factor">0</span>x</p>
+                        </div>
+                        <div style="flex: 1; min-width: 200px;">
+                            <canvas id="multiCanvas" width="250" height="150" style="border: 2px solid #ddd; border-radius: 5px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-controls">
+                    <button class="demo-btn" onclick="iniciarMultiplicador()">Fase 1: Avance Rápido</button>
+                    <button class="demo-btn" onclick="prensarMultiplicador()">Fase 2: Prensar (Multiplicar)</button>
+                    <button class="demo-btn" onclick="retornoMultiplicador()">Fase 3: Retorno</button>
+                </div>
+            </div>
+
+            <h3>Fases de Operación</h3>
+            <div class="success-box">
+                <p><strong>Fase 1 - Avance sin carga:</strong></p>
+                <p>Al activar Y1, todo el fluido es direccionado a la cámara de avance. Movimiento a elevada velocidad debido al gran caudal de bomba aportado.</p>
+            </div>
+            <div class="warning-box">
+                <p><strong>Fase 2 - Zona de prensado:</strong></p>
+                <p>Cuando el cilindro alcanza bloqueo, la presión se incrementa. Se abre la válvula de secuencia, inyectando al multiplicador. La elevada presión llega a la cámara de avance mientras el antirretorno piloto impide fugas.</p>
+            </div>
+            <div class="info-box">
+                <p><strong>Fase 3 - Retorno:</strong></p>
+                <p>Al activar Y2, se inyecta a cámara de retorno. El fluido de avance es desalojado gracias al desbloqueo hidráulico del antirretorno, y el multiplicador recupera por efecto del resorte interno.</p>
+            </div>
+
+            <h3>Cilindros Multiplicadores (Marcha Rápida)</h3>
+            <p>Existen actuadores específicos diseñados para este propósito:</p>
+            <ul>
+                <li><strong>Conexión A1:</strong> Marcha rápida (volumen reducido, fuerza limitada)</li>
+                <li><strong>Conexión A2:</strong> Cámara de alta fuerza (gran sección, velocidad controlada)</li>
+                <li><strong>Conexión A3:</strong> Retorno del sistema</li>
+            </ul>
+
+            <div class="info-box">
+                <strong>Prellenado:</strong> Durante el desplazamiento en marcha rápida, la cámara A2 debe llenarse con fluido a presión atmosférica. Esto se realiza mediante válvula de prellenado conectada a depósito auxiliar, preferentemente en zona elevada (efecto gravedad).
+            </div>
+        </div>
+
+        <!-- Módulo 4: Acumuladores -->
+        <div id="acumuladores" class="content-section">
+            <h2>Circuitos con Acumuladores</h2>
+
+            <div class="warning-box">
+                <strong>Limitación importante:</strong> Los sistemas hidráulicos no pueden almacenar energía debido a la incompresibilidad del fluido. Sin embargo, mediante acumuladores se puede conseguir de forma limitada.
+            </div>
+
+            <h3>Tipos de Acumuladores</h3>
+            <ul>
+                <li>De contrapeso</li>
+                <li>De pistón</li>
+                <li>De vejiga</li>
+            </ul>
+
+            <h3>Funciones Principales</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin: 20px 0;">
+                <div class="info-box">
+                    <strong>Reducción de potencia:</strong> Permite usar bombas de menor caudal cuando hay periodos de inactividad
+                </div>
+                <div class="info-box">
+                    <strong>Eliminación de puntas:</strong> Reducen o eliminan los picos de presión del sistema
+                </div>
+                <div class="info-box">
+                    <strong>Absorción de pulsaciones:</strong> Suavizan las variaciones bruscas de presión
+                </div>
+                <div class="info-box">
+                    <strong>Compensación de fugas:</strong> Mantienen presión cuando hay pequeñas pérdidas
+                </div>
+                <div class="info-box">
+                    <strong>Movimientos auxiliares:</strong> Permiten operaciones de emergencia sin bomba
+                </div>
+                <div class="info-box">
+                    <strong>Compensación térmica:</strong> Absorben cambios de volumen por temperatura
+                </div>
+            </div>
+
+            <h3>Reducción de Potencia Instalada</h3>
+            <p>Cuando se dispone de una bomba con caudal de aporte insuficiente, pero existen largos periodos de inactividad:</p>
+            <ol>
+                <li>Durante la inactividad, se procede a la carga del acumulador</li>
+                <li>Al actuar sobre el sistema, el acumulador cede la energía almacenada</li>
+                <li>La bomba complementa con su caudal continuo</li>
+            </ol>
+
+            <div class="interactive-demo">
+                <h4>Simulación: Funcionamiento del Acumulador</h4>
+                <div style="background: white; padding: 20px; border-radius: 8px; margin: 15px 0;">
+                    <div style="display: flex; gap: 30px; align-items: center; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 200px;">
+                            <p><strong>Estado:</strong> <span id="estado-acum">En reposo</span></p>
+                            <p><strong>Presión:</strong> <span id="presion-acum">0</span> bar</p>
+                            <p><strong>Carga:</strong> <span id="carga-acum">0</span>%</p>
+                            <div class="progress-bar" style="margin-top: 10px;">
+                                <div class="progress-fill" id="progress-acum" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <div style="flex: 1; min-width: 200px;">
+                            <canvas id="acumCanvas" width="200" height="200" style="border: 2px solid #ddd; border-radius: 5px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-controls">
+                    <button class="demo-btn" onclick="cargarAcumulador()">Cargar Acumulador</button>
+                    <button class="demo-btn" onclick="descargarAcumulador()">Descargar (Uso)</button>
+                    <button class="demo-btn" onclick="resetAcumulador()">Reset</button>
+                </div>
+            </div>
+
+            <h3>Absorción de Golpes de Presión</h3>
+            <p>Los acumuladores colgados directamente a línea actúan como protección contra puntas de presión.</p>
+            
+            <div class="warning-box">
+                <strong>Causa de pulsaciones:</strong> Cambios bruscos de velocidad del fluido (generalmente de máxima a cero), especialmente en sistemas con caudales elevados y/o presiones importantes al ejecutar cierres rápidos de válvulas.
+            </div>
+
+            <div class="success-box">
+                <strong>Solución:</strong> Las puntas de presión pueden ser muy elevadas y rápidas, tanto que algunos elementos de protección "no llegan a darse por enterados". El acumulador absorbe estas puntas, evitando fatiga de elementos.
+            </div>
+
+            <h3>Conclusión</h3>
+            <div class="info-box">
+                <p>Los acumuladores solucionan eficazmente muchos de los problemas importantes que presenta la hidráulica. Son elementos interesantes y a tener en cuenta en el diseño de sistemas hidráulicos modernos.</p>
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-question">¿Cuál NO es una función principal de los acumuladores?</div>
+                <div class="quiz-option" onclick="checkAnswer(this, false)">A) Reducción de la potencia a instalar</div>
+                <div class="quiz-option" onclick="checkAnswer(this, false)">B) Absorción de pulsaciones</div>
+                <div class="quiz-option" onclick="checkAnswer(this, true)">C) Compresión del fluido hidráulico</div>
+                <div class="quiz-option" onclick="checkAnswer(this, false)">D) Compensación de fugas</div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    let currentModule = 'diferencial';
+    
+    // --- NUEVO: Variables para rastrear el progreso ---
+    // Un conjunto (Set) para almacenar los IDs de los módulos visitados.
+    // Usamos un Set para evitar duplicados automáticamente.
+    const visitedModules = new Set();
+    // Una bandera para asegurar que el mensaje se envíe solo una vez.
+    let allModulesVisited = false;
+    
+    // --- NUEVO: Función para verificar si todos los módulos han sido visitados ---
+    function checkCompletion() {
+        // Si el mensaje ya se envió, no hacemos nada más.
+        if (allModulesVisited) {
+            return;
+        }
+
+        // Contamos el número total de módulos (pestañas) disponibles.
+        const totalModules = document.querySelectorAll('.module-btn').length;
+
+        // Comparamos el número de módulos visitados con el total.
+        // Si son iguales y hay al menos un módulo, significa que todos han sido vistos.
+        if (totalModules > 0 && visitedModules.size === totalModules) {
+            // Enviamos el mensaje al documento padre.
+            window.parent.postMessage({ type: "terminado" }, "*");
+            // Actualizamos la bandera para no volver a enviar el mensaje.
+            allModulesVisited = true;
+            console.log("¡Felicidades! Has revisado todas las pestañas. Mensaje 'terminado' enviado.");
+        }
+    }
+
+    function showModule(moduleId) {
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.querySelectorAll('.module-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        
+        document.getElementById(moduleId).classList.add('active');
+        event.target.closest('.module-btn').classList.add('active');
+        currentModule = moduleId;
+
+        // --- NUEVO: Lógica para registrar la visita y comprobar ---
+        // Agregamos el ID del módulo actual a nuestro conjunto de visitados.
+        visitedModules.add(moduleId);
+        // Llamamos a la función para ver si ya se completaron todos.
+        checkCompletion();
+    }
+
+    // Cilindro diferencial
+    function avanzarCilindro() {
+        const piston = document.getElementById('piston1');
+        piston.style.left = '170px';
+        document.getElementById('estado1').textContent = 'Estado: Avanzando (Modo Diferencial - Q1+Q2)';
+        document.getElementById('estado1').style.color = '#28a745';
+    }
+
+    function retornarCilindro() {
+        const piston = document.getElementById('piston1');
+        piston.style.left = '0px';
+        document.getElementById('estado1').textContent = 'Estado: Retornando';
+        document.getElementById('estado1').style.color = '#dc3545';
+    }
+
+    function detenerCilindro() {
+        document.getElementById('estado1').textContent = 'Estado: Detenido (Posición intermedia)';
+        document.getElementById('estado1').style.color = '#ffc107';
+    }
+
+    // Control de velocidad
+    let velocidadActual = 0;
+    let intervalVel = null;
+
+    function velocidadRapida() {
+        clearInterval(intervalVel);
+        const piston = document.getElementById('piston2');
+        const progress = document.getElementById('progress2');
+        let pos = 0;
+        
+        document.getElementById('estado2').textContent = 'Modo: Alta Velocidad (Q1 + Q2)';
+        document.getElementById('estado2').style.color = '#28a745';
+        
+        intervalVel = setInterval(() => {
+            if (pos >= 170) {
+                clearInterval(intervalVel);
+                document.getElementById('estado2').textContent = 'Modo: Fin de carrera alcanzado';
+                return;
+            }
+            pos += 3;
+            piston.style.left = pos + 'px';
+            progress.style.width = ((pos / 170) * 100) + '%';
+        }, 30);
+    }
+
+    function velocidadLenta() {
+        clearInterval(intervalVel);
+        const piston = document.getElementById('piston2');
+        const progress = document.getElementById('progress2');
+        let pos = parseInt(piston.style.left) || 0;
+        
+        document.getElementById('estado2').textContent = 'Modo: Baja Velocidad (Solo Q1)';
+        document.getElementById('estado2').style.color = '#ffc107';
+        
+        intervalVel = setInterval(() => {
+            if (pos >= 170) {
+                clearInterval(intervalVel);
+                document.getElementById('estado2').textContent = 'Modo: Fin de carrera alcanzado';
+                return;
+            }
+            pos += 1;
+            piston.style.left = pos + 'px';
+            progress.style.width = ((pos / 170) * 100) + '%';
+        }, 30);
+    }
+
+    function resetVelocidad() {
+        clearInterval(intervalVel);
+        document.getElementById('piston2').style.left = '0px';
+        document.getElementById('progress2').style.width = '0%';
+        document.getElementById('estado2').textContent = 'Modo: Detenido';
+        document.getElementById('estado2').style.color = '#031794';
+    }
+
+    // Multiplicador de presión
+    let faseMultiplicador = 0;
+
+    function dibujarMultiplicador(fase) {
+        const canvas = document.getElementById('multiCanvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Cilindro principal
+        ctx.fillStyle = '#ccc';
+        ctx.fillRect(50, 40, 150, 70);
+        ctx.strokeStyle = '#333';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(50, 40, 150, 70);
+        
+        // Pistón
+        if (fase === 1) {
+            ctx.fillStyle = '#031794';
+            ctx.fillRect(50, 40, 40, 70);
+        } else if (fase === 2) {
+            ctx.fillStyle = '#020d4d';
+            ctx.fillRect(50, 40, 100, 70);
+        } else if (fase === 3) {
+            ctx.fillStyle = '#031794';
+            ctx.fillRect(50, 40, 20, 70);
+        }
+        
+        // Flecha de presión
+        if (fase === 2) {
+            ctx.strokeStyle = '#dc3545';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(20, 75);
+            ctx.lineTo(45, 75);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(45, 75);
+            ctx.lineTo(40, 70);
+            ctx.lineTo(40, 80);
+            ctx.closePath();
+            ctx.fillStyle = '#dc3545';
+            ctx.fill();
+        }
+        
+        // Etiquetas
+        ctx.fillStyle = '#333';
+        ctx.font = '12px Arial';
+        ctx.fillText('Presión', 10, 65);
+    }
+
+    function iniciarMultiplicador() {
+        faseMultiplicador = 1;
+        document.getElementById('fase-multi').textContent = 'Avance rápido sin carga';
+        document.getElementById('p-entrada').textContent = '50';
+        document.getElementById('p-salida').textContent = '50';
+        document.getElementById('factor').textContent = '1';
+        dibujarMultiplicador(1);
+    }
+
+    function prensarMultiplicador() {
+        faseMultiplicador = 2;
+        document.getElementById('fase-multi').textContent = 'Prensado - Multiplicación activa';
+        document.getElementById('p-entrada').textContent = '50';
+        document.getElementById('p-salida').textContent = '200';
+        document.getElementById('factor').textContent = '4';
+        dibujarMultiplicador(2);
+    }
+
+    function retornoMultiplicador() {
+        faseMultiplicador = 3;
+        document.getElementById('fase-multi').textContent = 'Retorno del cilindro';
+        document.getElementById('p-entrada').textContent = '50';
+        document.getElementById('p-salida').textContent = '0';
+        document.getElementById('factor').textContent = '0';
+        dibujarMultiplicador(3);
+    }
+
+    // Acumulador
+    let cargaAcum = 0;
+    let intervalAcum = null;
+
+    function dibujarAcumulador(carga) {
+        const canvas = document.getElementById('acumCanvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Cuerpo del acumulador
+        ctx.fillStyle = '#e0e0e0';
+        ctx.fillRect(50, 20, 100, 150);
+        ctx.strokeStyle = '#333';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(50, 20, 100, 150);
+        
+        // Nivel de fluido
+        const nivel = (carga / 100) * 150;
+        const gradient = ctx.createLinearGradient(50, 170 - nivel, 50, 170);
+        gradient.addColorStop(0, '#031794');
+        gradient.addColorStop(1, '#020d4d');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(50, 170 - nivel, 100, nivel);
+        
+        // Gas/Vejiga
+        if (carga < 100) {
+            ctx.fillStyle = 'rgba(255, 200, 100, 0.5)';
+            ctx.fillRect(50, 20, 100, 150 - nivel);
+        }
+        
+        // Etiquetas
+        ctx.fillStyle = '#333';
+        ctx.font = '14px Arial';
+        ctx.fillText('Gas', 85, 50);
+        ctx.fillText('Fluido', 75, 160);
+        
+        // Porcentaje
+        ctx.font = 'bold 16px Arial';
+        ctx.fillStyle = '#031794';
+        ctx.fillText(carga + '%', 80, 100);
+    }
+
+    function cargarAcumulador() {
+        clearInterval(intervalAcum);
+        document.getElementById('estado-acum').textContent = 'Cargando...';
+        document.getElementById('estado-acum').style.color = '#28a745';
+        
+        intervalAcum = setInterval(() => {
+            if (cargaAcum >= 100) {
+                clearInterval(intervalAcum);
+                document.getElementById('estado-acum').textContent = 'Completamente cargado';
+                return;
+            }
+            cargaAcum += 2;
+            document.getElementById('carga-acum').textContent = cargaAcum;
+            document.getElementById('presion-acum').textContent = Math.round(cargaAcum * 2);
+            document.getElementById('progress-acum').style.width = cargaAcum + '%';
+            dibujarAcumulador(cargaAcum);
+        }, 50);
+    }
+
+    function descargarAcumulador() {
+        clearInterval(intervalAcum);
+        document.getElementById('estado-acum').textContent = 'Descargando (en uso)';
+        document.getElementById('estado-acum').style.color = '#dc3545';
+        
+        intervalAcum = setInterval(() => {
+            if (cargaAcum <= 0) {
+                clearInterval(intervalAcum);
+                document.getElementById('estado-acum').textContent = 'Descargado - Requiere recarga';
+                return;
+            }
+            cargaAcum -= 2;
+            document.getElementById('carga-acum').textContent = cargaAcum;
+            document.getElementById('presion-acum').textContent = Math.round(cargaAcum * 2);
+            document.getElementById('progress-acum').style.width = cargaAcum + '%';
+            dibujarAcumulador(cargaAcum);
+        }, 50);
+    }
+
+    function resetAcumulador() {
+        clearInterval(intervalAcum);
+        cargaAcum = 0;
+        document.getElementById('carga-acum').textContent = '0';
+        document.getElementById('presion-acum').textContent = '0';
+        document.getElementById('progress-acum').style.width = '0%';
+        document.getElementById('estado-acum').textContent = 'En reposo';
+        document.getElementById('estado-acum').style.color = '#031794';
+        dibujarAcumulador(0);
+    }
+
+    // Quiz
+    function checkAnswer(element, isCorrect) {
+        const options = element.parentElement.querySelectorAll('.quiz-option');
+        options.forEach(opt => {
+            opt.style.pointerEvents = 'none';
+        });
+        
+        if (isCorrect) {
+            element.classList.add('correct');
+            element.innerHTML = '✓ ' + element.textContent;
+        } else {
+            element.classList.add('incorrect');
+            element.innerHTML = '✗ ' + element.textContent;
+            options.forEach(opt => {
+                if (opt !== element && !opt.classList.contains('correct')) {
+                    const text = opt.textContent;
+                    if (text.includes('suma de caudales') || text.includes('Compresión del fluido')) {
+                        opt.classList.add('correct');
+                        opt.innerHTML = '✓ ' + text;
+                    }
+                }
+            });
+        }
+    }
+
+    // Inicializar visualizaciones al cargar
+    window.addEventListener('load', function() {
+        dibujarMultiplicador(0);
+        dibujarAcumulador(0);
+        
+        // --- NUEVO: Registrar la primera pestaña al cargar ---
+        // Esto asegura que la pestaña inicial también se cuente como visitada.
+        visitedModules.add(currentModule);
+        checkCompletion();
+    });
+</script>
+</body>
+</html>

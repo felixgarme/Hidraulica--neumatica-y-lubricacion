@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mandos Básicos – Circuitos con Limitadoras</title>
+<style>
+:root{
+ --azul:#031794;
+ --azul-claro:#2A5BDF;
+ --gris:#4D4D4E;
+ --fondo:#F7F9FC;
+ --borde:#DDE8F5;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{
+ width:100%;
+ height:100%;
+}
+body{
+ font-family:"Poppins",system-ui,sans-serif;
+ color:var(--gris);
+ line-height:1.6;
+ overflow:hidden;
+ background:none; /* 🔹 Fondo eliminado */
+}
+.curso-container{
+ display:flex;
+ flex-direction:column;
+ width:100%;
+ height:100%;
+}
+.curso-navigation{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ padding:0.8rem 1rem;
+ background:white;
+ border-bottom:2px solid var(--borde);
+ position:sticky;
+ top:0;
+ z-index:10;
+}
+.nav-button{
+ background:var(--azul);
+ color:#fff;
+ border:none;
+ padding:.5rem 1rem;
+ border-radius:50px;
+ font-weight:600;
+ cursor:pointer;
+ transition:.3s;
+}
+.nav-button:hover{background:var(--azul-claro);transform:translateY(-2px)}
+.nav-button:disabled{background:#bbb;cursor:not-allowed}
+.nav-indicator{
+ display:flex;
+ align-items:center;
+ gap:5px;
+ font-size:1rem;
+ color:var(--azul);
+}
+.current-slide{font-weight:700}
+.total-slides{color:var(--azul-claro)}
+.curso-content{
+ flex:1;
+ overflow-y:auto;
+ overflow-x:hidden;
+ padding:0.5rem;
+}
+.content-section{
+ display:none;
+ animation:fadeIn .4s ease;
+ height:100%;
+}
+.content-section.active{display:block}
+@keyframes fadeIn{
+ from{opacity:0;transform:translateY(10px)}
+ to{opacity:1;transform:translateY(0)}
+}
+.section-card{
+ background:#fff;
+ border-radius:16px;
+ box-shadow:0 4px 20px rgba(0,0,0,.05);
+ overflow:hidden;
+ margin:auto;
+ max-width:950px;
+ transition:.3s;
+}
+.section-card:hover{box-shadow:0 6px 25px rgba(0,0,0,.1)}
+.section-header{
+ background:linear-gradient(135deg,var(--azul),var(--azul-claro));
+ color:#fff;
+ font-size:clamp(1.2rem,2vw,1.6rem);
+ font-weight:700;
+ padding:1rem;
+ text-align:center;
+}
+.section-body{
+ padding:1rem 1.2rem;
+ display:flex;
+ flex-direction:column;
+ gap:1rem;
+}
+.section-title{
+ color:var(--azul);
+ font-size:clamp(1.2rem,2vw,1.6rem);
+ font-weight:600;
+ margin-bottom:10px;
+}
+.section-text{
+ margin-bottom:1rem;
+ text-align:justify;
+ font-size:1rem;
+ color:var(--gris);
+}
+.info-box{
+ background:#EAF1FB;
+ border-left:5px solid var(--azul);
+ border-radius:8px;
+ padding:1rem;
+ margin-top:1rem;
+}
+.info-title{
+ font-weight:600;
+ color:var(--azul);
+ margin-bottom:.5rem;
+}
+.info-list{
+ list-style:disc;
+ margin-left:1.5rem;
+}
+.carousel-container{
+ margin:1rem auto;
+ max-width:800px;
+ overflow:hidden;
+ border-radius:10px;
+ border:2px solid var(--borde);
+ flex:1;
+}
+.carousel-slide{
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ background:#F5F7FA;
+}
+.carousel-slide img{
+ width:100%;
+ height:auto;
+ max-height:380px;
+ object-fit:contain;
+}
+
+/* 🔹 Diseño para PC: imagen a la derecha */
+@media(min-width:768px){
+ .section-body{
+   display:grid;
+   grid-template-columns:1.3fr 1fr;
+   align-items:center;
+   gap:1.5rem;
+ }
+ .carousel-container{
+   margin:0;
+   border-radius:12px;
+ }
+
+}
+
+/* 🔹 En móvil: imagen abajo, espacio extra */
+@media(max-width:480px){
+  .curso-content{padding:.3rem;padding-bottom:90px;} /* Espacio por sidebar */
+  .section-body{padding:0.8rem;display:flex;flex-direction:column;}
+  .carousel-slide img{max-height:240px}
+  .nav-button{padding:.4rem .8rem}
+  .section-text{font-size:0.8rem;}
+  .section-header{font-size:0.9rem;padding: 0.5rem;}
+  .carousel-slide {margin-bottom: 90px;} /* Espacio por sidebar */
+  
+}
+</style>
+</head>
+<body>
+<div class="curso-container">
+ <!-- Navegación -->
+ <nav class="curso-navigation">
+  <button class="nav-button" id="prevBtn">Anterior</button>
+  <div class="nav-indicator"><span class="current-slide">1</span>/<span class="total-slides">5</span></div>
+  <button class="nav-button" id="nextBtn">Siguiente</button>
+ </nav>
+
+ <!-- Contenido -->
+ <main class="curso-content">
+  <!-- 1 -->
+  <section class="content-section active">
+   <div class="section-card">
+    <div class="section-header">1. Circuitos con válvulas limitadoras (Ejemplo básico)</div>
+    <div class="section-body">
+     <div>
+      <h2 class="section-title">Mandos básicos – Circuitos con limitadoras</h2>
+      <p class="section-text">Como ejemplo, podemos encontrar el control de un actuador de doble efecto, gobernado por una válvula de 4 vías y 3 posiciones de centro tándem. En este caso, la despresurización del circuito es ejecutada a través del centro, y en posiciones intermedias la limitadora no trabajará.</p>
+      <p class="section-text">Quizá lo más representativo de la aplicación sea la descarga inicial mediante el centro PT/A/B. Debe tenerse en cuenta que, al ejecutar la retención de la carga tan sólo a través de los bloqueos A y B (para válvulas de corredera), esta no es totalmente estanca. Por lo demás, se observa que la limitadora no tiene un trabajo excesivo, ya que permanece en cierre en posición de reposo.</p>
+     </div>
+     <div class="carousel-container">
+      <div class="carousel-slide"><img src="../../../assets/images/M3/a1.png" alt="Circuito 1"></div>
+     </div>
+    </div>
+   </div>
+
+  </section>
+
+  <!-- 2 -->
+  <section class="content-section">
+   <div class="section-card">
+    <div class="section-header">2. Limitadoras indirectas</div>
+    <div class="section-body">
+     <div>
+      <p class="section-text">Este tipo de válvulas elimina los problemas derivados del uso de válvulas directas, por tanto, resultan más recomendables. No obstante, lo más interesante de las mismas es la línea de “Venting”, que permite la obtención de varios funcionamientos comunes.</p>
+      <div class="info-box">
+       <h3 class="info-title">Entre ellos se encuentran:</h3>
+       <ul class="info-list">
+        <li>Control remoto</li>
+        <li>Obtención de varias presiones</li>
+        <li>Descarga a presión reducida</li>
+       </ul>
+      </div>
+     </div>
+     <div class="carousel-container">
+      <div class="carousel-slide"><img src="../../../assets/images/M3/a2.png" alt="Circuito 2"></div>
+     </div>
+    </div>
+   </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="content-section">
+   <div class="section-card">
+    <div class="section-header">3. Conexiones en serie</div>
+    <div class="section-body">
+     <div>
+      <p class="section-text">Si se opta por una conexión en serie de los centros, se está condicionando el funcionamiento de los actuadores, dándose influencias mutuas entre ambos.</p>
+     </div>
+     <div class="carousel-container">
+      <div class="carousel-slide"><img src="../../../assets/images/M3/a3.png" alt="Circuito 3"></div>
+     </div>
+    </div>
+   </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="content-section">
+   <div class="section-card">
+    <div class="section-header">4. Descarga a presión reducida</div>
+    <div class="section-body">
+     <div>
+      <p class="section-text">El empleo de descargas a presión reducida mediante la línea de Venting permite someter el circuito a carga o descarga a voluntad. Su empleo es frecuente, sobre todo si la aplicación dispone de control para varios actuadores, ya que otros sistemas —como por ejemplo, el centro tándem— no resultan adecuados.</p>
+     </div>
+     <div class="carousel-container">
+      <div class="carousel-slide"><img src="../../../assets/images/M3/a4.png" alt="Circuito 4"></div>
+     </div>
+    </div>
+   </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="content-section">
+   <div class="section-card">
+    <div class="section-header">5. Control remoto</div>
+    <div class="section-body">
+     <div>
+      <p class="section-text">El control remoto es un sistema empleado para comandar a distancia los valores de ajuste de las limitadoras indirectas. Es propio de máquinas como prensas, dobladoras, etc. Actualmente, su uso es poco frecuente debido a la generalización de la hidráulica proporcional.</p>
+     </div>
+     <div class="carousel-container">
+      <div class="carousel-slide"><img src="../../../assets/images/M3/a1.png" alt="Circuito remoto"></div>
+     </div>
+    </div>
+   </div>
+  </section>
+ </main>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+ const sections=document.querySelectorAll(".content-section"),
+ prevBtn=document.getElementById("prevBtn"),
+ nextBtn=document.getElementById("nextBtn"),
+ cur=document.querySelector(".current-slide"),
+ tot=document.querySelector(".total-slides");
+ let idx=0; tot.textContent=sections.length;
+
+ function show(i){
+  sections.forEach((s,j)=>s.classList.toggle("active",j==i));
+  cur.textContent=i+1;
+  prevBtn.disabled=i==0;
+  nextBtn.disabled=i==sections.length-1;
+  if(i===sections.length-1){
+    // 🔹 Enviar mensaje al padre cuando termina
+    window.parent.postMessage({ type: "terminado" }, "*");
+  }
+ }
+
+ prevBtn.onclick=()=>{if(idx>0)show(--idx)};
+ nextBtn.onclick=()=>{if(idx<sections.length-1)show(++idx)};
+ document.onkeydown=e=>{
+  if(e.key=="ArrowLeft"&&idx>0)show(--idx);
+  if(e.key=="ArrowRight"&&idx<sections.length-1)show(++idx);
+ };
+ show(idx);
+});
+</script>
+</body>
+</html>

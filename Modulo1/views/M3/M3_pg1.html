@@ -3,22 +3,74 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Descripción de la máquina</title>
   
-    <link rel="stylesheet" href="../../assets/css/main_ex.css" />
-    <link rel="stylesheet" href="../../assets/css/sidebar.css" />
-    <link rel="stylesheet" href="../../assets/css/ProgressBar.css" />
-    <link rel="stylesheet" href="../../assets/css/ex1.css" />
-    <link rel="stylesheet" href="../../assets/css/M3/css_pg3.css" />
-    <link rel="stylesheet" href="../../assets/css/M3/iframe_pg3.css" />
-    <link rel="stylesheet" href="../../assets/css/reproductor-iframe.css">
+  <link rel="stylesheet" href="../../assets/css/main_ex.css" />
+  <link rel="stylesheet" href="../../assets/css/sidebar.css" />
+  <link rel="stylesheet" href="../../assets/css/ProgressBar.css" />
+  <link rel="stylesheet" href="../../assets/css/ex1.css" />
 
-    <script src="../../js/sidebar.js" defer></script>
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-    <script src="../../js/M3/js_pg3.js"></script>
+  <link rel="stylesheet" href="../../assets/css/reproductor-iframe.css">
+  
+  <title>Mandos básicos – Circuitos con limitadoras</title>
 
-    <link rel="icon" href="../../assets/images/ico.png" type="image/png">
+  <script src="../../js/sidebar.js" defer></script>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <link rel="icon" href="../../assets/images/ico.png" type="image/png">
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden; /* Evita el scroll no deseado */
+    }
+
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh; /* Altura total de la ventana */
+      /* padding: 20px; */
+      box-sizing: border-box;
+    }
+
+    .logo-container, header {
+      flex-shrink: 0; /* Evita que el logo y el título se encojan */
+    }
+
+    .contenido {
+      flex-grow: 1; /* Permite que el contenedor del iframe ocupe el espacio restante */
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* Centra verticalmente el iframe */
+      align-items: center; /* Centra horizontalmente el iframe */
+      width: 100%;
+    }
+
+    .iframe-carrusel {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
     
+    .titulo-epp {
+      padding-top: 0 !important;
+      padding-bottom: 20px;
+    }
+    .start-button[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    @media (min-width: 400px) {
+    /* Esta regla parece no tener relación con el resto del código,
+       pero se mantiene por si es usada en el HTML. */
+    .iframe-carrusel {
+        width: 95%;
+    }
+}
+    
+  </style>
+
 </head>
 
 <body>
@@ -46,36 +98,96 @@
         <div id="menu-container"></div>
     </nav>
 
+    <div class="main-container">
+      <div class="logo-container"><img src="../../assets/images/logo_color.png" alt="Logo AngloAmerican" class="logo" /></div>
+      <header><h1 class="titulo-epp"><span class="gradient-text2">Mandos básicos – Circuitos con limitadoras</span></h1></header>
 
-    <div class="logo-container"><img src="../../assets/images/logo_color.png" alt="Logo AngloAmerican" class="logo" /></div>
-    <header><h1 class="titulo-epp"><span class="gradient-text2">Operaciones de Control Manual</span></h1></header>
-
-    <div class="contenido">
-        <iframe src="../componentes/xM3/xM3_pg1.html" frameborder="0"></iframe>
+      <div class="contenido">
+          <iframe id="exerciseIframe" src="../componentes/xM3/xM3pg1.html" frameborder="0" class="iframe-carrusel"> </iframe>
+      </div>
     </div>
-    <!-- goToNextPage -->
-    <button class="start-button" onclick="goToNextPage()" disabled>Continuar <span class="arrow">❯</span></button>
 
-    <!-- Reproductor -->
-    <iframe src="../componentes/xaudio.html" class="audio-iframe" data-audio="../../assets/audio/M3/pg1.wav" title="Reproductor de audio"></iframe>
+  <button id="continueBtn" class="start-button" onclick="goToNextPage()" disabled>Continuar <span class="arrow">❯</span></button>
 
-    <script src="../../js/audioPlayer.js"></script>
-    <script src="../../js/SCORM.js"></script>
-    <script>
-      // Navegación
-      function goHome() { window.location.href = 'index.html'; }
-      function backPage() { window.location.href = 'M3_inicio.html'; }
-      function goToNextPage() { window.location.href = 'M3_pg2.html'; }
+  <iframe src="../componentes/xaudio.html" class="audio-iframe" data-audio="../../assets/audio/M3/pg1.wav" title="Reproductor de audio"></iframe>
 
-      ScormManager.init();
-      ScormManager.guardarProgreso("M3_pg1.html");
 
-      document.addEventListener("DOMContentLoaded", () => {
-        const progreso = ScormManager.cargarProgreso();
-        const porcentaje = progreso.score ? parseInt(progreso.score) : 0;
-        document.getElementById("progreso-barra").style.width = porcentaje + "%";
-        document.getElementById("progreso-texto").textContent = porcentaje + "%";
+  <script src="../../js/audioPlayer.js"></script>
+  <script src="../../js/SCORM.js"></script>
+
+  <script>
+    // Navegación
+    function goHome() { window.location.href = 'index.html'; }
+    function backPage() { window.location.href = 'M3_inicio.html'; }
+    function goToNextPage() { window.location.href = 'M3_pg2.html'; }
+
+    ScormManager.init();
+    ScormManager.guardarProgreso("M3_pg1.html");
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const progreso = ScormManager.cargarProgreso();
+      const porcentaje = progreso.score ? parseInt(progreso.score) : 0;
+      document.getElementById("progreso-barra").style.width = porcentaje + "%";
+      document.getElementById("progreso-texto").textContent = porcentaje + "%";
+    });
+
+    // Código nuevo para manejar el mensaje del iframe
+    window.addEventListener('message', (event) => {
+      // Verifica si el mensaje viene del iframe y si es el mensaje de finalización
+      if (event.data.type === 'exerciseComplete' && event.data.success) {
+        // Muestra el botón de "Continuar"
+        const continueButton = document.getElementById('continueButton');
+        if (continueButton) {
+          continueButton.style.display = 'inline-flex'; // O 'block' dependiendo del estilo
+        }
+      }
+    });
+  </script>
+  <script>
+        // Archivo: audioUnlock.js
+
+    (function() {
+      'use strict';
+
+      // 1. Se genera una clave ÚNICA para cada página usando su ruta.
+      // Ejemplo: para "M1_pg4.html", la clave será "unlock_status_/ruta/M1_pg4.html"
+      const pagePath = window.location.pathname;
+      const STORAGE_KEY = `unlock_status_${pagePath}`;
+
+      // 2. Se busca el botón a desbloquear en la página actual.
+      const continueBtn = document.getElementById('continueBtn');
+
+      // Si la página no tiene un botón con id="continueBtn", el script no hace nada más.
+      if (!continueBtn) {
+        return;
+      }
+
+      // 3. Función centralizada para habilitar el botón y guardar el estado.
+      function habilitarBotonYGuardar() {
+        if (continueBtn.disabled) {
+          continueBtn.disabled = false;
+          console.log(`Botón habilitado para la página: ${pagePath}`);
+          localStorage.setItem(STORAGE_KEY, 'true');
+        }
+      }
+
+      // 4. Al cargar la página, se revisa si ya estaba desbloqueada.
+      document.addEventListener('DOMContentLoaded', () => {
+        if (localStorage.getItem(STORAGE_KEY) === 'true') {
+          habilitarBotonYGuardar();
+        }
       });
-    </script>
+
+      // 5. Se escucha el mensaje 'audio-terminado' desde cualquier iframe.
+      window.addEventListener('message', (event) => {
+        if (event.data && event.data.type === 'terminado') {
+          habilitarBotonYGuardar();
+        }
+      });
+
+    })();
+
+  </script>
+
 </body>
 </html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio de Relacionar Válvulas</title>
+    <style>
+        /* --- Reseteo y Estilos Base --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-user-select: none; /* Evita la selección de texto */
+            user-select: none;
+        }
+
+        html {
+            font-size: 100%;
+        }
+
+        body {
+            width: 100%;
+            min-height: 100vh; /* Asegura que el contenedor se centre verticalmente */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        /* --- Contenedor Principal --- */
+        .container {
+            width: 100%;
+            max-width: 900px;
+            padding: clamp(1rem, 3vw, 1.5rem); /* Espaciado adaptable */
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            /* Scroll interno si el contenido es muy alto en pantallas pequeñas */
+            max-height: 95vh;
+            overflow-y: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: clamp(1.25rem, 4vw, 1.75rem);
+        }
+
+        .instructions {
+            text-align: center;
+            color: #555;
+            margin-bottom: 1.5rem;
+            font-size: clamp(0.875rem, 2.5vw, 1rem);
+            line-height: 1.5;
+            padding: 0 1rem;
+        }
+
+        /* --- Área de Juego --- */
+        .game-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(1rem, 4vw, 2.5rem);
+            /* margin-bottom: 1.5rem; */
+            position: relative; /* Contexto para las líneas de conexión */
+        }
+
+        .column h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: clamp(1rem, 3vw, 1.25rem);
+            text-align: center;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+
+        .item {
+            background: #f8f9fa;
+            padding: clamp(0.75rem, 2vw, 1rem);
+            margin-bottom: 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.25s ease-in-out;
+            border: 2px solid transparent;
+            font-size: clamp(0.8rem, 2.2vw, 0.95rem);
+            line-height: 1.4;
+        }
+
+        .item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+        }
+
+        .item.selected {
+            border-color: #667eea;
+            background: #e9eefe;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .item.correct {
+            border-color: #28a745;
+            background: #d4edda;
+            pointer-events: none; /* No se puede volver a seleccionar */
+            color: #155724;
+        }
+
+        .item.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        /* --- Líneas de Conexión (CSS Activado) --- */
+        .connection-line {
+            position: absolute;
+            height: 3px;
+            background: #28a745;
+            transform-origin: 0 50%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Flecha al final de la línea */
+        .connection-line::after {
+            content: '';
+            position: absolute;
+            right: -2px;
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            width: 8px;
+            height: 8px;
+            border-top: 3px solid #28a745;
+            border-right: 3px solid #28a745;
+        }
+        
+        /* --- Botones y Mensajes --- */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            /* margin-bottom: 1rem; */
+        }
+
+        .btn-reset {
+            padding: clamp(0.6rem, 2vw, 0.75rem) clamp(1.2rem, 4vw, 2rem);
+            font-size: clamp(0.875rem, 2.5vw, 1rem);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background-color: #5a6268;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .message {
+            text-align: center;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            font-weight: 600;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .message.success { background: #d4edda; color: #155724; }
+        .message.error { background: #f8d7da; color: #721c24; }
+        .message.show { display: block; opacity: 1; }
+
+        /* --- Media Query para Responsividad --- */
+        @media (max-width: 600px) {
+            .game-area {
+                grid-template-columns: 1fr; /* Apila las columnas */
+                gap: 1rem;
+            }
+            .item:hover {
+                transform: none; /* Desactiva el hover en móvil para evitar problemas táctiles */
+            }
+            .body{
+                align-items: none;
+            }
+        }
+        @media (max-width: 480px) {
+
+            body{
+                align-items: normal;
+
+            }
+            .container {
+                max-height: 83vh;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ejercicio de Válvulas</h1>
+        <p class="instructions">
+            <strong>Instrucciones:</strong> Selecciona un circuito y luego la válvula que le corresponde para crear una conexión.
+        </p>
+        <div class="game-area">
+            <div id="circuits-column" class="column">
+                <img src="../../../assets/images/M2/c1.png" style="width: 100%;">
+                <h2>Circuitos de Rastras</h2>
+                <div class="circuit-item item" data-circuit="giro"><strong>Circuito de giro</strong></div>
+                <div class="circuit-item item" data-circuit="levante"><strong>Circuito de levante</strong></div>
+            </div>
+            <div id="valves-column" class="column">
+                <h2>Válvulas Distribuidoras</h2>
+                <div class="valve-item item" data-valve="1">Válvula dist. 6/3 accionamiento palanca</div>
+                <div class="valve-item item" data-valve="2">Válv distribuidora 4/3 accionamiento por solenoide, retorno por muelle biestable</div>
+                <div class="valve-item item" data-valve="3">Válv distribuidora 3/4 accionamiento por solenoide, retorno por muelle monoestable</div>
+                <div class="valve-item item" data-valve="4">Válvula dist. 5/2 accionamiento neumático, retorno por muelle</div>
+                <div class="valve-item item" data-valve="6">Válvula dist. 3/2 accionamiento por pulsador, retorno por muelle monoestable</div>
+            </div>
+        </div>
+        <div class="buttons">
+            <button class="btn-reset" onclick="resetGame()">Reiniciar Ejercicio</button>
+        </div>
+        <div class="message" id="message"></div>
+    </div>
+    <script>
+        const messageEl = document.getElementById('message');
+        const gameArea = document.querySelector('.game-area');
+        const container = document.querySelector('.container');
+        // Respuestas correctas: el ID de la válvula corresponde al ID del circuito
+        const correctAnswers = {
+            '1': 'giro',
+            '2': 'levante'
+        };
+
+        let matches = {};
+        let connectionLines = [];
+        let selectedItem = null;
+
+        // Mezcla aleatoriamente las válvulas al cargar la página
+        function shuffleItems() {
+            const valvesColumn = document.getElementById('valves-column');
+            const valveItems = Array.from(valvesColumn.querySelectorAll('.valve-item'));
+            valveItems.forEach(item => valvesColumn.removeChild(item)); // Limpia la columna
+            // Algoritmo de mezcla Fisher-Yates
+            for (let i = valveItems.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [valveItems[i], valveItems[j]] = [valveItems[j], valveItems[i]];
+            }
+            valveItems.forEach(item => valvesColumn.appendChild(item)); // Añade los elementos mezclados
+        }
+
+        function handleSelection(e) {
+            const currentItem = e.currentTarget;
+            if (currentItem.classList.contains('correct')) return;
+
+            if (!selectedItem) {
+                // Primer elemento seleccionado
+                selectedItem = currentItem;
+                selectedItem.classList.add('selected');
+            } else {
+                if (selectedItem === currentItem) {
+                    // Si se hace clic de nuevo en el mismo, se deselecciona
+                    selectedItem.classList.remove('selected');
+                    selectedItem = null;
+                } else if (selectedItem.parentElement === currentItem.parentElement) {
+                    // Si se selecciona otro del mismo grupo, cambia la selección
+                    selectedItem.classList.remove('selected');
+                    selectedItem = currentItem;
+                    selectedItem.classList.add('selected');
+                } else {
+                    // Si es de otro grupo, comprueba si es un par correcto
+                    checkMatch(selectedItem, currentItem);
+                }
+            }
+        }
+
+        function checkMatch(item1, item2) {
+            const circuitItem = item1.classList.contains('circuit-item') ? item1 : item2;
+            const valveItem = item1.classList.contains('valve-item') ? item1 : item2;
+            const circuit = circuitItem.dataset.circuit;
+            const valve = valveItem.dataset.valve;
+            const isCorrect = correctAnswers[valve] === circuit;
+
+            if (isCorrect) {
+                matches[valve] = circuit;
+                circuitItem.classList.add('correct');
+                valveItem.classList.add('correct');
+                connectionLines.push(createConnectionLine(circuitItem, valveItem));
+                checkCompletion();
+            } else {
+                // Animación de error
+                circuitItem.classList.add('incorrect');
+                valveItem.classList.add('incorrect');
+                messageEl.textContent = '❌ Conexión incorrecta. ¡Inténtalo de nuevo!';
+                messageEl.className = 'message error show';
+                setTimeout(() => {
+                    circuitItem.classList.remove('incorrect');
+                    valveItem.classList.remove('incorrect');
+                    messageEl.classList.remove('show');
+                }, 1500);
+            }
+            // Limpia la selección después del intento
+            if (selectedItem) selectedItem.classList.remove('selected');
+            selectedItem = null;
+        }
+
+        // Función para crear una línea entre dos elementos
+        function createConnectionLine(item1, item2) {
+            const line = document.createElement('div');
+            line.className = 'connection-line';
+            gameArea.appendChild(line);
+            
+            // Guardamos los elementos de referencia para poder redibujar la línea
+            line.dataset.start = `#${item1.parentElement.id} [data-circuit="${item1.dataset.circuit}"]`;
+            line.dataset.end = `#${item2.parentElement.id} [data-valve="${item2.dataset.valve}"]`;
+            
+            updateLinePosition(line, item1, item2);
+            return line;
+        }
+
+        // Actualiza la posición de una línea (se usa al crear y al redibujar)
+        function updateLinePosition(line, item1, item2) {
+            const containerRect = container.getBoundingClientRect();
+            const rect1 = item1.getBoundingClientRect();
+            const rect2 = item2.getBoundingClientRect();
+            
+            // Coordenadas relativas al contenedor principal
+            const startX = (rect1.right - containerRect.left) + container.scrollLeft;
+            const startY = (rect1.top + rect1.height / 2 - containerRect.top) + container.scrollTop;
+            const endX = (rect2.left - containerRect.left) + container.scrollLeft;
+            const endY = (rect2.top + rect2.height / 2 - containerRect.top) + container.scrollTop;
+            
+            const deltaX = endX - startX;
+            const deltaY = endY - startY;
+            const distance = Math.hypot(deltaX, deltaY); // Distancia entre puntos
+            const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI); // Ángulo
+            
+            line.style.left = `${startX}px`;
+            line.style.top = `${startY}px`;
+            line.style.width = `${distance}px`;
+            line.style.transform = `rotate(${angle}deg)`;
+        }
+
+        function checkCompletion() {
+            if (Object.keys(matches).length === Object.keys(correctAnswers).length) {
+                messageEl.textContent = '¡Excelente! 🎉 Has completado el ejercicio correctamente.';
+                messageEl.className = 'message success show';
+                // Comunica al padre (si está en un iframe) que el ejercicio se completó
+                if (window.parent) {
+                    window.parent.postMessage({ type: "exerciseComplete", success: true }, "*");
+                }
+            }
+        }
+
+        function resetGame() {
+            matches = {};
+            if (selectedItem) selectedItem.classList.remove('selected');
+            selectedItem = null;
+            // Elimina las líneas del DOM
+            connectionLines.forEach(line => line.remove());
+            connectionLines = []; // Vacía el array
+            document.querySelectorAll('.item').forEach(item => {
+                item.classList.remove('correct', 'incorrect');
+            });
+            messageEl.classList.remove('show', 'error', 'success');
+            shuffleItems();
+        }
+
+        // Redibuja todas las líneas correctas cuando se redimensiona la ventana o se hace scroll
+        function redrawLines() {
+            connectionLines.forEach(line => {
+                const startEl = document.querySelector(line.dataset.start);
+                const endEl = document.querySelector(line.dataset.end);
+                if (startEl && endEl) {
+                    updateLinePosition(line, startEl, endEl);
+                }
+            });
+        }
+        
+        // --- Event Listeners ---
+        document.querySelectorAll('.item').forEach(item => item.addEventListener('click', handleSelection));
+        document.addEventListener('DOMContentLoaded', shuffleItems);
+        window.addEventListener('resize', redrawLines);
+        container.addEventListener('scroll', redrawLines);
+    </script>
+</body>
+</html>

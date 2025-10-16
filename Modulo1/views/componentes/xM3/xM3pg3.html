@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mandos Básicos – Circuitos de Regulación</title>
+<style>
+:root{
+ --azul:#031794;
+ --azul-claro:#2A5BDF;
+ --gris:#4D4D4E;
+ --fondo:#F7F9FC;
+ --borde:#DDE8F5;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{
+ width:100%;
+ height:100%;
+}
+body{
+ font-family:"Poppins",system-ui,sans-serif;
+ color:var(--gris);
+ line-height:1.6;
+ overflow:hidden;
+ background:none; /* 🔹 Fondo eliminado */
+}
+.curso-container{
+ display:flex;
+ flex-direction:column;
+ width:100%;
+ height:100%;
+}
+.curso-navigation{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ padding:0.8rem 1rem;
+ background:white;
+ border-bottom:2px solid var(--borde);
+ position:sticky;
+ top:0;
+ z-index:10;
+}
+.nav-button{
+ background:var(--azul);
+ color:#fff;
+ border:none;
+ padding:.5rem 1rem;
+ border-radius:50px;
+ font-weight:600;
+ cursor:pointer;
+ transition:.3s;
+}
+.nav-button:hover{background:var(--azul-claro);transform:translateY(-2px)}
+.nav-button:disabled{background:#bbb;cursor:not-allowed}
+.nav-indicator{
+ display:flex;
+ align-items:center;
+ gap:5px;
+ font-size:1rem;
+ color:var(--azul);
+}
+.current-slide{font-weight:700}
+.total-slides{color:var(--azul-claro)}
+.curso-content{
+ flex:1;
+ overflow-y:auto;
+ overflow-x:hidden;
+ padding:0.5rem;
+}
+.content-section{
+ display:none;
+ animation:fadeIn .4s ease;
+ height:100%;
+}
+.content-section.active{display:block}
+@keyframes fadeIn{
+ from{opacity:0;transform:translateY(10px)}
+ to{opacity:1;transform:translateY(0)}
+}
+.section-card{
+ background:#fff;
+ border-radius:16px;
+ box-shadow:0 4px 20px rgba(0,0,0,.05);
+ overflow:hidden;
+ margin:auto;
+ max-width:950px;
+ transition:.3s;
+}
+.section-card:hover{box-shadow:0 6px 25px rgba(0,0,0,.1)}
+.section-header{
+ background:linear-gradient(135deg,var(--azul),var(--azul-claro));
+ color:#fff;
+ font-size:clamp(1.2rem,2vw,1.6rem);
+ font-weight:700;
+ padding:1rem;
+ text-align:center;
+}
+.section-body{
+ padding:1rem 1.2rem;
+ display:flex;
+ flex-direction:column;
+ gap:1rem;
+}
+.section-title{
+ color:var(--azul);
+ font-size:clamp(1.2rem,2vw,1.6rem);
+ font-weight:600;
+ margin-bottom:10px;
+}
+.section-text{
+ margin-bottom:1rem;
+ text-align:justify;
+ font-size:1rem;
+ color:var(--gris);
+}
+.info-box{
+ background:#EAF1FB;
+ border-left:5px solid var(--azul);
+ border-radius:8px;
+ padding:1rem;
+ margin-top:1rem;
+}
+.info-title{
+ font-weight:600;
+ color:var(--azul);
+ margin-bottom:.5rem;
+}
+.info-list{
+ list-style:disc;
+ margin-left:1.5rem;
+}
+.carousel-container{
+ margin:1rem auto;
+ max-width:800px;
+ overflow:hidden;
+ border-radius:10px;
+ border:2px solid var(--borde);
+ flex:1;
+}
+.carousel-slide{
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ background:#F5F7FA;
+}
+.carousel-slide img{
+ width:100%;
+ height:auto;
+ max-height:380px;
+ object-fit:contain;
+}
+
+/* 🔹 Diseño para PC: imagen a la derecha */
+@media(min-width:768px){
+ .section-body{
+   display:grid;
+   grid-template-columns:1.3fr 1fr;
+   align-items:center;
+   gap:1.5rem;
+ }
+ .carousel-container{
+   margin:0;
+   border-radius:12px;
+ }
+}
+
+/* 🔹 En móvil: imagen abajo, espacio extra */
+@media(max-width:480px){
+ .curso-content{padding:.3rem;padding-bottom:90px;} /* Espacio por sidebar */
+ .section-body{padding:0.8rem;display:flex;flex-direction:column;}
+ .carousel-slide img{max-height:240px}
+ .nav-button{padding:.4rem .8rem}
+}
+</style>
+</head>
+<body>
+<div class="curso-container">
+ <!-- Navegación -->
+ <nav class="curso-navigation">
+  <button class="nav-button" id="prevBtn">Anterior</button>
+  <div class="nav-indicator"><span class="current-slide">1</span>/<span class="total-slides">4</span></div>
+  <button class="nav-button" id="nextBtn">Siguiente</button>
+ </nav>
+
+ <!-- Contenido -->
+ <main class="curso-content">
+  <!-- 1 -->
+  <section class="content-section active">
+   <div class="section-card">
+    <div class="section-header">1. Regulación a la entrada</div>
+    <div class="section-body">
+     <div>
+      <h2 class="section-title">Mandos básicos – Circuitos de regulación de velocidad</h2>
+      <p class="section-text">En este tipo de regulaciones se genera presión antes del estrangulador, lo que provoca el salto de la válvula limitadora.</p>
+      <p class="section-text">Por derivación de caudal al tanque se controla la velocidad, aunque no resulta adecuado para cargas negativas (cuando la carga actúa en el mismo sentido de la regulación).</p>
+     </div>
+     <div class="carousel-container">
+      <div class="carousel-slide"><img src="../../../assets/images/M3/c1.png" alt="Regulación a la entrada"></div>
+     </div>
+    </div>
+   </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="content-section">
+   <div class="section-card">
+    <div class="section-header">2. Regulación a la salida</div>
+    <div class="section-body">
+     <div>
+      <p class="section-text">Como en neumática, la regulación puede ejecutarse a la salida del componente. Es apropiada para cargas negativas, ya que contrarresta el efecto de la carga.</p>
+      <p class="section-text">Sin embargo, genera contrapresiones no controladas por la limitadora, lo que puede deteriorar los componentes, por lo que debe emplearse con precaución.</p>
+     </div>
+     <div class="carousel-container">
+      <div class="carousel-slide"><img src="../../../assets/images/M3/c2.png" alt="Regulación a la salida"></div>
+     </div>
+    </div>
+   </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="content-section">
+   <div class="section-card">
+    <div class="section-header">3. Reguladores de caudal</div>
+    <div class="section-body">
+     <div>
+      <p class="section-text">Para un control preciso de la velocidad se emplean reguladores de caudal (2 vías si hay varios elementos o 3 vías si es un solo actuador).</p>
+      <p class="section-text">Su uso debe limitarse a los casos necesarios, ya que su coste puede multiplicar por cinco o seis el de los estranguladores.</p>
+     </div>
+     <div class="carousel-container">
+      <div class="carousel-slide"><img src="../../../assets/images/M3/c3.png" alt="Reguladores de caudal"></div>
+     </div>
+    </div>
+   </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="content-section">
+   <div class="section-card">
+    <div class="section-header">4. Circuitos de regulación de carga – Estanqueidad: Corredera</div>
+    <div class="section-body">
+     <div>
+      <p class="section-text">Es más común usar distribuidores de corredera que de asiento, asignándoles la función direccional y buscando la estanqueidad mediante antirretornos de piloto. Su posición varía según la carga.</p>
+      <p class="section-text">En aplicaciones con esfuerzos de tracción y compresión, se requieren dos antirretornos piloto (uno por ramal) para lograr un bloqueo eficaz, pudiendo montarse de forma independiente o en unidades de doble antirretorno.</p>
+     </div>
+     <div class="carousel-container">
+      <div class="carousel-slide"><img src="../../../assets/images/M3/c4.png" alt="Circuito de carga"></div>
+     </div>
+    </div>
+   </div>
+  </section>
+ </main>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+ const sections=document.querySelectorAll(".content-section"),
+ prevBtn=document.getElementById("prevBtn"),
+ nextBtn=document.getElementById("nextBtn"),
+ cur=document.querySelector(".current-slide"),
+ tot=document.querySelector(".total-slides");
+ let idx=0; tot.textContent=sections.length;
+
+ function show(i){
+  sections.forEach((s,j)=>s.classList.toggle("active",j==i));
+  cur.textContent=i+1;
+  prevBtn.disabled=i==0;
+  nextBtn.disabled=i==sections.length-1;
+  if(i===sections.length-1){
+    // 🔹 Enviar mensaje al padre cuando termina
+    window.parent.postMessage({ type: "terminado" }, "*");
+  }
+ }
+
+ prevBtn.onclick=()=>{if(idx>0)show(--idx)};
+ nextBtn.onclick=()=>{if(idx<sections.length-1)show(++idx)};
+ document.onkeydown=e=>{
+  if(e.key=="ArrowLeft"&&idx>0)show(--idx);
+  if(e.key=="ArrowRight"&&idx<sections.length-1)show(++idx);
+ };
+ show(idx);
+});
+</script>
+</body>
+</html>

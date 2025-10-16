@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Interactivo - Válvulas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+            margin: 0;
+            padding: 0;
+        }
+
+        .hydraulic-exercise-container {
+            width: 100%;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .hydraulic-exercise-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+
+            border-radius: 8px;
+
+            overflow: hidden;
+        }
+
+        .hydraulic-exercise-header {
+            background: #031794;
+            padding: 10px;
+            color: #FFFFFF;
+        }
+
+        .hydraulic-exercise-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 0 5px 0;
+            text-align: center;
+        }
+
+        .hydraulic-exercise-subtitle {
+            font-size: 1rem;
+            font-weight: 400;
+            margin: 0;
+            text-align: center;
+            opacity: 0.95;
+        }
+
+        .hydraulic-exercise-content {
+            padding: 10px;
+        }
+
+        .hydraulic-exercise-image-container {
+            width: 100%;
+            margin: 0 0 10px 0;
+            text-align: center;
+            /* background: #F5F7FA; */
+            border-radius: 6px;
+            padding: 10px;
+            /* border: 2px solid #DDE8F5; */
+        }
+
+        .hydraulic-exercise-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 4px;
+            border-radius: 40px;
+        }
+
+        .hydraulic-exercise-question {
+            background: #E5F0F9;
+            border-left: 4px solid #031794;
+            padding: 10px;
+            margin: 0 0 10px 0;
+            border-radius: 4px;
+        }
+
+        .hydraulic-exercise-question-text {
+            color: #4D4D4E;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .hydraulic-exercise-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: #031794;
+            color: #FFFFFF;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin: 0 0 10px 0;
+        }
+
+        .hydraulic-exercise-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin: 10px 0 0 0;
+        }
+
+        .hydraulic-exercise-option {
+            background: #FFFFFF;
+            border: 2px solid #DDE8F5;
+            border-radius: 6px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hydraulic-exercise-option:hover {
+            border-color: #6B8BDF;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(3, 23, 148, 0.15);
+        }
+
+        .hydraulic-exercise-option-text {
+            color: #4D4D4E;
+            font-size: 1rem;
+            font-weight: 500;
+            margin: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hydraulic-exercise-option.selected {
+            border-color: #031794;
+            background: #031794;
+        }
+
+        .hydraulic-exercise-option.selected .hydraulic-exercise-option-text {
+            color: #FFFFFF;
+        }
+
+        .hydraulic-exercise-option.correct {
+            border-color: #34C0C0;
+            background: #E5F0F9;
+            animation: hydraulic-pulse-correct 0.5s ease;
+        }
+
+        .hydraulic-exercise-option.incorrect {
+            border-color: #FF0000;
+            background: #FFE5E5;
+            animation: hydraulic-shake 0.5s ease;
+        }
+
+        .hydraulic-exercise-option.disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .hydraulic-exercise-feedback {
+            margin: 10px 0 0 0;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .hydraulic-exercise-feedback.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hydraulic-exercise-feedback.success {
+            background: #E5F0F9;
+            color: #031794;
+            border: 2px solid #34C0C0;
+        }
+
+        .hydraulic-exercise-feedback.error {
+            background: #FFE5E5;
+            color: #4D4D4E;
+            border: 2px solid #FF0000;
+        }
+
+        .hydraulic-exercise-button {
+            background: #FFFFFF;
+            color: #031794;
+            border: 2px solid #031794;
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin: 10px 0 0 0;
+            transition: all 0.3s ease;
+        }
+
+        .hydraulic-exercise-button:hover {
+            background: #031794;
+            color: #FFFFFF;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(3, 23, 148, 0.3);
+        }
+
+        .hydraulic-exercise-button:active {
+            transform: translateY(0);
+        }
+
+        .hydraulic-exercise-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        @keyframes hydraulic-pulse-correct {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        @keyframes hydraulic-shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        @media (min-width: 768px) {
+            .hydraulic-exercise-container {
+                padding: 10px;
+            }
+
+            .hydraulic-exercise-header {
+                padding: 10px;
+            }
+
+            .hydraulic-exercise-title {
+                font-size: 1.8rem;
+            }
+
+            .hydraulic-exercise-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hydraulic-exercise-content {
+                padding: 10px;
+            }
+
+            .hydraulic-exercise-question {
+                padding: 10px;
+            }
+
+            .hydraulic-exercise-question-text {
+                font-size: 1rem;
+            }
+
+            .hydraulic-exercise-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hydraulic-exercise-option {
+                padding: 10px;
+            }
+
+            .hydraulic-exercise-option-text {
+                font-size: 1.05rem;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .hydraulic-exercise-title {
+                font-size: 2rem;
+            }
+
+            .hydraulic-exercise-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .hydraulic-exercise-question-text {
+                font-size: 1.05rem;
+            }
+
+            .hydraulic-exercise-option-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hydraulic-exercise-container">
+        <div class="hydraulic-exercise-wrapper">
+
+
+            <div class="hydraulic-exercise-content">
+                <div class="hydraulic-exercise-image-container">
+                    <img src="../../../assets/images/M3/z.png" alt="Plano hidráulico del espesador" class="hydraulic-exercise-image">
+                </div>
+
+                <div class="hydraulic-exercise-question">
+                    <p class="hydraulic-exercise-question-text">
+                        Identifique el tipo de circuito que se tiene en el filtro prensa en el circuito de los cilindros de las compuertas de descarga.
+                    </p>
+                </div>
+
+
+
+                <div class="hydraulic-exercise-options">
+                    <div class="hydraulic-exercise-option" data-option="estanqueidad">
+                        <p class="hydraulic-exercise-option-text">Estanqueidad</p>
+                    </div>
+                    <div class="hydraulic-exercise-option" data-option="multiplicador">
+                        <p class="hydraulic-exercise-option-text">Multiplicador</p>
+                    </div>
+                    <div class="hydraulic-exercise-option" data-option="transmision">
+                        <p class="hydraulic-exercise-option-text">Transmisión bowden</p>
+                    </div>
+                    <div class="hydraulic-exercise-option" data-option="regulacion">
+                        <p class="hydraulic-exercise-option-text">Regulación borrde</p>
+                    </div>
+                </div>
+
+                <div class="hydraulic-exercise-feedback" id="hydraulicFeedback"></div>
+
+                <button class="hydraulic-exercise-button" id="hydraulicSubmitBtn" disabled>
+                    Verificar respuesta
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const correctAnswer = 'estanqueidad';
+            let selectedOption = null;
+            let answered = false;
+
+            const options = document.querySelectorAll('.hydraulic-exercise-option');
+            const submitBtn = document.getElementById('hydraulicSubmitBtn');
+            const feedback = document.getElementById('hydraulicFeedback');
+
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    if (answered) return;
+
+                    options.forEach(opt => opt.classList.remove('selected'));
+                    
+                    this.classList.add('selected');
+                    selectedOption = this.getAttribute('data-option');
+                    
+                    submitBtn.disabled = false;
+                });
+            });
+
+            submitBtn.addEventListener('click', function() {
+                if (!selectedOption || answered) return;
+
+                answered = true;
+                submitBtn.disabled = true;
+
+                options.forEach(option => {
+                    option.classList.add('disabled');
+                    
+                    if (option.getAttribute('data-option') === correctAnswer) {
+                        option.classList.add('correct');
+                    } else if (option.getAttribute('data-option') === selectedOption && selectedOption !== correctAnswer) {
+                        option.classList.add('incorrect');
+                    }
+                });
+
+                if (selectedOption === correctAnswer) {
+                    feedback.textContent = 'Correcto. El circuito de estanqueidad garantiza el sellado adecuado en los cilindros de las compuertas de descarga.';
+                    feedback.className = 'hydraulic-exercise-feedback success show';
+                    window.parent.postMessage({ type: "terminado" }, "*");  
+                } else {
+                    feedback.textContent = 'Incorrecto. La respuesta correcta es Estanqueidad. Este tipo de circuito asegura el cierre hermético del sistema hidráulico.';
+                    feedback.className = 'hydraulic-exercise-feedback error show';
+                }
+
+                setTimeout(() => {
+                    submitBtn.textContent = 'Reintentar';
+                    submitBtn.disabled = false;
+                    submitBtn.onclick = resetExercise;
+                }, 2000);
+            });
+
+            function resetExercise() {
+                answered = false;
+                selectedOption = null;
+
+                options.forEach(option => {
+                    option.classList.remove('selected', 'correct', 'incorrect', 'disabled');
+                });
+
+                feedback.classList.remove('show');
+                feedback.textContent = '';
+
+                submitBtn.textContent = 'Verificar respuesta';
+                submitBtn.disabled = true;
+                submitBtn.onclick = null;
+            }
+        })();
+    </script>
+</body>
+</html>

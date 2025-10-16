@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mandos Básicos – Circuitos de Sincronización</title>
+<style>
+:root{
+ --azul:#031794;
+ --azul-claro:#2A5BDF;
+ --gris:#4D4D4E;
+ --fondo:#F7F9FC;
+ --borde:#DDE8F5;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{
+ width:100%;
+ height:100%;
+}
+body{
+ font-family:"Poppins",system-ui,sans-serif;
+ color:var(--gris);
+ line-height:1.6;
+ overflow:hidden;
+ background:none; /* 🔹 Fondo eliminado */
+}
+.curso-container{
+ display:flex;
+ flex-direction:column;
+ width:100%;
+ height:100%;
+}
+.curso-navigation{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ padding:0.8rem 1rem;
+ background:white;
+ border-bottom:2px solid var(--borde);
+ position:sticky;
+ top:0;
+ z-index:10;
+}
+.nav-button{
+ background:var(--azul);
+ color:#fff;
+ border:none;
+ padding:.5rem 1rem;
+ border-radius:50px;
+ font-weight:600;
+ cursor:pointer;
+ transition:.3s;
+}
+.nav-button:hover{background:var(--azul-claro);transform:translateY(-2px)}
+.nav-button:disabled{background:#bbb;cursor:not-allowed}
+.nav-indicator{
+ display:flex;
+ align-items:center;
+ gap:5px;
+ font-size:1rem;
+ color:var(--azul);
+}
+.current-slide{font-weight:700}
+.total-slides{color:var(--azul-claro)}
+.curso-content{
+ flex:1;
+ overflow-y:auto;
+ overflow-x:hidden;
+ padding:0.5rem;
+}
+.content-section{
+ display:none;
+ animation:fadeIn .4s ease;
+ height:100%;
+}
+.content-section.active{display:block}
+@keyframes fadeIn{
+ from{opacity:0;transform:translateY(10px)}
+ to{opacity:1;transform:translateY(0)}
+}
+.section-card{
+ background:#fff;
+ border-radius:16px;
+ box-shadow:0 4px 20px rgba(0,0,0,.05);
+ overflow:hidden;
+ margin:auto;
+ max-width:950px;
+ transition:.3s;
+}
+.section-card:hover{box-shadow:0 6px 25px rgba(0,0,0,.1)}
+.section-header{
+ background:linear-gradient(135deg,var(--azul),var(--azul-claro));
+ color:#fff;
+ font-size:clamp(1.2rem,2vw,1.6rem);
+ font-weight:700;
+ padding:1rem;
+ text-align:center;
+}
+.section-body{
+ padding:1rem 1.2rem;
+ display:flex;
+ flex-direction:column;
+ gap:1rem;
+}
+.section-title{
+ color:var(--azul);
+ font-size:clamp(1.2rem,2vw,1.6rem);
+ font-weight:600;
+ margin-bottom:10px;
+}
+.section-text{
+ margin-bottom:1rem;
+ text-align:justify;
+ font-size:1rem;
+ color:var(--gris);
+}
+.info-box{
+ background:#EAF1FB;
+ border-left:5px solid var(--azul);
+ border-radius:8px;
+ padding:1rem;
+ margin-top:1rem;
+}
+.info-title{
+ font-weight:600;
+ color:var(--azul);
+ margin-bottom:.5rem;
+}
+.info-list{
+ list-style:disc;
+ margin-left:1.5rem;
+}
+.carousel-container{
+ margin:1rem auto;
+ max-width:800px;
+ overflow:hidden;
+ border-radius:10px;
+ border:2px solid var(--borde);
+ flex:1;
+}
+.carousel-slide{
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ background:#F5F7FA;
+}
+.carousel-slide img{
+ width:100%;
+ height:auto;
+ max-height:380px;
+ object-fit:contain;
+}
+
+/* 🔹 Diseño para PC */
+@media(min-width:768px){
+ .section-body{
+   display:grid;
+   grid-template-columns:1.3fr 1fr;
+   align-items:center;
+   gap:1.5rem;
+ }
+ .carousel-container{
+   margin:0;
+   border-radius:12px;
+ }
+}
+
+/* 🔹 En móvil: imagen abajo, espacio extra */
+@media(max-width:480px){
+ .curso-content{padding:.3rem;padding-bottom:90px;} /* Espacio por sidebar */
+ .section-body{padding:0.8rem;display:flex;flex-direction:column;}
+ .carousel-slide img{max-height:240px}
+ .nav-button{padding:.4rem .8rem}
+}
+</style>
+</head>
+<body>
+<div class="curso-container">
+ <!-- Navegación -->
+ <nav class="curso-navigation">
+  <button class="nav-button" id="prevBtn">Anterior</button>
+  <div class="nav-indicator"><span class="current-slide">1</span>/<span class="total-slides">6</span></div>
+  <button class="nav-button" id="nextBtn">Siguiente</button>
+ </nav>
+
+ <!-- Contenido -->
+ <main class="curso-content">
+
+  <!-- 1 -->
+  <section class="content-section active">
+   <div class="section-card">
+    <div class="section-header">1. Empleo de reguladores de caudal</div>
+    <div class="section-body">
+     <div>
+      <h2 class="section-title">Mandos básicos – Circuitos de sincronización</h2>
+      <p class="section-text">Este sistema busca la sincronización mediante el empleo de reguladores de caudal (cuidado, no estranguladores).</p>
+      <p class="section-text">Es un sistema bastante impreciso ya que al problema de encontrar una regulación idéntica para unidades independientes, se suma la variación de regulación entre elementos (aunque estos se supongan idénticos).</p>
+      <p class="section-text">Además, para la correcta regulación de caudal sabemos que el sistema hará saltar la válvula limitadora para derivar el caudal sobrante, calentándose el aceite en exceso (sobre todo si se considera que en algunas ocasiones el sistema puede trabajar sin carga).</p>
+     </div>
+     <div class="carousel-container">
+      <div class="carousel-slide"><img src="../../../assets/images/M3/b1.png" alt="Circuito sincronización 1"></div>
+     </div>
+    </div>
+   </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="content-section">
+   <div class="section-card">
+    <div class="section-header">2. Empleo de puente rectificador</div>
+    <div class="section-body">
+     <div>
+      <p class="section-text">Además, para la correcta regulación de caudal sabemos que el sistema hará saltar la válvula limitadora para derivar el caudal sobrante, calentándose el aceite en exceso (sobre todo si se considera que en algunas ocasiones el sistema puede trabajar sin carga).</p>
+     </div>
+     <div class="carousel-container">
+      <div class="carousel-slide"><img src="../../../assets/images/M3/b2.png" alt="Circuito sincronización 2"></div>
+     </div>
+    </div>
+   </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="content-section">
+   <div class="section-card">
+    <div class="section-header">3. Empleo de divisores de caudal (corredera)</div>
+    <div class="section-body">
+     <div>
+      <p class="section-text">Este tipo de elementos no es totalmente efectivo (por decirlo de algún modo, el peor de los sistemas que podemos emplear).</p>
+      <p class="section-text">Tan solo precisa del divisor de caudal, entendiéndose que en la mayoría de las ocasiones, estos no suelen aportar la exactitud que se pretende obtener del sincronismo.</p>
+      <p class="section-text">Este montaje es prácticamente similar al montaje mediante reguladores de caudal, a diferencia de que el calentamiento del aceite será algo inferior. No obstante, sigue siendo una solución no totalmente adecuada.</p>
+     </div>
+     <div class="carousel-container">
+      <div class="carousel-slide"><img src="../../../assets/images/M3/b3.png" alt="Circuito sincronización 3"></div>
+     </div>
+    </div>
+   </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="content-section">
+   <div class="section-card">
+    <div class="section-header">4. Empleo de divisores de caudal (cuerpos dentados)</div>
+    <div class="section-body">
+     <div>
+      <p class="section-text">El empleo de este tipo de divisores quizá sea la mejor forma de conseguir el sincronismo (si este se pretende alcanzar mediante el empleo de componentes y no por automatismo).</p>
+      <p class="section-text">Su mecánica ha sido explicada con anterioridad.</p>
+     </div>
+     <div class="carousel-container">
+      <div class="carousel-slide"><img src="../../../assets/images/M3/b4.png" alt="Circuito sincronización 4"></div>
+     </div>
+    </div>
+   </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="content-section">
+   <div class="section-card">
+    <div class="section-header">5. Empleo de doble bomba</div>
+    <div class="section-body">
+     <div>
+      <p class="section-text">Una de las posibles soluciones mediante automatismo consiste en el empleo de doble bomba activada desde un mismo motor (ambas bombas de idéntica cilindrada).</p>
+      <p class="section-text">De este modo, se “supone” que ambas aportarán el mismo caudal, pero en este sistema se han de tener en cuenta los rendimientos volumétricos, las tolerancias de fabricación de cada bomba y por supuesto el coste.</p>
+      <p class="section-text">Es interesante comprobar el juego de electroválvulas que suele realizarse en este tipo de accionamientos. Por su configuración, se comprueba que tan solo es posible el accionamiento mediante la activación de ambas electroválvulas (Y1 e Y2).</p>
+     </div>
+     <div class="carousel-container">
+      <div class="carousel-slide"><img src="../../../assets/images/M3/b5.png" alt="Circuito sincronización 5"></div>
+     </div>
+    </div>
+   </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="content-section">
+   <div class="section-card">
+    <div class="section-header">6. Transmisión Bowden y regulación a la entrada</div>
+    <div class="section-body">
+     <div>
+      <p class="section-text">En este tipo de transmisiones, se pretende conseguir el sincronismo mediante el intercambio de volúmenes de aceite entre actuadores. Se deben tener en cuenta los posibles desfases en base a fugas (compensados habitualmente mediante automatismos que cargan o descargan aceite en función del tipo de desfase).</p>
+      <p class="section-text">En el esquema representado, se ejecuta la corrección del desfase mediante el empleo de una electroválvula (derecha), de centro P/ABT. Existen otras configuraciones que pueden cumplir idéntica función.</p>
+      <p class="section-text">En este tipo de regulaciones, se generará una presión antes del estrangulador que hará que salte la limitadora. En consecuencia y por derivación de caudal a tanque, se realiza la regulación de velocidad. Este tipo de regulaciones no es adecuado para cargas de carácter negativo (cargas en el mismo sentido de la regulación).</p>
+     </div>
+     <div class="carousel-container">
+      <div class="carousel-slide"><img src="../../../assets/images/M3/b6.png" alt="Circuito sincronización 6"></div>
+     </div>
+    </div>
+   </div>
+  </section>
+
+ </main>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+ const sections=document.querySelectorAll(".content-section"),
+ prevBtn=document.getElementById("prevBtn"),
+ nextBtn=document.getElementById("nextBtn"),
+ cur=document.querySelector(".current-slide"),
+ tot=document.querySelector(".total-slides");
+ let idx=0; tot.textContent=sections.length;
+
+ function show(i){
+  sections.forEach((s,j)=>s.classList.toggle("active",j==i));
+  cur.textContent=i+1;
+  prevBtn.disabled=i==0;
+  nextBtn.disabled=i==sections.length-1;
+  if(i===sections.length-1){
+    // 🔹 Enviar mensaje al padre cuando termina
+    window.parent.postMessage({ type: "terminado" }, "*");
+  }
+ }
+
+ prevBtn.onclick=()=>{if(idx>0)show(--idx)};
+ nextBtn.onclick=()=>{if(idx<sections.length-1)show(++idx)};
+ document.onkeydown=e=>{
+  if(e.key=="ArrowLeft"&&idx>0)show(--idx);
+  if(e.key=="ArrowRight"&&idx<sections.length-1)show(++idx);
+ };
+ show(idx);
+});
+</script>
+</body>
+</html>
